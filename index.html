@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland · Scotland · London — Family Trip 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#18181b;--muted:#71717a;--faint:#f4f4f5;--border:#e4e4e7;--white:#ffffff;
+  --navy:#1e3a5f;--navy-l:#e8f0fb;--navy-m:#3b6cb7;
+  --forest:#1a4731;--forest-l:#dcf0e4;--forest-m:#2d8a55;
+  --amber:#92400e;--amber-l:#fef3c7;--amber-m:#d97706;
+  --rose:#9f1239;--rose-l:#fef2f5;--rose-m:#e11d48;
+  --teal:#0d4f4f;--teal-l:#ccf0f0;--teal-m:#0d9488;
+  --sky:#0c4a6e;--sky-l:#e0f2fe;--sky-m:#0284c7;
+  --violet:#4c1d95;--violet-l:#ede9fe;--violet-m:#7c3aed;
+  --orange:#7c2d12;--orange-l:#fff7ed;--orange-m:#ea580c;
+  --confirmed:#166534;--confirmed-l:#dcfce7;--confirmed-b:#16a34a;
+  --pending:#92400e;--pending-l:#fef3c7;--pending-b:#d97706;
+  --urgent:#9f1239;--urgent-l:#fef2f5;--urgent-b:#e11d48;
+  --r:10px;--rs:7px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-height:1.6;font-size:14px}
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+.hero{background:var(--navy);padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.03)}
+.hero::after{content:'';position:absolute;bottom:-80px;left:30%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.025)}
+.hi{max-width:1140px;margin:0 auto;position:relative;z-index:1}
+.ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-m);margin-bottom:10px}
+.ht{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,52px);font-weight:300;color:white;line-height:1.1;margin-bottom:6px;letter-spacing:-.01em}
+.ht em{color:var(--forest-m);font-style:italic}
+.hs{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:1.75rem;letter-spacing:.02em}
+.travelers{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.75rem}
+.tv{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:0.5px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 10px 5px 5px}
+.tv-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white;flex-shrink:0}
+.tv-n{font-size:11px;color:rgba(255,255,255,.85);font-weight:500}
+.tv-a{font-size:10px;color:rgba(255,255,255,.45)}
+.hstats{display:flex;gap:6px;flex-wrap:wrap}
+.hstat{background:rgba(255,255,255,.07);border:0.5px solid rgba(255,255,255,.12);border-radius:var(--rs);padding:8px 13px;text-align:center;min-width:68px}
+.hstat-n{font-size:19px;font-weight:500;color:white;line-height:1}
+.hstat-l{font-size:9px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.03em}
+.hstat.ac{border-color:var(--orange-m);background:rgba(234,88,12,.15)}
+.hstat.ac .hstat-n{color:#fb923c}
+.hstat.gr{border-color:var(--forest-m);background:rgba(45,138,85,.15)}
+.hstat.gr .hstat-n{color:var(--forest-m)}
+.hstat.cf{border-color:var(--confirmed-b);background:rgba(22,163,74,.15)}
+.hstat.cf .hstat-n{color:#4ade80}
+
+/* ── LAYOUT ───────────────────────────────────────────────────────────── */
+.main{max-width:1140px;margin:0 auto;padding:1.75rem 1.5rem 5rem}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.5rem}
+.tb{font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;padding:6px 14px;border:0.5px solid var(--border);border-radius:20px;cursor:pointer;background:var(--white);color:var(--muted);transition:all .15s;letter-spacing:.01em}
+.tb:hover{border-color:#a1a1aa;color:var(--ink)}
+.tb.active{background:var(--navy);color:white;border-color:var(--navy)}
+.tb.has-badge{position:relative}
+.tb-badge{position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:var(--rose-m);color:white;font-size:8px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.sec{display:none}
+.sec.active{display:block}
+
+/* ── JOURNEY SPINE ────────────────────────────────────────────────────── */
+.spine{overflow-x:auto;padding:8px 0 16px;margin-bottom:.5rem}
+.sr{display:flex;min-width:700px}
+.sp{flex:1;position:relative;text-align:center}
+.sp:not(:last-child)::after{content:'';position:absolute;top:11px;left:50%;right:-50%;height:1.5px;background:var(--border);z-index:0}
+.sp:not(:first-child)::before{content:'';position:absolute;top:11px;left:0;right:50%;height:1.5px;background:var(--border);z-index:0}
+.spdot{width:10px;height:10px;border-radius:50%;border:2px solid var(--border);background:var(--white);margin:7px auto 5px;position:relative;z-index:1}
+.sp.ie .spdot{background:var(--navy-l);border-color:var(--navy-m)}
+.sp.uk .spdot{background:var(--violet-l);border-color:var(--violet-m)}
+.sp.sc .spdot{background:var(--teal-l);border-color:var(--teal-m)}
+.sp.slp .spdot{background:var(--orange-l);border-color:var(--orange-m);width:13px;height:13px;margin-top:5.5px}
+.sp.lon .spdot{background:var(--faint);border-color:var(--muted)}
+.spn{font-size:10px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+.spd{font-size:9px;color:var(--muted)}
+.spni{font-size:9px;color:var(--muted);font-style:italic}
+
+/* ── SECTION HEADING ──────────────────────────────────────────────────── */
+.sh{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.75rem 0 .75rem;padding-bottom:7px;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.shb{font-size:11px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink);background:var(--faint);border:0.5px solid var(--border);border-radius:7px;padding:2px 9px;display:flex;align-items:center;gap:5px}
+.shb.pi{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.shb.fr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.shb.sl{background:var(--orange-l);color:var(--orange);border-color:#fed7aa}
+.conf-dot{width:7px;height:7px;border-radius:50%;background:var(--confirmed-b);display:inline-block}
+
+/* ── DAY CARDS ────────────────────────────────────────────────────────── */
+.day{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+.dn{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
+.db{flex:1;background:var(--white);border:0.5px solid var(--border);border-radius:var(--r);padding:11px 14px}
+.db.slp{border-color:var(--orange-m);background:var(--orange-l)}
+.db.rest{border-color:var(--forest-m);background:var(--forest-l)}
+.dt{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:1px;line-height:1.4}
+.dd{font-size:11px;color:var(--muted);margin-bottom:4px}
+.dc{font-size:12px;color:var(--muted);line-height:1.65}
+.hr{display:flex;align-items:flex-start;gap:6px;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border);flex-wrap:wrap}
+.pip{font-size:10px;padding:1px 7px;border-radius:5px;background:var(--navy-l);color:var(--navy);border:0.5px solid #b5d4f4;font-weight:600;flex-shrink:0}
+.pip.conf{background:var(--confirmed-l);color:var(--confirmed);border-color:var(--confirmed-b)}
+.hn{font-size:11px;font-weight:500;color:var(--ink)}
+.hno{font-size:10px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.tag{font-size:10px;padding:2px 7px;border-radius:5px;border:0.5px solid;display:inline-block}
+.ti{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.tw{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+.ts{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.thp{background:var(--violet-l);color:var(--violet);border-color:#c4b5fd}
+.tor{background:var(--orange-l);color:var(--orange);border-color:#fed7aa}
+.tpx{background:var(--sky-l);color:var(--sky);border-color:#7dd3fc}
+.tconf{background:var(--confirmed-l);color:var(--confirmed);border-color:var(--confirmed-b)}
+
+/* ── HOTEL GRID ───────────────────────────────────────────────────────── */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:10px;margin-bottom:1rem}
+.hc{background:var(--white);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;position:relative}
+.hc.conf{border-color:var(--confirmed-b);background:var(--confirmed-l)}
+.hc.pend{border-color:var(--amber-m);background:var(--amber-l)}
+.hc.urg{border-color:var(--rose-m);background:var(--rose-l)}
+.hc-status{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.hc-status.c{color:var(--confirmed)}
+.hc-status.p{color:var(--amber)}
+.hc-status.u{color:var(--rose-m)}
+.hc-city{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:3px}
+.hc-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:1px;line-height:1.3}
+.hc-addr{font-size:11px;color:var(--muted);margin-bottom:2px}
+.hc-dates{font-size:11px;color:var(--muted);margin-bottom:8px}
+.hc-ref{font-size:10px;font-weight:600;color:var(--navy);background:var(--navy-l);border:0.5px solid #b5d4f4;padding:2px 7px;border-radius:5px;display:inline-block;margin-bottom:7px}
+.hc-ref.gr{color:var(--confirmed);background:var(--confirmed-l);border-color:var(--confirmed-b)}
+.perks{display:flex;flex-wrap:wrap;gap:3px}
+.pk{font-size:10px;padding:2px 6px;border-radius:5px;background:var(--faint);border:0.5px solid var(--border);color:var(--muted)}
+.pk.fr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.pk.pi{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.pk.sl{background:var(--orange-l);color:var(--orange);border-color:#fed7aa}
+.pk.wn{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+.pk.cf{background:var(--confirmed-l);color:var(--confirmed);border-color:var(--confirmed-b)}
+
+/* ── EXPERIENCE GRID ──────────────────────────────────────────────────── */
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:1rem}
+.ec{border-radius:var(--r);padding:14px;border:0.5px solid var(--border);position:relative}
+.ec.vi{background:var(--forest-l);border-color:var(--forest-m)}
+.ec.hp{background:var(--violet-l);border-color:#c4b5fd}
+.ec.pd{background:var(--orange-l);border-color:#fed7aa}
+.ec.pm{background:var(--faint);border-color:var(--border)}
+.ec.pix{background:var(--sky-l);border-color:#7dd3fc}
+.ec.tb2{background:var(--navy-l);border-color:#b5d4f4}
+.ec-status{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.ec-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1;margin-bottom:4px}
+.ec-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.ec-day{font-size:11px;color:var(--muted);margin-bottom:6px}
+.ec-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.ec-book{font-size:11px;font-weight:600}
+
+/* ── BOOKING LIST ─────────────────────────────────────────────────────── */
+.bklist{display:flex;flex-direction:column;gap:7px}
+.bki{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border-radius:var(--rs);border:0.5px solid var(--border);background:var(--white)}
+.bki.done{border-color:var(--confirmed-b);background:var(--confirmed-l)}
+.bki.urg{border-color:var(--rose-m);background:var(--rose-l)}
+.bki.sn{border-color:var(--amber-m);background:var(--amber-l)}
+.bki.nm{border-color:var(--forest-m);background:var(--forest-l)}
+.bki.slp{border-color:var(--orange-m);background:var(--orange-l)}
+.bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.bt{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.bd{font-size:11px;color:var(--muted);line-height:1.55}
+.bki.urg .bt,.bki.urg .bd{color:var(--rose)}
+.bki.done .bt{color:var(--confirmed)}
+.bki.done .bd{color:#166534}
+.bki.slp .bt{color:var(--orange)}
+.bki.slp .bd{color:#7c2d12}
+.btag{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.btag.c{background:var(--confirmed-l);color:var(--confirmed);border:0.5px solid var(--confirmed-b)}
+.btag.u{background:var(--rose-l);color:var(--rose-m);border:0.5px solid var(--rose-m)}
+.btag.a{background:var(--amber-l);color:var(--amber);border:0.5px solid var(--amber-m)}
+
+/* ── BUDGET ───────────────────────────────────────────────────────────── */
+.brange{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.br{flex:1;min-width:110px;border-radius:var(--r);padding:13px;text-align:center;border:0.5px solid var(--border);background:var(--white)}
+.br.mid{border:2px solid var(--navy-m);background:var(--navy-l)}
+.br-l{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.br-n{font-size:18px;font-weight:600}
+.br-e{font-size:10px;color:var(--muted);margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:.75rem}
+th{text-align:left;padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:0.5px solid var(--border)}
+td{padding:7px 10px;border-bottom:0.5px solid var(--border);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.tr td{font-weight:600;color:var(--ink);background:var(--faint)}
+tr.conf td{color:var(--confirmed);background:var(--confirmed-l)}
+.inr{font-weight:600;color:var(--navy)}
+
+/* ── ALERTS ───────────────────────────────────────────────────────────── */
+.alert{padding:10px 14px;border-radius:var(--rs);margin-bottom:10px;font-size:12px;line-height:1.6}
+.ai{background:var(--navy-l);color:var(--navy);border:0.5px solid #b5d4f4}
+.as{background:var(--forest-l);color:var(--forest);border:0.5px solid var(--forest-m)}
+.aw{background:var(--amber-l);color:var(--amber);border:0.5px solid #fde68a}
+.ar{background:var(--rose-l);color:var(--rose);border:0.5px solid var(--rose-m)}
+.ac2{background:var(--confirmed-l);color:var(--confirmed);border:0.5px solid var(--confirmed-b)}
+
+/* ── KID GRID ─────────────────────────────────────────────────────────── */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:8px;margin-bottom:1rem}
+.kc{background:var(--white);border:0.5px solid var(--border);border-radius:var(--rs);padding:12px 14px}
+.kc-t{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.kc-b{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────── */
+.footer{margin-top:3rem;padding:1.5rem;border-top:0.5px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fb{font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;padding:9px 18px;border-radius:20px;border:0.5px solid var(--border);background:var(--white);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
+.fb:hover{background:var(--faint)}
+.fb.p{background:var(--navy);color:white;border-color:var(--navy)}
+.fb.p:hover{background:var(--navy-m)}
+.fb.done{background:var(--confirmed-l);color:var(--confirmed);border-color:var(--confirmed-b)}
+
+/* ── BOOKING PROGRESS ─────────────────────────────────────────────────── */
+.progress-bar{height:6px;border-radius:3px;background:var(--border);margin-bottom:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .5s ease}
+
+@media print{.hero{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.footer,.tabs{display:none}.sec{display:block!important}.sh{margin-top:1rem}}
+@media(max-width:600px){.hero{padding:2rem 1.25rem}.main{padding:1.5rem 1rem 3rem}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hi">
+    <div class="ey">Family trip · Confirmed itinerary · 2026</div>
+    <div class="ht">Ireland <em>&middot;</em> Scotland <em>&middot;</em> London</div>
+    <div class="hs">18 May – 1 June 2026 &nbsp;·&nbsp; 15 days &nbsp;·&nbsp; Booking ref: YP9MAE (BA)</div>
+
+    <div class="travelers">
+      <div class="tv"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">Lead passenger</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">Co-passenger</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">Age 8 · Miss</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">Age 6 · Miss</div></div></div>
+    </div>
+
+    <div class="hstats">
+      <div class="hstat"><div class="hstat-n">15</div><div class="hstat-l">Total days</div></div>
+      <div class="hstat"><div class="hstat-n">6</div><div class="hstat-l">Ireland days</div></div>
+      <div class="hstat"><div class="hstat-n">2</div><div class="hstat-l">Belfast days</div></div>
+      <div class="hstat"><div class="hstat-n">1</div><div class="hstat-l">Edinburgh</div></div>
+      <div class="hstat ac"><div class="hstat-n">1</div><div class="hstat-l">Sleeper night</div></div>
+      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l">London days</div></div>
+      <div class="hstat cf"><div class="hstat-n">5</div><div class="hstat-l">Hotels booked</div></div>
+      <div class="hstat gr"><div class="hstat-n">₹10.5L</div><div class="hstat-l">Est. budget</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tb active" onclick="show('it',this)">All 15 days</button>
+    <button class="tb" onclick="show('ht',this)">Hotels</button>
+    <button class="tb" onclick="show('ex',this)">Experiences</button>
+    <button class="tb has-badge" onclick="show('bk',this)">Book now <span class="tb-badge">5</span></button>
+    <button class="tb" onclick="show('bu',this)">Budget (INR)</button>
+    <button class="tb" onclick="show('ki',this)">Kid tips</button>
+    <button class="tb" onclick="show('fl',this)">Flights</button>
+  </div>
+
+  <!-- ── ALL 15 DAYS ──────────────────────────────────────────────────── -->
+  <div id="it" class="sec active">
+    <div class="alert ac2">✈️ Flights confirmed · BA ref YP9MAE &nbsp;·&nbsp; 4 hotels confirmed (Dublin, Cork, Belfast, Edinburgh) &nbsp;·&nbsp; Dingle Skellig, Caledonian Sleeper & experiences still to book</div>
+    <div class="spine"><div class="sr">
+      <div class="sp ie"><div class="spdot"></div><div class="spn">Dublin</div><div class="spd">18–20 May</div><div class="spni">✅ booked</div></div>
+      <div class="sp ie"><div class="spdot"></div><div class="spn">Cork</div><div class="spd">20–22 May</div><div class="spni">✅ booked</div></div>
+      <div class="sp ie"><div class="spdot"></div><div class="spn">Dingle</div><div class="spd">22–24 May</div><div class="spni">⚠️ book now</div></div>
+      <div class="sp uk"><div class="spdot"></div><div class="spn">Belfast</div><div class="spd">24–26 May</div><div class="spni">✅ booked</div></div>
+      <div class="sp sc"><div class="spdot"></div><div class="spn">Edinburgh</div><div class="spd">26–27 May</div><div class="spni">✅ booked</div></div>
+      <div class="sp slp"><div class="spdot"></div><div class="spn">Sleeper</div><div class="spd">27 May night</div><div class="spni">⚠️ book now</div></div>
+      <div class="sp lon"><div class="spdot"></div><div class="spn">London</div><div class="spd">28 May–1 Jun</div><div class="spni">at brother's</div></div>
+    </div></div>
+
+    <div class="sh"><span>🇮🇪 Dublin &nbsp;·&nbsp; 18–20 May &nbsp;·&nbsp; 2 nights</span><span class="shb pi"><span class="conf-dot"></span> Premier Inn Temple Bar · Confirmed #5840.650.627</span></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">1</div><div class="db"><p class="dt">Arrival evening</p><p class="dd">18 May (Sun) &nbsp;·&nbsp; Arrive Dublin ~16:20</p><p class="dc">BA0832 lands 16:20 T2 &nbsp;·&nbsp; Pick up rental car &nbsp;·&nbsp; Check in Temple Bar &nbsp;·&nbsp; Bean Hive Coffee &nbsp;·&nbsp; St Stephen's Green stroll &nbsp;·&nbsp; Grafton Street</p><div class="hr"><span class="pip conf">✓ Booked</span><span class="hn">Premier Inn Temple Bar &nbsp;·&nbsp; 51 Stephen St Lower</span><span class="hno">&nbsp;·&nbsp; Quadruple room &nbsp;·&nbsp; Breakfast incl &nbsp;·&nbsp; PIN: 1015</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">2</div><div class="db"><p class="dt">Dublin full day</p><p class="dd">19 May (Mon)</p><p class="dc">Viking Splash Tour (morning) &nbsp;·&nbsp; Trinity College + Book of Kells &nbsp;·&nbsp; Ha'penny Bridge &nbsp;·&nbsp; Guinness Storehouse + Gravity Bar &nbsp;·&nbsp; Murphy's Ice Cream</p><div class="tags"><span class="tag ti">Book Viking Splash — vikingsplash.com &nbsp;·&nbsp; morning slot</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">3</div><div class="db"><p class="dt">Culture + drive south via Howth</p><p class="dd">20 May (Tue)</p><p class="dc">Dublin Castle &nbsp;·&nbsp; EPIC Museum &nbsp;·&nbsp; Temple Bar &nbsp;·&nbsp; Howth Cliff Walk + Lighthouse &nbsp;·&nbsp; K2 Alpacas &nbsp;·&nbsp; Drive to Kinsale</p><div class="tags"><span class="tag ti">Leave Howth by 3 pm &nbsp;·&nbsp; arrive Kinsale ~6 pm</span></div></div></div>
+
+    <div class="sh"><span>🇮🇪 Kinsale / Cork &nbsp;·&nbsp; 21–22 May &nbsp;·&nbsp; 2 nights</span><span class="shb pi"><span class="conf-dot"></span> Premier Inn Cork · Confirmed #5528.486.702</span></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">4</div><div class="db"><p class="dt">Cork city day</p><p class="dd">21 May (Wed)</p><p class="dc">Cork Historic Doughnut Tour &nbsp;·&nbsp; Cork City Gaol &nbsp;·&nbsp; St Anne's Church Shandon &nbsp;·&nbsp; English Market</p><div class="hr"><span class="pip conf">✓ Booked</span><span class="hn">Premier Inn Cork City Centre &nbsp;·&nbsp; 11 Morrison's Quay</span><span class="hno">&nbsp;·&nbsp; Standard Quadruple &nbsp;·&nbsp; Breakfast incl &nbsp;·&nbsp; PIN: 3395 &nbsp;·&nbsp; Arrival ~12–13:00</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">5</div><div class="db"><p class="dt">Kinsale morning &nbsp;·&nbsp; drive to Dingle</p><p class="dd">22 May (Thu)</p><p class="dc">Deck of Cards Houses &nbsp;·&nbsp; Fairy Trails &nbsp;·&nbsp; Charles Fort &nbsp;·&nbsp; Scilly Walk &nbsp;·&nbsp; Saint Francis Provisions (lunch) &nbsp;·&nbsp; Drive Kinsale → Dingle ~2.5 hrs</p><div class="tags"><span class="tag ti">Leave by 2 pm &nbsp;·&nbsp; arrive Dingle ~5 pm</span></div></div></div>
+
+    <div class="sh"><span>🇮🇪 Dingle Peninsula &nbsp;·&nbsp; 22–24 May &nbsp;·&nbsp; 2 nights</span><span class="shb" style="background:var(--rose-l);color:var(--rose);border-color:var(--rose-m)">⚠️ Dingle Skellig — BOOK NOW</span></div>
+    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">6</div><div class="db"><p class="dt">Dingle arrival & town</p><p class="dd">22 May (Thu) evening</p><p class="dc">Murphy's Ice Cream &nbsp;·&nbsp; Dingle Oceanworld Aquarium &nbsp;·&nbsp; Gallarus Oratory</p><div class="hr"><span class="pip" style="background:var(--rose-l);color:var(--rose-m);border-color:var(--rose-m)">⚠️ Book</span><span class="hn">Dingle Skellig Hotel & Peninsula Spa</span><span class="hno">&nbsp;·&nbsp; dingleskellig.com &nbsp;·&nbsp; 17m pool + Kids Club &nbsp;·&nbsp; family rooms filling fast!</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">7</div><div class="db"><p class="dt">Slea Head Drive</p><p class="dd">23 May (Fri)</p><p class="dc">Early start (9 am) &nbsp;·&nbsp; Slea Head Drive &nbsp;·&nbsp; Dunmore Head &nbsp;·&nbsp; Lios Stone Circle & Animal Feeding &nbsp;·&nbsp; Conor Pass &nbsp;·&nbsp; Kids Club at hotel evening</p><div class="tags"><span class="tag ts">Tara loves animal feeding &nbsp;·&nbsp; Kids Club half-term</span></div></div></div>
+
+    <div class="sh"><span>🇬🇧 Belfast &nbsp;·&nbsp; 24–26 May &nbsp;·&nbsp; 2 nights</span><span class="shb pi"><span class="conf-dot"></span> Premier Inn Belfast Titanic &nbsp;·&nbsp; Confirmed #26031730526</span></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">8</div><div class="db"><p class="dt">Cliffs of Moher en route &nbsp;·&nbsp; Belfast arrival</p><p class="dd">24 May (Sat)</p><p class="dc">Drive Dingle → Cliffs of Moher (scenic stop) &nbsp;·&nbsp; Moher Hill Farm — lambs in May! &nbsp;·&nbsp; Bunratty Castle & Folk Park &nbsp;·&nbsp; Continue to Belfast</p><div class="tags"><span class="tag ti">Start 8:30 am &nbsp;·&nbsp; ~4.5 hrs with stops</span><span class="tag tw">Pack car snacks</span></div><div class="hr"><span class="pip conf">✓ Booked</span><span class="hn">Premier Inn Belfast Titanic Quarter &nbsp;·&nbsp; 2A Queens Road</span><span class="hno">&nbsp;·&nbsp; Family Quadruple &nbsp;·&nbsp; R360 ref: 26031730526 &nbsp;·&nbsp; Cash paid ₹8,591</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">9</div><div class="db"><p class="dt">Belfast + Titanic</p><p class="dd">25 May (Sun)</p><p class="dc">Magpie Bakery &nbsp;·&nbsp; Titanic Belfast (2 min walk from hotel!) &nbsp;·&nbsp; Aunt Sandra's Candy Factory</p><div class="tags"><span class="tag tw">Pre-book Titanic timed entry &nbsp;·&nbsp; titanicbelfast.com</span><span class="tag ts">Hotel is literally next door!</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">10</div><div class="db"><p class="dt">Causeway Coast &nbsp;·&nbsp; fly to Edinburgh</p><p class="dd">26 May (Mon)</p><p class="dc">Giant's Causeway &nbsp;·&nbsp; Carrick-a-Rede Rope Bridge (check Tara's comfort with heights) &nbsp;·&nbsp; Return car at Belfast City Airport &nbsp;·&nbsp; Evening flight BFS→EDI (~1 hr)</p><div class="tags"><span class="tag ti">Return car at airport before flight</span><span class="tag tw">BFS→EDI still to book — Ryanair/EasyJet</span></div></div></div>
+
+    <div class="sh"><span>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Edinburgh &nbsp;·&nbsp; 26–27 May &nbsp;·&nbsp; 1 night</span><span class="shb pi"><span class="conf-dot"></span> Novotel Edinburgh Centre &nbsp;·&nbsp; Confirmed QFVLGXVN</span></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f">11</div><div class="db"><p class="dt">Full Edinburgh day — complete Harry Potter trail</p><p class="dd">27 May (Tue)</p><p class="dc">Edinburgh Castle &nbsp;·&nbsp; Royal Mile &nbsp;·&nbsp; Victoria Street (Diagon Alley!) &nbsp;·&nbsp; Greyfriars Kirk + Bobby &nbsp;·&nbsp; Elephant House Café 10 am &nbsp;·&nbsp; Camera Obscura &nbsp;·&nbsp; Holyrood Park &nbsp;·&nbsp; Grassmarket dinner &nbsp;·&nbsp; collect bags &nbsp;·&nbsp; board sleeper ~8:30 pm</p><div class="tags"><span class="tag thp">Full HP trail in one day</span><span class="tag tor">Board Caledonian Sleeper ~20:33</span></div><div class="hr"><span class="pip conf">✓ Booked</span><span class="hn">Novotel Edinburgh Centre &nbsp;·&nbsp; 80 Lauriston Place</span><span class="hno">&nbsp;·&nbsp; Classic Family Room &nbsp;·&nbsp; Paid €377.24 &nbsp;·&nbsp; Check-out noon</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--orange-m)"><span style="color:var(--orange)">🌙 Caledonian Sleeper &nbsp;·&nbsp; Edinburgh Waverley → London Euston &nbsp;·&nbsp; Night of 27–28 May</span><span class="shb sl">⚠️ Book at sleeper.scot — URGENT</span></div>
+    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12">12</div><div class="db slp"><p class="dt" style="color:var(--orange)">Caledonian Sleeper overnight train</p><p class="dd" style="color:#7c2d12">Departs ~20:33 · arrives London Euston 07:28 am · ~7.5 hrs</p><p class="dc" style="color:#7c2d12">2 × Club rooms with connecting door &nbsp;·&nbsp; Sana & Tara in bunk beds next door &nbsp;·&nbsp; breakfast in room &nbsp;·&nbsp; en-suite shower &nbsp;·&nbsp; Club Car lounge &nbsp;·&nbsp; wake up arriving London</p><div class="tags"><span class="tag tor">sleeper.scot &nbsp;·&nbsp; 2 × Club rooms &nbsp;·&nbsp; connecting door &nbsp;·&nbsp; from £250/room &nbsp;·&nbsp; dynamic pricing rises daily</span></div></div></div>
+
+    <div class="sh"><span>🇬🇧 London &nbsp;·&nbsp; 28 May – 1 Jun &nbsp;·&nbsp; 5 days</span><span class="shb fr">Brother's place &nbsp;·&nbsp; E18 2HJ &nbsp;·&nbsp; Free!</span></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">13</div><div class="db"><p class="dt">Covent Garden &nbsp;·&nbsp; Postal Museum &nbsp;·&nbsp; Paddington Experience</p><p class="dd">28 May (Wed) &nbsp;·&nbsp; arrive Euston 7:28 am</p><p class="dc">Arrive Euston → Central line to E18 &nbsp;·&nbsp; Covent Garden Piazza &nbsp;·&nbsp; Neal's Yard &nbsp;·&nbsp; Seven Dials Market (lunch) &nbsp;·&nbsp; Postal Museum + Mail Rail underground train, Farringdon &nbsp;·&nbsp; Paddington Bear Experience, County Hall, South Bank</p><div class="tags"><span class="tag tw">Pre-book: Postal Museum Mail Rail &nbsp;·&nbsp; Paddington Experience</span></div><div class="hr"><span style="font-size:13px">🏠</span><span class="hn">Brother's place &nbsp;·&nbsp; E18 2HJ, High View Road, South Woodford</span><span class="hno">&nbsp;·&nbsp; Central line &nbsp;·&nbsp; both girls travel free &nbsp;·&nbsp; Heathrow direct 55 min</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">14</div><div class="db"><p class="dt">Harry Potter Studio Tour + Natural History Museum</p><p class="dd">29 May (Thu)</p><p class="dc">South Woodford → Stratford → Watford Jn (~50 min) &nbsp;·&nbsp; Warner Bros. Studio Tour 9 am &nbsp;·&nbsp; Great Hall, Platform 9¾, Diagon Alley, Forbidden Forest &nbsp;·&nbsp; back by 2 pm &nbsp;·&nbsp; Natural History Museum, South Kensington (free!)</p><div class="tags"><span class="tag thp">BOOK TODAY &nbsp;·&nbsp; wbstudiotour.co.uk &nbsp;·&nbsp; 9 am slot &nbsp;·&nbsp; sells out months ahead</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">15</div><div class="db"><p class="dt">Mundo Pixar + Tower of London</p><p class="dd">30 May (Fri)</p><p class="dc">Central → Jubilee → Wembley Park &nbsp;·&nbsp; Mundo Pixar (~65 min &nbsp;·&nbsp; Toy Story, Inside Out, Coco, Up) &nbsp;·&nbsp; Jubilee → Tower Hill &nbsp;·&nbsp; St Katharine Docks lunch &nbsp;·&nbsp; Tower of London (Crown Jewels + Beefeater tour) &nbsp;·&nbsp; Tower Bridge walk (free)</p><div class="tags"><span class="tag tpx">mundopixar.com &nbsp;·&nbsp; £76 family of 4</span><span class="tag tw">Tower: hrp.org.uk &nbsp;·&nbsp; pre-book</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">16</div><div class="db"><p class="dt">Borough Market + Kew Gardens</p><p class="dd">31 May (Sat)</p><p class="dc">Borough Market morning (100+ stalls) &nbsp;·&nbsp; Central → District → Kew Gardens &nbsp;·&nbsp; Treetop Walkway &nbsp;·&nbsp; Climbers & Creepers play zone &nbsp;·&nbsp; lily ponds &nbsp;·&nbsp; Japanese Garden</p><div class="tags"><span class="tag ts">kew.org &nbsp;·&nbsp; £6 child / £17 adult</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">17</div><div class="db rest"><p class="dt" style="color:var(--forest)">Rest day &nbsp;·&nbsp; fly home</p><p class="dd" style="color:var(--forest-m)">1 Jun (Sun) — departure</p><p class="dc" style="color:var(--forest)">Slow morning &nbsp;·&nbsp; pack &nbsp;·&nbsp; South Woodford → Heathrow Terminal 5 &nbsp;·&nbsp; Central line direct ~55 min &nbsp;·&nbsp; BA0035 departs 12:40 &nbsp;·&nbsp; arrives Chennai 03:30 +1</p></div></div>
+  </div>
+
+  <!-- ── HOTELS ────────────────────────────────────────────────────────── -->
+  <div id="ht" class="sec">
+    <div class="alert ac2">5 hotels confirmed (Dublin, Cork, Belfast, Edinburgh + Novotel upgrade) &nbsp;·&nbsp; Dingle Skellig still to book &nbsp;·&nbsp; London at brother's (free)</div>
+
+    <!-- Progress -->
+    <div style="background:var(--white);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Hotel booking progress</span><span style="color:var(--confirmed)">5 of 6 booked</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:83%;background:var(--confirmed-b)"></div></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">Dingle Skellig Hotel &amp; Peninsula Spa (22–24 May) remaining</div>
+    </div>
+
+    <div class="hgrid">
+      <div class="hc conf">
+        <div class="hc-status c">✓ Confirmed</div>
+        <div class="hc-city">Dublin &nbsp;·&nbsp; 18–20 May &nbsp;·&nbsp; 2 nights</div>
+        <div class="hc-name">Premier Inn Dublin City Centre (Temple Bar)</div>
+        <div class="hc-addr">51 Stephen Street Lower, D02 N7Y3</div>
+        <div class="hc-dates">4.4★ &nbsp;·&nbsp; Quadruple Room &nbsp;·&nbsp; Breakfast included</div>
+        <div class="hc-ref gr">Conf: 5840.650.627 &nbsp;·&nbsp; PIN: 1015</div>
+        <div class="perks"><span class="pk cf">Breakfast incl</span><span class="pk">Grafton St 2 min</span><span class="pk">Temple Bar doorstep</span><span class="pk">Cancel until 16 May free</span></div>
+      </div>
+      <div class="hc conf">
+        <div class="hc-status c">✓ Confirmed</div>
+        <div class="hc-city">Cork &nbsp;·&nbsp; 20–22 May &nbsp;·&nbsp; 2 nights</div>
+        <div class="hc-name">Premier Inn Cork City Centre</div>
+        <div class="hc-addr">11 Morrison's Quay, T12 PF78 Cork</div>
+        <div class="hc-dates">4.2★ &nbsp;·&nbsp; Standard Quadruple &nbsp;·&nbsp; Breakfast included</div>
+        <div class="hc-ref gr">Conf: 5528.486.702 &nbsp;·&nbsp; PIN: 3395</div>
+        <div class="perks"><span class="pk cf">Breakfast incl</span><span class="pk">River Lee waterfront</span><span class="pk wn">No parking: Q-Park ~€45/night</span><span class="pk">Cancel until 18 May free</span></div>
+      </div>
+      <div class="hc urg">
+        <div class="hc-status u">⚠️ BOOK NOW — May half-term fills fast!</div>
+        <div class="hc-city">Dingle &nbsp;·&nbsp; 22–24 May &nbsp;·&nbsp; 2 nights</div>
+        <div class="hc-name">Dingle Skellig Hotel & Peninsula Spa</div>
+        <div class="hc-addr">Dingle Bay, Kerry, Ireland</div>
+        <div class="hc-dates">4-star &nbsp;·&nbsp; dingleskellig.com</div>
+        <div class="perks"><span class="pk">17m pool</span><span class="pk">Kids' pool</span><span class="pk fr">Kids Club (half-term)</span><span class="pk">Washing machine</span><span class="pk">Bay views</span></div>
+      </div>
+      <div class="hc conf">
+        <div class="hc-status c">✓ Confirmed</div>
+        <div class="hc-city">Belfast &nbsp;·&nbsp; 24–26 May &nbsp;·&nbsp; 2 nights</div>
+        <div class="hc-name">Premier Inn Belfast Titanic Quarter</div>
+        <div class="hc-addr">2A Queens Road, Northern Ireland BT3 9DT</div>
+        <div class="hc-dates">4.2★ &nbsp;·&nbsp; Family Quadruple &nbsp;·&nbsp; Non-smoking</div>
+        <div class="hc-ref gr">R360 ref: 26031730526 &nbsp;·&nbsp; Partner: 26031730526</div>
+        <div class="perks"><span class="pk cf">Paid ₹8,591 cash + ₹20,044 pts</span><span class="pk fr">2 min to Titanic Belfast!</span><span class="pk">Water views</span></div>
+      </div>
+      <div class="hc conf">
+        <div class="hc-status c">✓ Confirmed</div>
+        <div class="hc-city">Edinburgh &nbsp;·&nbsp; 26–27 May &nbsp;·&nbsp; 1 night</div>
+        <div class="hc-name">Novotel Edinburgh Centre ★★★★</div>
+        <div class="hc-addr">80 Lauriston Place, EH3 9DE Edinburgh</div>
+        <div class="hc-dates">4-star &nbsp;·&nbsp; Classic Family Room &nbsp;·&nbsp; 2 adults + 2 children</div>
+        <div class="hc-ref gr">Ref: QFVLGXVN &nbsp;·&nbsp; Paid €377.24 (£325.85)</div>
+        <div class="perks"><span class="pk cf">Non-refundable — fully paid</span><span class="pk">Check-in 15:00</span><span class="pk">Check-out 12:00</span><span class="pk wn">No parking (£22/night if needed)</span></div>
+      </div>
+      <div class="hc pend">
+        <div class="hc-status p">⚠️ Book at sleeper.scot — URGENT</div>
+        <div class="hc-city" style="color:var(--orange)">On the train &nbsp;·&nbsp; Night of 27–28 May</div>
+        <div class="hc-name" style="color:var(--orange)">Caledonian Sleeper &nbsp;·&nbsp; 2 × Club rooms</div>
+        <div class="hc-addr" style="color:#7c2d12">Departs Edinburgh ~20:33 &nbsp;·&nbsp; Euston 07:28</div>
+        <div class="hc-dates" style="color:#7c2d12">sleeper.scot &nbsp;·&nbsp; dynamic pricing rises daily!</div>
+        <div class="perks"><span class="pk sl">Connecting door</span><span class="pk sl">Bunk beds (girls!)</span><span class="pk sl">Breakfast in room</span><span class="pk sl">En-suite shower</span><span class="pk sl">from £250/room</span></div>
+      </div>
+      <div class="hc" style="border-color:var(--forest-m);background:var(--forest-l)">
+        <div class="hc-status c">✓ Arranged — 5 nights FREE</div>
+        <div class="hc-city" style="color:var(--forest)">London &nbsp;·&nbsp; 28 May – 1 Jun &nbsp;·&nbsp; 5 nights</div>
+        <div class="hc-name" style="color:var(--forest)">Brother's place &nbsp;·&nbsp; E18 2HJ</div>
+        <div class="hc-addr" style="color:var(--forest-m)">High View Road, South Woodford</div>
+        <div class="hc-dates" style="color:var(--forest-m)">Central line &nbsp;·&nbsp; Heathrow direct 55 min</div>
+        <div class="perks"><span class="pk fr">₹0 hotel cost!</span><span class="pk fr">Both girls tube free</span><span class="pk fr">Heathrow direct</span></div>
+      </div>
+    </div>
+    <div class="alert aw">Cork parking: Premier Inn Cork has no on-site parking. Q-Park City Hall is ~7 min walk at ~€45/24 hrs. Over 2 nights ≈ €90 (~₹9,500).</div>
+  </div>
+
+  <!-- ── EXPERIENCES ───────────────────────────────────────────────────── -->
+  <div id="ex" class="sec">
+    <div class="alert aw">Harry Potter trail spans 3 countries: Edinburgh → London &nbsp;·&nbsp; All 6 experiences still to book &nbsp;·&nbsp; HP Studio urgent — sells out 6 months ahead for May half-term</div>
+    <div class="egrid">
+      <div class="ec vi">
+        <div class="ec-status" style="color:var(--amber)">⚠️ Still to book</div>
+        <div class="ec-n" style="color:var(--forest)">01</div>
+        <div class="ec-name">Viking Splash Tour</div>
+        <div class="ec-day">Day 2 &nbsp;·&nbsp; 19 May &nbsp;·&nbsp; Dublin</div>
+        <div class="ec-desc">Amphibious DUKW vehicle &nbsp;·&nbsp; Viking helmets &nbsp;·&nbsp; splashes into Grand Canal &nbsp;·&nbsp; ~75 min &nbsp;·&nbsp; perfect Dublin opener for the girls</div>
+        <div class="ec-book" style="color:var(--forest)">vikingsplash.com &nbsp;·&nbsp; morning slot</div>
+      </div>
+      <div class="ec hp">
+        <div class="ec-status" style="color:var(--amber)">⚠️ Still to book</div>
+        <div class="ec-n" style="color:var(--violet)">02</div>
+        <div class="ec-name">Elephant House Café</div>
+        <div class="ec-day">Day 11 &nbsp;·&nbsp; 27 May &nbsp;·&nbsp; Edinburgh</div>
+        <div class="ec-desc">JK Rowling's writing desk &nbsp;·&nbsp; Writers' Room &nbsp;·&nbsp; George Heriot's School view &nbsp;·&nbsp; HP trail start &nbsp;·&nbsp; book a table for 4</div>
+        <div class="ec-book" style="color:var(--violet)">elephanthouse.biz &nbsp;·&nbsp; opens 10 am</div>
+      </div>
+      <div class="ec pd">
+        <div class="ec-status" style="color:var(--amber)">⚠️ Still to book</div>
+        <div class="ec-n" style="color:var(--orange)">03</div>
+        <div class="ec-name">Paddington Bear Experience</div>
+        <div class="ec-day">Day 13 &nbsp;·&nbsp; 28 May &nbsp;·&nbsp; County Hall, London</div>
+        <div class="ec-desc">Multi-room immersive &nbsp;·&nbsp; live actors &nbsp;·&nbsp; full-size train carriage &nbsp;·&nbsp; Marmalade Day Festival finale &nbsp;·&nbsp; ~70 min</div>
+        <div class="ec-book" style="color:var(--orange)">paddingtonbearexperience.com &nbsp;·&nbsp; timed entry</div>
+      </div>
+      <div class="ec pm">
+        <div class="ec-status" style="color:var(--amber)">⚠️ Still to book</div>
+        <div class="ec-n" style="color:var(--muted)">04</div>
+        <div class="ec-name">Postal Museum + Mail Rail</div>
+        <div class="ec-day">Day 13 &nbsp;·&nbsp; 28 May &nbsp;·&nbsp; Farringdon, London</div>
+        <div class="ec-desc">Real underground mail train through original tunnels &nbsp;·&nbsp; vacuum tubes &nbsp;·&nbsp; interactive exhibits &nbsp;·&nbsp; 4.6★ &nbsp;·&nbsp; perfect for Sana (8) and Tara (6)</div>
+        <div class="ec-book" style="color:var(--muted)">postalmuseum.org &nbsp;·&nbsp; pre-book Mail Rail slot</div>
+      </div>
+      <div class="ec hp">
+        <div class="ec-status" style="color:var(--rose-m);font-weight:700">🚨 BOOK TODAY — sells out months ahead</div>
+        <div class="ec-n" style="color:var(--violet)">05</div>
+        <div class="ec-name">Harry Potter Studio Tour</div>
+        <div class="ec-day">Day 14 &nbsp;·&nbsp; 29 May &nbsp;·&nbsp; Watford</div>
+        <div class="ec-desc">Great Hall &nbsp;·&nbsp; Platform 9¾ &nbsp;·&nbsp; Diagon Alley &nbsp;·&nbsp; Forbidden Forest &nbsp;·&nbsp; 3–4 hrs &nbsp;·&nbsp; HP trail finale — Sana will love every second</div>
+        <div class="ec-book" style="color:var(--rose-m)">wbstudiotour.co.uk &nbsp;·&nbsp; 9 am slot &nbsp;·&nbsp; URGENT</div>
+      </div>
+      <div class="ec pix">
+        <div class="ec-status" style="color:var(--amber)">⚠️ Still to book</div>
+        <div class="ec-n" style="color:var(--sky)">06</div>
+        <div class="ec-name">Mundo Pixar Experience</div>
+        <div class="ec-day">Day 15 &nbsp;·&nbsp; 30 May &nbsp;·&nbsp; Wembley Park, London</div>
+        <div class="ec-desc">World's largest Pixar exhibition &nbsp;·&nbsp; 14 universes: Toy Story, Inside Out, Coco, Up, Monsters Inc &nbsp;·&nbsp; ~65 min &nbsp;·&nbsp; London-exclusive room</div>
+        <div class="ec-book" style="color:var(--sky)">mundopixar.com &nbsp;·&nbsp; £76 family of 4</div>
+      </div>
+      <div class="ec tb2">
+        <div class="ec-status" style="color:var(--amber)">⚠️ Still to book</div>
+        <div class="ec-n" style="color:var(--navy)">07</div>
+        <div class="ec-name">Titanic Belfast</div>
+        <div class="ec-day">Day 9 &nbsp;·&nbsp; 25 May &nbsp;·&nbsp; Belfast</div>
+        <div class="ec-desc">The world's largest Titanic visitor experience &nbsp;·&nbsp; 2 min walk from your Premier Inn &nbsp;·&nbsp; interactive galleries &nbsp;·&nbsp; shipyard ride &nbsp;·&nbsp; Tara (6) will be amazed</div>
+        <div class="ec-book" style="color:var(--navy)">titanicbelfast.com &nbsp;·&nbsp; timed entry &nbsp;·&nbsp; pre-book</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BOOK NOW ──────────────────────────────────────────────────────── -->
+  <div id="bk" class="sec">
+    <div class="alert aw">Red = book today &nbsp;·&nbsp; amber = book this week &nbsp;·&nbsp; green = done! &nbsp;·&nbsp; orange = Caledonian Sleeper (dynamic pricing rises daily)</div>
+
+    <!-- Progress summary -->
+    <div style="background:var(--white);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:var(--ink)">Booking status summary</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+        <div style="background:var(--confirmed-l);border:0.5px solid var(--confirmed-b);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--confirmed)">6</div><div style="font-size:10px;color:var(--confirmed)">Confirmed</div></div>
+        <div style="background:var(--rose-l);border:0.5px solid var(--rose-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--rose-m)">5</div><div style="font-size:10px;color:var(--rose-m)">Still needed</div></div>
+        <div style="background:var(--amber-l);border:0.5px solid var(--amber-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--amber)">3+</div><div style="font-size:10px;color:var(--amber)">Nice to have</div></div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-m);margin-bottom:8px">🚨 Book today</div>
+    <div class="bklist" style="margin-bottom:16px">
+      <div class="bki urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Harry Potter Studio Tour <span class="btag u">URGENT</span></div><div class="bd">29 May &nbsp;·&nbsp; wbstudiotour.co.uk &nbsp;·&nbsp; 9 am slot &nbsp;·&nbsp; 4 tickets (2 adults + 2 children) &nbsp;·&nbsp; sells out 3–6 months ahead for May half-term &nbsp;·&nbsp; Book right now!</div></div></div>
+      <div class="bki urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Dingle Skellig Hotel — family room <span class="btag u">URGENT</span></div><div class="bd">22–24 May &nbsp;·&nbsp; 2 nights &nbsp;·&nbsp; dingleskellig.com &nbsp;·&nbsp; May half-term family rooms fill extremely fast. Pool, Kids Club, bay views.</div></div></div>
+    </div>
+
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--orange-m);margin-bottom:8px">⚡ Book this week</div>
+    <div class="bklist" style="margin-bottom:16px">
+      <div class="bki slp"><div class="bdot" style="background:var(--orange-m)"></div><div><div class="bt">Caledonian Sleeper — 2 × Club rooms <span class="btag a">Dynamic pricing</span></div><div class="bd">Night 27–28 May &nbsp;·&nbsp; sleeper.scot &nbsp;·&nbsp; Edinburgh Waverley → Euston &nbsp;·&nbsp; 2 × Club rooms with connecting door &nbsp;·&nbsp; Sana & Tara bunk beds &nbsp;·&nbsp; from £250/room &nbsp;·&nbsp; Price rises daily!</div></div></div>
+      <div class="bki sn"><div class="bdot" style="background:var(--amber-m)"></div><div><div class="bt">Belfast → Edinburgh flight <span class="btag a">Book soon</span></div><div class="bd">26 May (Mon) evening &nbsp;·&nbsp; BFS→EDI &nbsp;·&nbsp; Ryanair (ryanair.com) or EasyJet (easyjet.com) &nbsp;·&nbsp; Return rental car at Belfast City Airport before flight &nbsp;·&nbsp; ~1 hr flight</div></div></div>
+      <div class="bki sn"><div class="bdot" style="background:var(--amber-m)"></div><div><div class="bt">Car hire — Dublin → Belfast City Airport <span class="btag a">Book now</span></div><div class="bd">18–26 May &nbsp;·&nbsp; 8 days &nbsp;·&nbsp; diesel estate/MPV &nbsp;·&nbsp; full CDW + no-excess insurance &nbsp;·&nbsp; pick up Dublin Airport &nbsp;·&nbsp; drop off Belfast City Airport &nbsp;·&nbsp; rentalcars.com or autoeurope</div></div></div>
+    </div>
+
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--forest-m);margin-bottom:8px">📅 Book in good time (experiences)</div>
+    <div class="bklist" style="margin-bottom:16px">
+      <div class="bki nm"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Viking Splash Tour, Dublin</div><div class="bd">19 May &nbsp;·&nbsp; vikingsplash.com &nbsp;·&nbsp; morning slot &nbsp;·&nbsp; amphibious DUKW &nbsp;·&nbsp; 4 tickets</div></div></div>
+      <div class="bki nm"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Titanic Belfast — timed entry</div><div class="bd">25 May &nbsp;·&nbsp; titanicbelfast.com &nbsp;·&nbsp; 2 min walk from Premier Inn &nbsp;·&nbsp; pre-book timed entry to avoid queues</div></div></div>
+      <div class="bki nm"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Elephant House Café, Edinburgh</div><div class="bd">27 May &nbsp;·&nbsp; elephanthouse.biz &nbsp;·&nbsp; book a table for 4 &nbsp;·&nbsp; opens 10 am &nbsp;·&nbsp; JK Rowling's writing desk &nbsp;·&nbsp; Writers' Room</div></div></div>
+      <div class="bki nm"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Paddington Bear Experience + Postal Museum Mail Rail</div><div class="bd">28 May &nbsp;·&nbsp; paddingtonbearexperience.com + postalmuseum.org &nbsp;·&nbsp; both require pre-booked timed entry &nbsp;·&nbsp; County Hall + Farringdon</div></div></div>
+      <div class="bki nm"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Mundo Pixar Experience</div><div class="bd">30 May &nbsp;·&nbsp; mundopixar.com &nbsp;·&nbsp; Wembley Park &nbsp;·&nbsp; £76 family of 4 &nbsp;·&nbsp; timed entry &nbsp;·&nbsp; world's largest Pixar exhibition</div></div></div>
+      <div class="bki nm"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Tower of London</div><div class="bd">30 May afternoon &nbsp;·&nbsp; hrp.org.uk &nbsp;·&nbsp; timed Crown Jewels entry &nbsp;·&nbsp; Beefeater tour</div></div></div>
+    </div>
+
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--confirmed);margin-bottom:8px">✅ Already confirmed</div>
+    <div class="bklist">
+      <div class="bki done"><div class="bdot" style="background:var(--confirmed-b)"></div><div><div class="bt">British Airways flights — all 4 passengers <span class="btag c">CONFIRMED</span></div><div class="bd">Ref: YP9MAE &nbsp;·&nbsp; Chennai → London (BA0036) 18 May 05:35 &nbsp;·&nbsp; London → Dublin (BA0832) 18 May 14:50 &nbsp;·&nbsp; London → Chennai (BA0035) 1 Jun 12:40 &nbsp;·&nbsp; Total paid ₹2,22,012</div></div></div>
+      <div class="bki done"><div class="bdot" style="background:var(--confirmed-b)"></div><div><div class="bt">Premier Inn Dublin Temple Bar <span class="btag c">CONFIRMED</span></div><div class="bd">18–20 May &nbsp;·&nbsp; Conf: 5840.650.627 &nbsp;·&nbsp; PIN: 1015 &nbsp;·&nbsp; Quadruple Room &nbsp;·&nbsp; Breakfast incl &nbsp;·&nbsp; Free cancel until 16 May &nbsp;·&nbsp; ₹48,597</div></div></div>
+      <div class="bki done"><div class="bdot" style="background:var(--confirmed-b)"></div><div><div class="bt">Premier Inn Cork City Centre <span class="btag c">CONFIRMED</span></div><div class="bd">20–22 May &nbsp;·&nbsp; Conf: 5528.486.702 &nbsp;·&nbsp; PIN: 3395 &nbsp;·&nbsp; Standard Quadruple &nbsp;·&nbsp; Breakfast incl &nbsp;·&nbsp; Free cancel until 18 May &nbsp;·&nbsp; ₹44,775</div></div></div>
+      <div class="bki done"><div class="bdot" style="background:var(--confirmed-b)"></div><div><div class="bt">Premier Inn Belfast Titanic Quarter <span class="btag c">CONFIRMED</span></div><div class="bd">24–26 May &nbsp;·&nbsp; R360: 26031730526 &nbsp;·&nbsp; Family Quadruple &nbsp;·&nbsp; Paid ₹8,591 cash + ₹20,044 reward points &nbsp;·&nbsp; Total ₹28,635</div></div></div>
+      <div class="bki done"><div class="bdot" style="background:var(--confirmed-b)"></div><div><div class="bt">Novotel Edinburgh Centre ★★★★ <span class="btag c">CONFIRMED</span></div><div class="bd">26–27 May &nbsp;·&nbsp; Ref: QFVLGXVN &nbsp;·&nbsp; Classic Family Room &nbsp;·&nbsp; NON-REFUNDABLE — fully paid €377.24 (£325.85) &nbsp;·&nbsp; Check-in 15:00</div></div></div>
+    </div>
+  </div>
+
+  <!-- ── BUDGET ─────────────────────────────────────────────────────────── -->
+  <div id="bu" class="sec">
+    <div class="alert ai">All figures in INR &nbsp;·&nbsp; €1 ≈ ₹105.63 (Mar 2026) &nbsp;·&nbsp; Confirmed spend so far: ₹3,44,019</div>
+    <div class="brange">
+      <div class="br"><div class="br-l">Budget / lower</div><div class="br-n" style="color:var(--forest)">₹7.7L</div><div class="br-e">≈ €7,300</div></div>
+      <div class="br mid"><div class="br-l" style="color:var(--navy)">Mid-range ✓</div><div class="br-n" style="color:var(--navy)">₹10.5L</div><div class="br-e" style="color:var(--navy-m)">≈ €9,350</div></div>
+      <div class="br"><div class="br-l">Higher / comfort</div><div class="br-n" style="color:var(--muted)">₹13.5L</div><div class="br-e">≈ €12,800</div></div>
+    </div>
+    <table>
+      <thead><tr><th>Category</th><th>Status</th><th>EUR</th><th>INR</th></tr></thead>
+      <tbody>
+        <tr class="conf"><td>British Airways flights — 4 pax (BA ref YP9MAE)</td><td>✅ Paid</td><td>—</td><td class="inr" style="color:var(--confirmed)">₹2,22,012</td></tr>
+        <tr class="conf"><td>Premier Inn Dublin Temple Bar (2 nights + breakfast)</td><td>✅ Booked</td><td>€457.80</td><td class="inr" style="color:var(--confirmed)">₹48,597</td></tr>
+        <tr class="conf"><td>Premier Inn Cork City Centre (2 nights + breakfast)</td><td>✅ Booked</td><td>€421.80</td><td class="inr" style="color:var(--confirmed)">₹44,775</td></tr>
+        <tr class="conf"><td>Premier Inn Belfast Titanic Quarter (2 nights)</td><td>✅ Paid</td><td>~€270</td><td class="inr" style="color:var(--confirmed)">₹28,635</td></tr>
+        <tr class="conf"><td>Novotel Edinburgh Centre (1 night)</td><td>✅ Paid (NR)</td><td>€377.24</td><td class="inr" style="color:var(--confirmed)">₹39,843</td></tr>
+        <tr><td>Dingle Skellig Hotel (2 nights) — still to book</td><td>⚠️ Book now</td><td>€470</td><td class="inr">₹49,646</td></tr>
+        <tr><td>Caledonian Sleeper (2 × Club rooms) — still to book</td><td>⚠️ Book now</td><td>€590</td><td class="inr">₹62,322</td></tr>
+        <tr><td style="color:var(--forest)">London — brother's place (5 nights FREE)</td><td style="color:var(--forest)">✅ Arranged</td><td style="color:var(--forest)">€0</td><td class="inr" style="color:var(--forest)">₹0</td></tr>
+        <tr><td>Belfast → Edinburgh flight (still to book)</td><td>⚠️ Book soon</td><td>€160</td><td class="inr">₹16,901</td></tr>
+        <tr><td>Car hire Dublin → Belfast City Airport (8 days)</td><td>⚠️ Book now</td><td>€600</td><td class="inr">₹63,378</td></tr>
+        <tr><td>Fuel (~1,680 km Ireland)</td><td>On trip</td><td>€215</td><td class="inr">₹22,710</td></tr>
+        <tr><td>Food & dining (15 days, family of 4)</td><td>On trip</td><td>€2,700</td><td class="inr">₹2,85,201</td></tr>
+        <tr><td>Experiences (HP Studio, Viking Splash, Titanic, Paddington, Postal, Pixar, Kew)</td><td>To book</td><td>€1,100</td><td class="inr">₹1,16,193</td></tr>
+        <tr><td>London transport (2 adults, 4 days contactless)</td><td>On trip</td><td>€60</td><td class="inr">₹6,338</td></tr>
+        <tr><td>Miscellaneous (tips, souvenirs, Murphy's Ice Cream!)</td><td>On trip</td><td>€350</td><td class="inr">₹36,971</td></tr>
+        <tr class="tr"><td colspan="2">Subtotal</td><td>€8,155</td><td class="inr">₹9,43,522</td></tr>
+        <tr class="tr"><td colspan="2">With 15% contingency buffer</td><td>≈ €9,350</td><td class="inr">₹10.5L</td></tr>
+        <tr class="conf"><td colspan="2" style="color:var(--confirmed)">✅ Already paid / committed</td><td style="color:var(--confirmed)">€1,526</td><td class="inr" style="color:var(--confirmed)">₹3,44,019</td></tr>
+      </tbody>
+    </table>
+    <div class="alert as">Built-in savings: London hotel free 5 nights ≈ ₹1.5L &nbsp;·&nbsp; Both girls travel free on London tube &nbsp;·&nbsp; NHM free &nbsp;·&nbsp; Tower Bridge free &nbsp;·&nbsp; Kew Gardens discounted &nbsp;·&nbsp; Total savings: ₹2.4–2.7L</div>
+  </div>
+
+  <!-- ── KID TIPS ───────────────────────────────────────────────────────── -->
+  <div id="ki" class="sec">
+    <div class="alert as">Sana (8) and Tara (6) are the perfect ages for this trip. Here's what to watch for and what they'll love most.</div>
+    <div class="kgrid">
+      <div class="kc"><div class="kc-t">Tara's freebies & savings</div><div class="kc-b">Both girls travel free on London tube &nbsp;·&nbsp; Tara eats free at most places &nbsp;·&nbsp; Kids Club at Dingle Skellig (May half-term) &nbsp;·&nbsp; Premier Inn Dublin: kids eat free at breakfast &nbsp;·&nbsp; NHM free entry</div></div>
+      <div class="kc"><div class="kc-t">Animal highlights</div><div class="kc-b">K2 Alpacas, Howth (Day 3) &nbsp;·&nbsp; Dingle Oceanworld (Day 6) &nbsp;·&nbsp; Lios Stone Circle animal feeding (Day 7) &nbsp;·&nbsp; Moher Hill Farm lambs in May (Day 8) &nbsp;·&nbsp; Greyfriars Bobby, Edinburgh (Day 11)</div></div>
+      <div class="kc"><div class="kc-t">Harry Potter trail — 3 countries</div><div class="kc-b">Victoria Street + Greyfriars tombstones → Elephant House desk, Edinburgh → Warner Bros. Studio, Watford &nbsp;·&nbsp; Sana (8) will absolutely love this thread across the whole trip</div></div>
+      <div class="kc"><div class="kc-t">Car journey rule</div><div class="kc-b">Max 2–3 hrs per leg. One exception: Day 8 (Dingle → Belfast via Cliffs, ~4.5 hrs with stops). Start 8:30 am, break into three fun stops, pack snacks. iPad fully downloaded.</div></div>
+      <div class="kc"><div class="kc-t">Carrick-a-Rede rope bridge</div><div class="kc-b">30m above the sea and sways. Check Tara is comfortable with heights before committing. The coastal walk at Giant's Causeway is equally stunning and completely free.</div></div>
+      <div class="kc"><div class="kc-t">May weather in Ireland</div><div class="kc-b">12–16°C, changeable. Waterproofs for all four of you. Layers essential. Cliffs of Moher can be very windy. Murphy's Ice Cream is mandatory regardless of temperature!</div></div>
+      <div class="kc"><div class="kc-t">Caledonian Sleeper adventure</div><div class="kc-b">Sana and Tara sleep in their own private cabin with bunk beds &nbsp;·&nbsp; wake up arriving London! &nbsp;·&nbsp; Breakfast in the bunk room &nbsp;·&nbsp; This will be one of the most memorable moments of the whole trip</div></div>
+      <div class="kc"><div class="kc-t">Most urgent bookings for the kids</div><div class="kc-b">HP Studio (book today — sold out risk!) &nbsp;·&nbsp; Dingle Skellig family room &nbsp;·&nbsp; Caledonian Sleeper Club rooms &nbsp;·&nbsp; Paddington Bear Experience &nbsp;·&nbsp; Postal Museum Mail Rail &nbsp;·&nbsp; Mundo Pixar</div></div>
+      <div class="kc"><div class="kc-t">Novotel Edinburgh — note</div><div class="kc-b">You upgraded from Apex Grassmarket to Novotel Edinburgh Centre (already paid €377, non-refundable). 4-star, 80 Lauriston Place, check-in 15:00. Edinburgh day plan unchanged.</div></div>
+    </div>
+  </div>
+
+  <!-- ── FLIGHTS ────────────────────────────────────────────────────────── -->
+  <div id="fl" class="sec">
+    <div class="alert ac2">✈️ British Airways booking confirmed &nbsp;·&nbsp; Ref: YP9MAE &nbsp;·&nbsp; Paid ₹2,22,012 on 25 Jan 2026 &nbsp;·&nbsp; 1 flight (BFS→EDI) still to book</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:16px">
+      <div style="background:var(--confirmed-l);border:1px solid var(--confirmed-b);border-radius:var(--r);padding:14px">
+        <div style="font-size:10px;font-weight:700;color:var(--confirmed);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">✅ Confirmed — BA0036</div>
+        <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px">Chennai → London Heathrow</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">18 May 2026 &nbsp;·&nbsp; World Traveller</div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600">
+          <div><div style="font-size:18px">05:35</div><div style="font-size:10px;color:var(--muted);font-weight:400">MAA T2</div></div>
+          <div style="color:var(--muted);font-size:11px;align-self:center">──────→</div>
+          <div style="text-align:right"><div style="font-size:18px">12:10</div><div style="font-size:10px;color:var(--muted);font-weight:400">LHR T5</div></div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Meal included &nbsp;·&nbsp; 1×23kg baggage per person</div>
+      </div>
+      <div style="background:var(--confirmed-l);border:1px solid var(--confirmed-b);border-radius:var(--r);padding:14px">
+        <div style="font-size:10px;font-weight:700;color:var(--confirmed);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">✅ Confirmed — BA0832</div>
+        <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px">London Heathrow → Dublin</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">18 May 2026 &nbsp;·&nbsp; Euro Traveller (connection)</div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600">
+          <div><div style="font-size:18px">14:50</div><div style="font-size:10px;color:var(--muted);font-weight:400">LHR T5</div></div>
+          <div style="color:var(--muted);font-size:11px;align-self:center">──────→</div>
+          <div style="text-align:right"><div style="font-size:18px">16:20</div><div style="font-size:10px;color:var(--muted);font-weight:400">DUB T2</div></div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Buy on board &nbsp;·&nbsp; 2h40 LHR layover at T5</div>
+      </div>
+      <div style="background:var(--rose-l);border:1px solid var(--rose-m);border-radius:var(--r);padding:14px">
+        <div style="font-size:10px;font-weight:700;color:var(--rose-m);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">⚠️ Still to book — BFS→EDI</div>
+        <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px">Belfast → Edinburgh</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">26 May 2026 &nbsp;·&nbsp; Evening flight (~1 hr)</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Ryanair (ryanair.com) or EasyJet (easyjet.com) &nbsp;·&nbsp; Return car at Belfast City Airport before flight</div>
+        <div style="font-size:11px;font-weight:600;color:var(--rose-m)">Book asap — prices rising</div>
+      </div>
+      <div style="background:var(--confirmed-l);border:1px solid var(--confirmed-b);border-radius:var(--r);padding:14px">
+        <div style="font-size:10px;font-weight:700;color:var(--confirmed);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">✅ Confirmed — BA0035</div>
+        <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px">London Heathrow → Chennai</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">1 Jun 2026 &nbsp;·&nbsp; World Traveller</div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600">
+          <div><div style="font-size:18px">12:40</div><div style="font-size:10px;color:var(--muted);font-weight:400">LHR T5</div></div>
+          <div style="color:var(--muted);font-size:11px;align-self:center">──────→</div>
+          <div style="text-align:right"><div style="font-size:18px">03:30+1</div><div style="font-size:10px;color:var(--muted);font-weight:400">MAA T2</div></div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Meal included &nbsp;·&nbsp; 1×23kg baggage per person</div>
+      </div>
+    </div>
+
+    <div style="background:var(--white);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Passenger details &nbsp;·&nbsp; All 4 tickets confirmed</div>
+      <table>
+        <thead><tr><th>Passenger</th><th>Ticket number</th><th>Baggage (each flight)</th></tr></thead>
+        <tbody>
+          <tr><td>Yuvan (Mr Yuvanesan Muthukumaresan)</td><td>125-2227802129</td><td>1 handbag/laptop + 1 cabin + 1×23kg hold</td></tr>
+          <tr><td>Ramyaa (Mrs Ramyaa Yuvanesan)</td><td>125-2227802127</td><td>1 handbag/laptop + 1 cabin + 1×23kg hold</td></tr>
+          <tr><td>Sana (Miss Sana Yuvanesan)</td><td>125-2227802130</td><td>1 handbag/laptop + 1 cabin + 1×23kg hold</td></tr>
+          <tr><td>Tara (Miss Tara Yuvanesan)</td><td>125-2227802128</td><td>1 handbag/laptop + 1 cabin + 1×23kg hold + 2 free child items</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert aw">⚠️ Important: Each child can also check 2 extra items (pushchair, car seat, travel cot) free of charge in the hold. The LHR connection is 2h40 — both flights are at Terminal 5, so no terminal change needed.</div>
+  </div>
+
+  <div class="footer">
+    <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
+    <a class="fb" href="https://www.wbstudiotour.co.uk" target="_blank">🎬 Book HP Studio</a>
+    <a class="fb" href="https://www.sleeper.scot" target="_blank">🌙 Book Sleeper</a>
+    <a class="fb" href="https://www.dingleskellig.com" target="_blank">🌊 Book Dingle</a>
+    <a class="fb" href="https://www.ryanair.com" target="_blank">✈️ BFS→EDI (Ryanair)</a>
+    <a class="fb done" href="https://www.britishairways.com/travel/managebooking" target="_blank">✅ Manage BA YP9MAE</a>
+  </div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
