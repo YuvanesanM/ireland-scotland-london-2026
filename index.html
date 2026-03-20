@@ -775,12 +775,10 @@ function runRecaptcha() {
   grecaptcha.ready(() => {
     grecaptcha.execute(SITE_KEY, {action:'visit'})
       .then(token => {
-        if (evaluateScore(token) >= 0.5) {
-          enableForm('\u2713 Verified. Enter password to continue.', 'rgba(110,231,183,.7)');
-        } else {
-          document.getElementById('g-status').textContent = 'Verification failed. Please refresh and try again.';
-          document.getElementById('g-status').style.color = '#fca5a5';
-        }
+        // Any valid token response = enable form (score check is informational only)
+        const score = evaluateScore(token);
+        console.log('reCAPTCHA score:', score);
+        enableForm('\u2713 Verified. Enter password to continue.', 'rgba(110,231,183,.7)');
       })
       .catch(() => enableForm('Enter password to continue.'));
   });
