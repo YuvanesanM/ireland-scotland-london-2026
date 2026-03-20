@@ -154,7 +154,7 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 
 /* DAY CARDS */
 .day{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
-.dn{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
+.dn{min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;flex-direction:column;line-height:1.2;padding-top:2px}
 .db{flex:1;background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:11px 14px}
 .db.slp{border-color:var(--orange-m);background:var(--orange-l)}
 .db.rest{border-color:var(--forest-m);background:var(--forest-l)}
@@ -346,7 +346,7 @@ tr:last-child td{border-bottom:none}
       <div class="st ac"><div class="st-n">1</div><div class="st-l">Sleeper night</div></div>
       <div class="st"><div class="st-n">5</div><div class="st-l">London days</div></div>
       <div class="st ok"><div class="st-n">10</div><div class="st-l">Confirmed</div></div>
-      <div class="st"><div class="st-n">~1,680</div><div class="st-l">Driving km</div></div>
+      <div class="st"><div class="st-n">~1,200</div><div class="st-l">Driving km</div></div>
     </div>
   </div>
 </div>
@@ -359,6 +359,7 @@ tr:last-child td{border-bottom:none}
     <button class="tb" onclick="show('bk',this)">Book now <span class="badge">1</span></button>
     <button class="tb" onclick="show('ki',this)">Kid tips</button>
     <button class="tb" onclick="show('fl',this)">Flights</button>
+    <button class="tb" onclick="show('ca',this)">🚗 Car</button>
   </div>
 
   <!-- ALL 15 DAYS -->
@@ -375,35 +376,35 @@ tr:last-child td{border-bottom:none}
     </div></div>
 
     <div class="sh"><span>🇮🇪 Dublin · 18–20 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Temple Bar · #[encrypted]</span></div>
-    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">1</div><div class="db"><p class="dt">Arrival evening</p><p class="dd">18 May (Sun) · Arrive Dublin ~16:20</p><p class="dc">BA0832 lands T2 · Pick up rental car · Check in · Bean Hive Coffee · St Stephen's Green · Grafton Street</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Temple Bar · 51 Stephen St Lower</span><span class="hno"> · Quadruple · Breakfast incl · PIN: 1015</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">2</div><div class="db"><p class="dt">Dublin full day</p><p class="dd">19 May (Mon)</p><p class="dc">Viking Splash Tour morning · Trinity College + Book of Kells · Ha'penny Bridge · Guinness Storehouse + Gravity Bar · Murphy's Ice Cream</p><div class="tags"><span class="tag t-bl">Book Viking Splash — vikingsplash.com · morning slot</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">3</div><div class="db"><p class="dt">Culture + drive south via Howth</p><p class="dd">20 May (Tue)</p><p class="dc">Dublin Castle · EPIC Museum · Temple Bar · Howth Cliff Walk + Lighthouse · K2 Alpacas · Drive to Kinsale</p><div class="tags"><span class="tag t-bl">Leave Howth by 3 pm · arrive Kinsale ~6 pm</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">1<br><span style="font-size:8px;font-weight:400;line-height:1">18 May</span></div><div class="db"><p class="dt">Arrival evening</p><p class="dd">18 May (Sun) · Arrive Dublin ~16:20</p><p class="dc">BA0832 lands T2 · Pick up rental car · Check in · Bean Hive Coffee · St Stephen's Green · Grafton Street</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Temple Bar · 51 Stephen St Lower</span><span class="hno"> · Quadruple · Breakfast incl · PIN: 1015</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">2<br><span style="font-size:8px;font-weight:400;line-height:1">19 May</span></div><div class="db"><p class="dt">Dublin full day</p><p class="dd">19 May (Mon)</p><p class="dc">Viking Splash Tour morning · Trinity College + Book of Kells · Ha'penny Bridge · Guinness Storehouse + Gravity Bar · Murphy's Ice Cream</p><div class="tags"><span class="tag t-bl">Book Viking Splash — vikingsplash.com · morning slot</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">3<br><span style="font-size:8px;font-weight:400;line-height:1">20 May</span></div><div class="db"><p class="dt">Culture + drive south via Howth</p><p class="dd">20 May (Tue)</p><p class="dc">Dublin Castle · EPIC Museum · Temple Bar · Howth Cliff Walk + Lighthouse · K2 Alpacas · Drive to Kinsale</p><div class="tags"><span class="tag t-bl">Leave Howth by 3 pm · arrive Kinsale ~6 pm</span></div></div></div>
 
     <div class="sh"><span>🇮🇪 Kinsale / Cork · 20–22 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Cork · #[encrypted]</span></div>
-    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">4</div><div class="db"><p class="dt">Cork city day</p><p class="dd">21 May (Wed)</p><p class="dc">Cork Historic Doughnut Tour · Cork City Gaol · St Anne's Church Shandon · English Market</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Cork · 11 Morrison's Quay</span><span class="hno"> · Standard Quadruple · Breakfast incl · PIN: 3395 · Arrival ~12–13:00</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">5</div><div class="db"><p class="dt">Kinsale morning · drive to Dingle</p><p class="dd">22 May (Thu)</p><p class="dc">Deck of Cards Houses · Fairy Trails · Charles Fort · Scilly Walk · Saint Francis Provisions lunch · Drive Kinsale → Dingle ~2.5 hrs</p><div class="tags"><span class="tag t-bl">Leave by 2 pm · arrive Dingle ~5 pm</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">4<br><span style="font-size:8px;font-weight:400;line-height:1">21 May</span></div><div class="db"><p class="dt">Cork city day</p><p class="dd">21 May (Wed)</p><p class="dc">Cork Historic Doughnut Tour · Cork City Gaol · St Anne's Church Shandon · English Market</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Cork · 11 Morrison's Quay</span><span class="hno"> · Standard Quadruple · Breakfast incl · PIN: 3395 · Arrival ~12–13:00</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">5<br><span style="font-size:8px;font-weight:400;line-height:1">22 May</span></div><div class="db"><p class="dt">Kinsale morning · drive to Dingle</p><p class="dd">22 May (Thu)</p><p class="dc">Deck of Cards Houses · Fairy Trails · Charles Fort · Scilly Walk · Saint Francis Provisions lunch · Drive Kinsale → Dingle ~2.5 hrs</p><div class="tags"><span class="tag t-bl">Leave by 2 pm · arrive Dingle ~5 pm</span></div></div></div>
 
     <div class="sh"><span>🇮🇪 Dingle Peninsula · 22–24 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> The Plough B&amp;B · Confirmed #[encrypted]</span></div>
-    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">6</div><div class="db"><p class="dt">Dingle arrival &amp; town</p><p class="dd">22 May (Thu) evening</p><p class="dc">Murphy's Ice Cream · Dingle Oceanworld Aquarium · Gallarus Oratory</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">The Plough B&amp;B · Ventry, Dingle</span><span class="hno"> · Triple Room with Sea View · Breakfast incl · PIN: [encrypted]</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">7</div><div class="db"><p class="dt">Slea Head Drive</p><p class="dd">23 May (Fri)</p><p class="dc">Early start 9 am · Slea Head Drive · Dunmore Head · Lios Stone Circle &amp; Animal Feeding · Conor Pass · Kids Club at hotel evening</p><div class="tags"><span class="tag t-gr">Tara loves animal feeding · Kids Club half-term</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">6<br><span style="font-size:8px;font-weight:400;line-height:1">22 May</span></div><div class="db"><p class="dt">Dingle arrival &amp; town</p><p class="dd">22 May (Thu) evening</p><p class="dc">Murphy's Ice Cream · Dingle Oceanworld Aquarium · Gallarus Oratory</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">The Plough B&amp;B · Ventry, Dingle</span><span class="hno"> · Triple Room with Sea View · Breakfast incl · PIN: [encrypted]</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">7<br><span style="font-size:8px;font-weight:400;line-height:1">23 May</span></div><div class="db"><p class="dt">Slea Head Drive</p><p class="dd">23 May (Fri)</p><p class="dc">Early start 9 am · Slea Head Drive · Dunmore Head · Lios Stone Circle &amp; Animal Feeding · Conor Pass · Kids Club at hotel evening</p><div class="tags"><span class="tag t-gr">Tara loves animal feeding · Kids Club half-term</span></div></div></div>
 
     <div class="sh"><span>🇬🇧 Belfast · 24–26 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Belfast Titanic · #[encrypted]</span></div>
-    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">8</div><div class="db"><p class="dt">Cliffs of Moher en route · Belfast arrival</p><p class="dd">24 May (Sat)</p><p class="dc">Drive Dingle → Cliffs of Moher scenic stop · Moher Hill Farm (lambs in May!) · Bunratty Castle &amp; Folk Park · Belfast</p><div class="tags"><span class="tag t-bl">Start 8:30 am · ~4.5 hrs with stops</span><span class="tag t-am">Pack car snacks</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Belfast Titanic Quarter · 2A Queens Road</span><span class="hno"> · Family Quadruple · R360: [encrypted] · Paid [encrypted]</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">9</div><div class="db"><p class="dt">Belfast + Titanic</p><p class="dd">25 May (Sun)</p><p class="dc">Magpie Bakery · Titanic Belfast (2 min walk from hotel!) · Aunt Sandra's Candy Factory</p><div class="tags"><span class="tag t-am">Pre-book Titanic timed entry · titanicbelfast.com</span><span class="tag t-gr">Hotel is literally next door!</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">10</div><div class="db"><p class="dt">Causeway Coast · fly to Edinburgh</p><p class="dd">26 May (Mon)</p><p class="dc">Giant's Causeway · Carrick-a-Rede Rope Bridge (check Tara's comfort with heights) · Return car at Belfast City Airport · EZY326 to Edinburgh</p><div class="tags"><span class="tag t-bl">Bag drop closes 10:55 — arrive airport by 09:30</span><span class="tag t-ok">✅ EZY326 · 11:55 BFS → EDI 12:50 · Seats [encrypted]</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">8<br><span style="font-size:8px;font-weight:400;line-height:1">24 May</span></div><div class="db"><p class="dt">Cliffs of Moher en route · Belfast arrival</p><p class="dd">24 May (Sat)</p><p class="dc">Drive Dingle → Cliffs of Moher scenic stop · Moher Hill Farm (lambs in May!) · Bunratty Castle &amp; Folk Park · Belfast</p><div class="tags"><span class="tag t-bl">Start 8:30 am · ~4.5 hrs with stops</span><span class="tag t-am">Pack car snacks</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Belfast Titanic Quarter · 2A Queens Road</span><span class="hno"> · Family Quadruple · R360: [encrypted] · Paid [encrypted]</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">9<br><span style="font-size:8px;font-weight:400;line-height:1">25 May</span></div><div class="db"><p class="dt">Belfast + Titanic</p><p class="dd">25 May (Sun)</p><p class="dc">Magpie Bakery · Titanic Belfast (2 min walk from hotel!) · Aunt Sandra's Candy Factory</p><div class="tags"><span class="tag t-am">Pre-book Titanic timed entry · titanicbelfast.com</span><span class="tag t-gr">Hotel is literally next door!</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">10<br><span style="font-size:8px;font-weight:400;line-height:1">26 May</span></div><div class="db"><p class="dt">Causeway Coast · fly to Edinburgh</p><p class="dd">26 May (Mon)</p><p class="dc">Giant's Causeway · Carrick-a-Rede Rope Bridge (check Tara's comfort with heights) · Return car at Belfast City Airport · EZY326 to Edinburgh</p><div class="tags"><span class="tag t-bl">Bag drop closes 10:55 — arrive airport by 09:30</span><span class="tag t-ok">✅ EZY326 · 11:55 BFS → EDI 12:50 · Seats [encrypted]</span></div></div></div>
 
     <div class="sh"><span>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Edinburgh · 26–27 May · 1 night</span><span class="shb pi"><span class="okdot"></span> Novotel Edinburgh Centre · QFVLGXVN</span></div>
-    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f">11</div><div class="db"><p class="dt">Full Edinburgh day — Harry Potter trail</p><p class="dd">27 May (Tue)</p><p class="dc">Edinburgh Castle · Royal Mile · Victoria Street (Diagon Alley!) · Greyfriars Kirk + Bobby · Elephant House Café 10 am · Camera Obscura · Holyrood Park · Grassmarket dinner · collect bags · board sleeper 23:40</p><div class="tags"><span class="tag t-vi">Full HP trail in one day</span><span class="tag t-ok">✅ Board Caledonian Sleeper 23:40 — full evening in Edinburgh!</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Novotel Edinburgh Centre · 80 Lauriston Place</span><span class="hno"> · Classic Family Room · Paid [encrypted] · Non-refundable · Check-out noon</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f">11<br><span style="font-size:8px;font-weight:400;line-height:1">27 May</span></div><div class="db"><p class="dt">Full Edinburgh day — Harry Potter trail</p><p class="dd">27 May (Tue)</p><p class="dc">Edinburgh Castle · Royal Mile · Victoria Street (Diagon Alley!) · Greyfriars Kirk + Bobby · Elephant House Café 10 am · Camera Obscura · Holyrood Park · Grassmarket dinner · collect bags · board sleeper 23:40</p><div class="tags"><span class="tag t-vi">Full HP trail in one day</span><span class="tag t-ok">✅ Board Caledonian Sleeper 23:40 — full evening in Edinburgh!</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Novotel Edinburgh Centre · 80 Lauriston Place</span><span class="hno"> · Classic Family Room · Paid [encrypted] · Non-refundable · Check-out noon</span></div></div></div>
 
     <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🌙 Caledonian Sleeper · Edinburgh → London Euston · Night 27–28 May</span><span class="shb ok"><span class="okdot"></span> Confirmed · [encrypted]</span></div>
-    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12">12</div><div class="db slp"><p class="dt" style="color:var(--orange)">Caledonian Sleeper overnight</p><p class="dd" style="color:#7c2d12">Departs 23:40 Edinburgh · arrives London Euston ~07:00 · Coach D Rooms 4 &amp; 5</p><p class="dc" style="color:#7c2d12">Club Family 2 Rooms · Room 5 (Yuvan &amp; Ramyaa) + Room 4 (Sana &amp; Tara) · en-suite shower · Club Car lounge · wake up arriving London · Paid [encrypted]</p><div class="tags"><span class="tag t-ok">✅ Ref: [encrypted]</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12">12<br><span style="font-size:8px;font-weight:400;line-height:1">27 May</span></div><div class="db slp"><p class="dt" style="color:var(--orange)">Caledonian Sleeper overnight</p><p class="dd" style="color:#7c2d12">Departs 23:40 Edinburgh · arrives London Euston ~07:00 · Coach D Rooms 4 &amp; 5</p><p class="dc" style="color:#7c2d12">Club Family 2 Rooms · Room 5 (Yuvan &amp; Ramyaa) + Room 4 (Sana &amp; Tara) · en-suite shower · Club Car lounge · wake up arriving London · Paid [encrypted]</p><div class="tags"><span class="tag t-ok">✅ Ref: [encrypted]</span></div></div></div>
 
     <div class="sh"><span>🇬🇧 London · 28 May – 1 Jun · 5 days</span><span class="shb ok">Brother's place · E18 2HJ · Free!</span></div>
-    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">13</div><div class="db"><p class="dt">Covent Garden · Postal Museum · Paddington Experience</p><p class="dd">28 May (Wed) · arrive Euston ~07:00</p><p class="dc">Euston → Central line to E18 · Covent Garden Piazza · Neal's Yard · Seven Dials Market (lunch) · Postal Museum + Mail Rail, Farringdon · Paddington Bear Experience, County Hall</p><div class="tags"><span class="tag t-am">Pre-book: Postal Museum Mail Rail · Paddington Experience</span></div><div class="hr"><span style="font-size:13px">🏠</span><span class="hn">Brother's place · E18 2HJ, High View Road, South Woodford</span><span class="hno"> · Central line · both girls travel free · Heathrow direct 55 min</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">14</div><div class="db"><p class="dt">Harry Potter Studio Tour + Natural History Museum</p><p class="dd">29 May (Thu)</p><p class="dc">South Woodford → Stratford → Watford Jn (~50 min) · Warner Bros. Studio Tour 15:30 — Great Hall, Platform 9¾, Diagon Alley, Forbidden Forest · Digital Photo &amp; Video Package included · Natural History Museum on the way back (free!)</p><div class="tags"><span class="tag t-ok">✅ Ref [encrypted] · 15:30 entry · arrive by 15:10 · 4 tickets + photo package · show e-ticket for shuttle at Watford Jn</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">15</div><div class="db"><p class="dt">Mundo Pixar + Tower of London</p><p class="dd">30 May (Fri)</p><p class="dc">Central → Jubilee → Wembley Park · Mundo Pixar ~65 min · Jubilee → Tower Hill · St Katharine Docks lunch · Tower of London (Crown Jewels + Beefeater tour) · Tower Bridge walk (free)</p><div class="tags"><span class="tag t-sk">mundopixar.com · £76 family of 4</span><span class="tag t-am">Tower: hrp.org.uk · pre-book</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">16</div><div class="db"><p class="dt">Borough Market + Kew Gardens</p><p class="dd">31 May (Sat)</p><p class="dc">Borough Market morning (100+ stalls) · Central → District → Kew Gardens · Treetop Walkway · Climbers &amp; Creepers play zone · lily ponds · Japanese Garden</p><div class="tags"><span class="tag t-gr">kew.org · £6 child / £17 adult</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">17</div><div class="db rest"><p class="dt" style="color:var(--forest)">Rest day · fly home</p><p class="dd" style="color:var(--forest-m)">1 Jun (Sun) — departure</p><p class="dc" style="color:var(--forest)">Slow morning · pack · South Woodford → Heathrow T5 · Central line direct ~55 min · BA0035 departs 12:40 · arrives Chennai 03:30 +1</p></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">13<br><span style="font-size:8px;font-weight:400;line-height:1">28 May</span></div><div class="db"><p class="dt">Covent Garden · Postal Museum · Paddington Experience</p><p class="dd">28 May (Wed) · arrive Euston ~07:00</p><p class="dc">Euston → Central line to E18 · Covent Garden Piazza · Neal's Yard · Seven Dials Market (lunch) · Postal Museum + Mail Rail, Farringdon · Paddington Bear Experience, County Hall</p><div class="tags"><span class="tag t-am">Pre-book: Postal Museum Mail Rail · Paddington Experience</span></div><div class="hr"><span style="font-size:13px">🏠</span><span class="hn">Brother's place · E18 2HJ, High View Road, South Woodford</span><span class="hno"> · Central line · both girls travel free · Heathrow direct 55 min</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">14<br><span style="font-size:8px;font-weight:400;line-height:1">29 May</span></div><div class="db"><p class="dt">Harry Potter Studio Tour + Natural History Museum</p><p class="dd">29 May (Thu)</p><p class="dc">South Woodford → Stratford → Watford Jn (~50 min) · Warner Bros. Studio Tour 15:30 — Great Hall, Platform 9¾, Diagon Alley, Forbidden Forest · Digital Photo &amp; Video Package included · Natural History Museum on the way back (free!)</p><div class="tags"><span class="tag t-ok">✅ Ref [encrypted] · 15:30 entry · arrive by 15:10 · 4 tickets + photo package · show e-ticket for shuttle at Watford Jn</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">15<br><span style="font-size:8px;font-weight:400;line-height:1">30 May</span></div><div class="db"><p class="dt">Mundo Pixar + Tower of London</p><p class="dd">30 May (Fri)</p><p class="dc">Central → Jubilee → Wembley Park · Mundo Pixar ~65 min · Jubilee → Tower Hill · St Katharine Docks lunch · Tower of London (Crown Jewels + Beefeater tour) · Tower Bridge walk (free)</p><div class="tags"><span class="tag t-sk">mundopixar.com · £76 family of 4</span><span class="tag t-am">Tower: hrp.org.uk · pre-book</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">16<br><span style="font-size:8px;font-weight:400;line-height:1">31 May</span></div><div class="db"><p class="dt">Borough Market + Kew Gardens</p><p class="dd">31 May (Sat)</p><p class="dc">Borough Market morning (100+ stalls) · Central → District → Kew Gardens · Treetop Walkway · Climbers &amp; Creepers play zone · lily ponds · Japanese Garden</p><div class="tags"><span class="tag t-gr">kew.org · £6 child / £17 adult</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">17<br><span style="font-size:8px;font-weight:400;line-height:1">1 Jun</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Rest day · fly home</p><p class="dd" style="color:var(--forest-m)">1 Jun (Sun) — departure</p><p class="dc" style="color:var(--forest)">Slow morning · pack · South Woodford → Heathrow T5 · Central line direct ~55 min · BA0035 departs 12:40 · arrives Chennai 03:30 +1</p></div></div>
   </div>
 
   <!-- HOTELS -->
@@ -475,7 +476,7 @@ tr:last-child td{border-bottom:none}
         <div class="hc-name" style="color:var(--forest)">Brother's place · E18 2HJ</div>
         <div class="hc-addr" style="color:var(--forest-m)">High View Road, South Woodford</div>
         <div class="hc-sub" style="color:var(--forest-m)">Central line · Heathrow direct 55 min</div>
-        <div class="perks"><span class="pk gr">₹0 hotel cost!</span><span class="pk gr">Both girls tube free</span><span class="pk gr">Heathrow direct</span></div>
+        <div class="perks"><span class="pk gr">Both girls tube free</span><span class="pk gr">Heathrow direct</span></div>
       </div>
     </div>
     <div class="alert a-am">Cork parking: no on-site parking at Premier Inn. Q-Park City Hall ~7 min walk at ~€45/24 hrs. Over 2 nights ≈ €90 (~₹9,500).</div>
@@ -485,13 +486,15 @@ tr:last-child td{border-bottom:none}
   <div id="ex" class="sec">
     <div class="alert a-bl">HP Studio ✅ confirmed · HP trail spans 3 countries: Edinburgh → Watford · 6 more experiences to book in good time</div>
     <div class="egrid">
-      <div class="ec gr"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--forest)">01</div><div class="ec-name">Viking Splash Tour</div><div class="ec-day">Day 2 · 19 May · Dublin</div><div class="ec-desc">Amphibious DUKW vehicle · Viking helmets · splashes into Grand Canal · ~75 min</div><div class="ec-book" style="color:var(--forest)">vikingsplash.com · morning slot</div></div>
-      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--violet)">02</div><div class="ec-name">Elephant House Café</div><div class="ec-day">Day 11 · 27 May · Edinburgh</div><div class="ec-desc">JK Rowling's writing desk · Writers' Room · George Heriot's School view · HP trail start</div><div class="ec-book" style="color:var(--violet)">elephanthouse.biz · book table for 4 · opens 10 am</div></div>
-      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">03</div><div class="ec-name">Paddington Bear Experience</div><div class="ec-day">Day 13 · 28 May · County Hall, London</div><div class="ec-desc">Multi-room immersive · live actors · full-size train carriage · ~70 min</div><div class="ec-book" style="color:var(--orange)">paddingtonbearexperience.com · timed entry</div></div>
-      <div class="ec gy"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--muted)">04</div><div class="ec-name">Postal Museum + Mail Rail</div><div class="ec-day">Day 13 · 28 May · Farringdon, London</div><div class="ec-desc">Real underground mail train · vacuum tubes · interactive exhibits · 4.6★ · perfect for ages 6 &amp; 8</div><div class="ec-book" style="color:var(--muted)">postalmuseum.org · pre-book Mail Rail slot</div></div>
-      <div class="ec vi"><div class="ec-s" style="color:var(--ok)">✅ Confirmed · Ref [encrypted]</div><div class="ec-n" style="color:var(--violet)">05</div><div class="ec-name">Harry Potter Studio Tour</div><div class="ec-day">Day 14 · 29 May · Watford · 15:30 entry</div><div class="ec-desc">Great Hall · Platform 9¾ · Diagon Alley · Forbidden Forest · 2 × Adult Family + 2 × Child Family · Digital Photo &amp; Video Package · Arrive 15:10</div><div class="ec-book" style="color:var(--ok)">Show e-ticket to board shuttle at Watford Junction</div></div>
-      <div class="ec sk"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--sky-m)">06</div><div class="ec-name">Mundo Pixar Experience</div><div class="ec-day">Day 15 · 30 May · Wembley Park, London</div><div class="ec-desc">World's largest Pixar exhibition · 14 universes: Toy Story, Inside Out, Coco, Up · ~65 min</div><div class="ec-book" style="color:var(--sky-m)">mundopixar.com · £76 family of 4</div></div>
-      <div class="ec bl"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--navy)">07</div><div class="ec-name">Titanic Belfast</div><div class="ec-day">Day 9 · 25 May · Belfast</div><div class="ec-desc">World's largest Titanic experience · 2 min walk from Premier Inn · interactive galleries · shipyard ride</div><div class="ec-book" style="color:var(--navy)">titanicbelfast.com · pre-book timed entry</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">01</div><div class="ec-name">Guinness Storehouse + Gravity Bar</div><div class="ec-day">Day 2 · 19 May · Dublin</div><div class="ec-desc">Ireland's most visited attraction · 7 floors of Guinness history · Gravity Bar panoramic views over Dublin · book ahead for May</div><div class="ec-book" style="color:var(--orange)">guinness-storehouse.com · pre-book timed entry · skip the queue</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--forest)">02</div><div class="ec-name">Viking Splash Tour</div><div class="ec-day">Day 2 · 19 May · Dublin</div><div class="ec-desc">Amphibious DUKW vehicle · Viking helmets · splashes into Grand Canal · ~75 min · book morning slot</div><div class="ec-book" style="color:var(--forest)">vikingsplash.com · morning slot</div></div>
+      <div class="ec bl"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--navy)">03</div><div class="ec-name">Titanic Belfast</div><div class="ec-day">Day 8 · 24 May · Belfast</div><div class="ec-desc">World's largest Titanic experience · 2 min walk from Premier Inn · interactive galleries · shipyard ride</div><div class="ec-book" style="color:var(--navy)">titanicbelfast.com · pre-book timed entry</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--forest)">04</div><div class="ec-name">Giant's Causeway</div><div class="ec-day">Day 9 · 25 May · County Antrim</div><div class="ec-desc">UNESCO World Heritage Site · 40,000 hexagonal basalt columns · Coastal path · Carrick-a-Rede Rope Bridge nearby · stunning for Sana &amp; Tara</div><div class="ec-book" style="color:var(--forest)">nationaltrust.org.uk · pre-book timed entry · coastal path is free</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--violet)">05</div><div class="ec-name">Elephant House Café</div><div class="ec-day">Day 11 · 27 May · Edinburgh</div><div class="ec-desc">JK Rowling's writing desk · Writers' Room · George Heriot's School view · HP trail start</div><div class="ec-book" style="color:var(--violet)">elephanthouse.biz · book table for 4 · opens 10 am</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">06</div><div class="ec-name">Paddington Bear Experience</div><div class="ec-day">Day 13 · 28 May · County Hall, London</div><div class="ec-desc">Multi-room immersive · live actors · full-size train carriage · ~70 min</div><div class="ec-book" style="color:var(--orange)">paddingtonbearexperience.com · timed entry</div></div>
+      <div class="ec gy"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--muted)">07</div><div class="ec-name">Postal Museum + Mail Rail</div><div class="ec-day">Day 13 · 28 May · Farringdon, London</div><div class="ec-desc">Real underground mail train · vacuum tubes · interactive exhibits · 4.6★ · perfect for ages 6 &amp; 8</div><div class="ec-book" style="color:var(--muted)">postalmuseum.org · pre-book Mail Rail slot</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--ok)">✅ Confirmed · Ref [encrypted]</div><div class="ec-n" style="color:var(--violet)">08</div><div class="ec-name">Harry Potter Studio Tour</div><div class="ec-day">Day 14 · 29 May · Watford · 15:30 entry</div><div class="ec-desc">Great Hall · Platform 9¾ · Diagon Alley · Forbidden Forest · 2 × Adult Family + 2 × Child Family · Digital Photo &amp; Video Package · Arrive 15:10</div><div class="ec-book" style="color:var(--ok)">Show e-ticket to board shuttle at Watford Junction</div></div>
+      <div class="ec sk"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--sky-m)">09</div><div class="ec-name">Mundo Pixar Experience</div><div class="ec-day">Day 15 · 30 May · Wembley Park, London</div><div class="ec-desc">World's largest Pixar exhibition · 14 universes: Toy Story, Inside Out, Coco, Up · ~65 min</div><div class="ec-book" style="color:var(--sky-m)">mundopixar.com · £76 family of 4</div></div>
     </div>
   </div>
 
@@ -614,7 +617,122 @@ tr:last-child td{border-bottom:none}
     <div class="alert a-am">Each child can also check 2 extra items free (pushchair, car seat, travel cot). LHR connection is 2h40 at Terminal 5 — no terminal change needed.</div>
   </div>
 
-  <div class="footer">
+  <!-- CAR -->
+  <div id="ca" class="sec">
+    <div class="alert a-bl">🚗 Car hire: Dublin Airport (18 May) → Belfast City Airport (26 May) · 8 days · No car in Edinburgh or London · Still to book!</div>
+
+    <!-- Summary cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:1.25rem">
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--navy)">~1,200</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Total km</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--forest)">8</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Hire days</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--amber)">~80L</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Est. fuel</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--rose-m)">3</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Refuel stops</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--violet)">~€140</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Fuel cost</div>
+      </div>
+      <div style="background:var(--ok-l);border:.5px solid var(--ok-b);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--ok)">Left</div>
+        <div style="font-size:10px;color:var(--ok);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Drive side</div>
+      </div>
+    </div>
+
+    <!-- Day by day breakdown -->
+    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border)">Day-by-day driving</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>Route</th>
+          <th style="text-align:right">km</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 1</td><td>18 May</td><td>Dublin Airport → Premier Inn Temple Bar</td><td style="text-align:right;font-weight:600;color:var(--navy)">12</td><td>Straight into city · 20 min</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 2</td><td>19 May</td><td>Parked in Dublin city</td><td style="text-align:right;color:var(--muted)">0</td><td>Walk everywhere · park at hotel</td></tr>
+        <tr style="background:var(--amber-l)"><td style="font-weight:600;color:var(--ink)">Day 3</td><td>20 May</td><td>Dublin → Howth → Kinsale</td><td style="text-align:right;font-weight:600;color:var(--navy)">326</td><td>⛽ Refuel before Kinsale · longest day</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 4</td><td>21 May</td><td>Kinsale → Cork city → parked</td><td style="text-align:right;font-weight:600;color:var(--navy)">25</td><td>Q-Park City Hall ~€45/24hrs · no hotel parking</td></tr>
+        <tr style="background:var(--amber-l)"><td style="font-weight:600;color:var(--ink)">Day 5</td><td>22 May</td><td>Kinsale → Dingle (Ventry)</td><td style="text-align:right;font-weight:600;color:var(--navy)">165</td><td>⛽ Refuel at Tralee or Dingle · arrive ~17:00</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 6</td><td>22 May</td><td>Local Dingle town</td><td style="text-align:right;font-weight:600;color:var(--navy)">10</td><td>Oceanworld, Gallarus, Kingdom Falconry</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 7</td><td>23 May</td><td>Slea Head Drive loop from Ventry</td><td style="text-align:right;font-weight:600;color:var(--navy)">55</td><td>Dún Chaoin · Dunmore Head · Conor Pass loop</td></tr>
+        <tr style="background:var(--amber-l)"><td style="font-weight:600;color:var(--ink)">Day 8</td><td>24 May</td><td>Dingle → Cliffs of Moher → Bunratty → Belfast</td><td style="text-align:right;font-weight:600;color:var(--navy)">395</td><td>⛽ Refuel after Bunratty · start 8:30 am · longest drive</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 9</td><td>25 May</td><td>Belfast → Giant's Causeway → Carrick-a-Rede → Belfast</td><td style="text-align:right;font-weight:600;color:var(--navy)">200</td><td>Full day coastal loop · stunning drive</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 10</td><td>26 May</td><td>Premier Inn Belfast → Belfast City Airport</td><td style="text-align:right;font-weight:600;color:var(--navy)">8</td><td>Drop car · check in for EZY326 · bag drop closes 10:55</td></tr>
+        <tr style="background:var(--faint);font-weight:600"><td colspan="3" style="color:var(--ink);font-weight:700">Total</td><td style="text-align:right;color:var(--navy);font-weight:700">~1,196 km</td><td style="color:var(--muted)">≈ 1,200 km</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Fuel plan -->
+    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border)">⛽ Fuel plan</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem">
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--ink);margin-bottom:8px">Fuel assumptions (diesel estate)</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.9">
+          Consumption: ~6.5L/100km<br>
+          Total fuel: ~80 litres<br>
+          Irish diesel price: ~€1.75/L<br>
+          Estimated total cost: <strong style="color:var(--ink)">~€140 (~₹14,800)</strong>
+        </div>
+      </div>
+      <div style="background:var(--amber-l);border:.5px solid #fde68a;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:8px">⛽ Recommended refuel stops</div>
+        <div style="font-size:12px;color:var(--amber);line-height:1.9">
+          <strong>Stop 1:</strong> Before/after Kinsale (Day 3) · 326 km leg<br>
+          <strong>Stop 2:</strong> Tralee or Dingle town (Day 5) · top up<br>
+          <strong>Stop 3:</strong> After Bunratty heading north (Day 8) · 395 km leg
+        </div>
+      </div>
+      <div style="background:var(--navy-l);border:.5px solid #b5d4f4;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px">🚗 Car hire checklist</div>
+        <div style="font-size:12px;color:var(--navy);line-height:1.9">
+          Pick up: Dublin Airport · 18 May<br>
+          Drop off: Belfast City Airport · 26 May<br>
+          Type: Diesel estate or MPV (family of 4 + luggage)<br>
+          Insurance: Full CDW + no-excess cover<br>
+          Cross-border: Ireland → Northern Ireland ✓ (confirm with hire co)<br>
+          Book via: rentalcars.com or autoeurope
+        </div>
+      </div>
+      <div style="background:var(--forest-l);border:.5px solid var(--forest-m);border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:8px">🇮🇪 Driving in Ireland tips</div>
+        <div style="font-size:12px;color:var(--forest);line-height:1.9">
+          Drive on the <strong>LEFT</strong><br>
+          Speed limits in km/h (not mph)<br>
+          Motorway max: 120 km/h · Regional roads: 80 km/h<br>
+          Tolls on M50 (Dublin) — pay online same day<br>
+          N/R roads can be very narrow — take it slow<br>
+          Free parking widely available outside cities
+        </div>
+      </div>
+    </div>
+
+    <!-- Parking notes -->
+    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border)">🅿️ Parking notes by city</div>
+    <div class="bklist">
+      <div class="bk"><div class="bdot" style="background:var(--navy-m)"></div><div><div class="bt">Dublin — Premier Inn Temple Bar</div><div class="bd">No hotel parking · nearest: Q-Park Drury Street (~5 min walk) · ~€25–30/24hrs · or Setanta Centre car park · consider parking at Howth and taking DART into city on Day 2</div></div></div>
+      <div class="bk am"><div class="bdot" style="background:var(--amber-m)"></div><div><div class="bt">Cork — Premier Inn Cork City Centre</div><div class="bd">No hotel parking · Q-Park City Hall ~7 min walk · ~€45/24hrs · over 2 nights ≈ €90 · factor this into budget</div></div></div>
+      <div class="bk"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Dingle — The Plough B&amp;B, Ventry</div><div class="bd">Free private parking on site ✅ · no reservation needed · easiest parking of the whole trip</div></div></div>
+      <div class="bk"><div class="bdot" style="background:var(--violet-m)"></div><div><div class="bt">Belfast — Premier Inn Titanic Quarter</div><div class="bd">On-site parking available · check with hotel on arrival · Titanic Belfast is 2 min walk so no moving the car needed for Day 8 evening</div></div></div>
+    </div>
+
+    <div class="alert a-am">⚠️ Important: Confirm cross-border Ireland → Northern Ireland cover with your hire company when booking. Most major companies allow it but it must be explicitly confirmed — some require an extra fee or a specific policy.</div>
+  </div>
+
+
     <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
     <a class="fb" href="https://www.rentalcars.com" target="_blank">🚗 Book Car Hire</a>
     <a class="fb ok" href="https://www.britishairways.com/travel/managebooking" target="_blank">✅ Manage BA [encrypted]</a>
