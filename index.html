@@ -6,11 +6,11 @@
 <title>Ireland &middot; Scotland &middot; London 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-
-<!-- Gate styles -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LfskdwqAAAAAKFybSmhi2Zf3hAwCKuvxHNSA-NE&onload=onRecaptchaLoad" async defer></script>
 <style>
-#gate{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);display:flex;align-items:center;justify-content:center;z-index:99999}
-.g-box{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:2.5rem 2rem;width:calc(100% - 2rem);max-width:380px;text-align:center;overflow:hidden}
+/* GATE */
+#gate{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s}
+.g-box{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:2.5rem 2rem;width:calc(100% - 2rem);max-width:380px;text-align:center;box-sizing:border-box}
 .g-flag{height:4px;background:linear-gradient(90deg,#169b62 0 33%,#005eb8 33% 44%,#fff 44% 55%,#003078 55% 66%,#cf142b 66% 72%,#fff 72% 78%,#cf142b 78% 84%,#003078 84% 100%);margin-bottom:2rem;border-radius:2px}
 .g-dest{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
 .g-badge{font-size:12px;border-radius:6px;padding:3px 10px}
@@ -19,20 +19,33 @@
 .g-badge.uk{background:rgba(207,20,43,.2);border:.5px solid rgba(207,20,43,.4);color:#fca5a5}
 .g-lock{font-size:32px;margin-bottom:1rem}
 .g-title{font-family:Georgia,serif;font-size:22px;font-weight:300;color:white;margin-bottom:4px}
-.g-sub{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:2rem}
+.g-sub{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:1.5rem}
+.g-status{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:1.5rem;min-height:16px;letter-spacing:.03em}
 .g-label{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:left}
 .g-inp-wrap{position:relative;margin-bottom:1.25rem}
-.g-inp{width:100%;max-width:100%;padding:12px 44px 12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:white;font-size:16px;font-family:inherit;letter-spacing:.2em;outline:none;transition:border-color .2s;box-sizing:border-box}
+.g-inp{width:100%;padding:12px 44px 12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:white;font-size:16px;font-family:inherit;letter-spacing:.2em;outline:none;transition:border-color .2s;box-sizing:border-box}
 .g-inp::placeholder{letter-spacing:.05em;color:rgba(255,255,255,.3);font-size:13px}
 .g-inp:focus{border-color:rgba(255,255,255,.5)}
+.g-inp:disabled{opacity:.4;cursor:not-allowed}
 .g-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:16px;padding:4px}
 .g-eye:hover{color:white}
 .g-btn{width:100%;padding:13px;border-radius:10px;border:none;background:linear-gradient(135deg,#2d8a55,#1a4731);color:white;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .2s}
-.g-btn:hover{opacity:.85}
+.g-btn:hover:not(:disabled){opacity:.85}
+.g-btn:disabled{opacity:.4;cursor:not-allowed}
 .g-err{color:#fca5a5;font-size:12px;margin-top:10px;min-height:18px}
+.g-shield{font-size:11px;color:rgba(255,255,255,.25);margin-top:1rem}
+.grecaptcha-badge{visibility:hidden}
+/* Passport card */
+.pp-card{background:#fff;border:.5px solid #e4e4e7;border-radius:10px;padding:14px;border-top:3px solid var(--pp-color)}
+.pp-name{font-size:13px;font-weight:600;color:#18181b;margin-bottom:2px}
+.pp-num{font-size:16px;font-weight:700;letter-spacing:.08em;color:#1e3a5f;margin-bottom:8px;font-family:monospace}
+.pp-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.pp-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#71717a}
+.pp-val{font-size:11px;color:#18181b;font-weight:500}
+.pp-exp{font-size:10px;padding:2px 7px;border-radius:5px;display:inline-block;margin-top:6px}
+.pp-exp.ok{background:#dcfce7;color:#166534;border:.5px solid #16a34a}
+.pp-exp.warn{background:#fef3c7;color:#92400e;border:.5px solid #d97706}
 </style>
-
-<!-- Dashboard styles (hidden until unlocked) -->
 <style id="dash-style" media="none">
 
 :root{
@@ -67,10 +80,34 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 .ht em{color:var(--forest-m);font-style:italic}
 .hs{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:1.75rem;letter-spacing:.02em}
 .travelers{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.75rem}
-.tv{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 10px 5px 5px}
+.tv{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 10px 5px 5px;cursor:pointer;transition:background .15s}
+.tv:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25)}
 .tv-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white;flex-shrink:0}
 .tv-n{font-size:11px;color:rgba(255,255,255,.85);font-weight:500}
 .tv-a{font-size:10px;color:rgba(255,255,255,.45)}
+/* Passport modal */
+#pp-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:99998;display:none;align-items:center;justify-content:center;padding:1rem}
+#pp-modal.open{display:flex}
+.pp-modal-box{background:#fff;border-radius:16px;padding:0;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:ppIn .2s ease}
+@keyframes ppIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.pp-modal-header{padding:16px 18px 14px;display:flex;align-items:center;gap:12px}
+.pp-modal-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:white;flex-shrink:0}
+.pp-modal-name{font-size:15px;font-weight:700;color:#18181b}
+.pp-modal-sub{font-size:11px;color:#71717a;margin-top:1px}
+.pp-modal-close{margin-left:auto;background:none;border:none;font-size:20px;cursor:pointer;color:#71717a;padding:4px;line-height:1}
+.pp-modal-close:hover{color:#18181b}
+.pp-modal-body{padding:0 18px 18px}
+.pp-num-box{background:#f4f4f5;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.pp-num-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#71717a}
+.pp-num-val{font-size:20px;font-weight:700;letter-spacing:.12em;color:#1e3a5f;font-family:monospace}
+.pp-rows{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pp-row{display:flex;flex-direction:column;gap:2px}
+.pp-row-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#71717a}
+.pp-row-val{font-size:12px;font-weight:600;color:#18181b}
+.pp-validity{margin-top:12px;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:600;text-align:center}
+.pp-validity.ok{background:#dcfce7;color:#166534;border:.5px solid #16a34a}
+.pp-validity.warn{background:#fef3c7;color:#92400e;border:.5px solid #d97706}
+.pp-locked{padding:20px;text-align:center;color:#71717a;font-size:13px}
 .stats{display:flex;gap:6px;flex-wrap:wrap}
 .st{background:rgba(255,255,255,.07);border:.5px solid rgba(255,255,255,.12);border-radius:var(--rs);padding:8px 13px;text-align:center;min-width:68px}
 .st-n{font-size:19px;font-weight:500;color:white;line-height:1}
@@ -242,7 +279,7 @@ tr:last-child td{border-bottom:none}
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
+<!-- GATE -->
 <div id="gate">
   <div class="g-box">
     <div class="g-flag"></div>
@@ -253,20 +290,24 @@ tr:last-child td{border-bottom:none}
     </div>
     <div class="g-lock">&#128274;</div>
     <div class="g-title">Family Trip 2026</div>
-    <p class="g-sub">18 May &ndash; 1 June 2026 &middot; Enter password to view</p>
+    <p class="g-sub">18 May &ndash; 1 June 2026</p>
+    <div class="g-status" id="g-status">Verifying&hellip;</div>
     <label class="g-label" for="g-pw">Password</label>
     <div class="g-inp-wrap">
-      <input class="g-inp" type="password" id="g-pw" placeholder="Enter password" autocomplete="off" autofocus>
+      <input class="g-inp" type="password" id="g-pw" placeholder="Enter password" autocomplete="off" disabled>
       <button class="g-eye" onclick="gToggle()">&#128065;</button>
     </div>
-    <button class="g-btn" onclick="gUnlock()">Unlock Dashboard &rarr;</button>
+    <button class="g-btn" id="g-btn" onclick="gUnlock()" disabled>Unlock Dashboard &rarr;</button>
     <div class="g-err" id="g-err"></div>
+    <div class="g-shield">&#128737; Protected by reCAPTCHA v3 + AES-256</div>
   </div>
 </div>
 
-<!-- DASHBOARD (hidden) -->
+<!-- DASHBOARD -->
 <div id="dashboard" style="display:none">
-<div class="hero">
+  
+
+  <div class="hero">
   <div class="flag-bar"></div>
   <div class="hi">
     <div class="ey">Family trip · Confirmed itinerary · 2026</div>
@@ -278,12 +319,24 @@ tr:last-child td{border-bottom:none}
       <span class="dbadge uk">🇬🇧 London</span>
     </div>
     <div class="ht">Ireland <em>&middot;</em> Scotland <em>&middot;</em> London</div>
-    <div class="hs">18 May – 1 June 2026 &nbsp;·&nbsp; 15 days &nbsp;·&nbsp; BA ref: YP9MAE</div>
+    <div class="hs">18 May – 1 June 2026 &nbsp;·&nbsp; 15 days &nbsp;·&nbsp; BA ref: [encrypted]</div>
     <div class="travelers">
-      <div class="tv"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">Lead passenger</div></div></div>
-      <div class="tv"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">Co-passenger</div></div></div>
-      <div class="tv"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">Age 8</div></div></div>
-      <div class="tv"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">Age 6</div></div></div>
+      <div class="tv" onclick="showPassport(0)"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">Tap for passport</div></div></div>
+      <div class="tv" onclick="showPassport(1)"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">Tap for passport</div></div></div>
+      <div class="tv" onclick="showPassport(2)"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">Tap for passport</div></div></div>
+      <div class="tv" onclick="showPassport(3)"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">Tap for passport</div></div></div>
+    </div>
+
+    <!-- Passport modal -->
+    <div id="pp-modal" onclick="if(event.target===this)closePP()">
+      <div class="pp-modal-box">
+        <div class="pp-modal-header" id="pp-modal-header">
+          <div class="pp-modal-av" id="pp-modal-av"></div>
+          <div><div class="pp-modal-name" id="pp-modal-name"></div><div class="pp-modal-sub">Republic of India · Passport</div></div>
+          <button class="pp-modal-close" onclick="closePP()">&#10005;</button>
+        </div>
+        <div class="pp-modal-body" id="pp-modal-body"></div>
+      </div>
     </div>
     <div class="stats">
       <div class="st"><div class="st-n">15</div><div class="st-l">Total days</div></div>
@@ -303,51 +356,51 @@ tr:last-child td{border-bottom:none}
     <button class="tb active" onclick="show('it',this)">All 15 days</button>
     <button class="tb" onclick="show('ht',this)">Hotels</button>
     <button class="tb" onclick="show('ex',this)">Experiences</button>
-    <button class="tb" onclick="show('bk',this)">Book now <span class="badge">2</span></button>
+    <button class="tb" onclick="show('bk',this)">Book now <span class="badge">1</span></button>
     <button class="tb" onclick="show('ki',this)">Kid tips</button>
     <button class="tb" onclick="show('fl',this)">Flights</button>
   </div>
 
   <!-- ALL 15 DAYS -->
   <div id="it" class="sec active">
-    <div class="alert a-ok">✈️ All flights · 5 hotels · Caledonian Sleeper · HP Studio confirmed &nbsp;·&nbsp; Dingle Skellig &amp; car hire are the last 2 items to sort</div>
+    <div class="alert a-ok">✈️ All flights · All hotels · Caledonian Sleeper · HP Studio confirmed &nbsp;·&nbsp; Car hire is the only remaining item</div>
     <div class="spine"><div class="sr">
       <div class="sp ie"><div class="dot"></div><div class="spn">Dublin</div><div class="spd">18–20 May</div><div class="sps">✅ booked</div></div>
       <div class="sp ie"><div class="dot"></div><div class="spn">Cork</div><div class="spd">20–22 May</div><div class="sps">✅ booked</div></div>
-      <div class="sp ie"><div class="dot"></div><div class="spn">Dingle</div><div class="spd">22–24 May</div><div class="sps">⚠️ book now</div></div>
+      <div class="sp ie"><div class="dot"></div><div class="spn">Dingle</div><div class="spd">22–24 May</div><div class="sps">✅ booked</div></div>
       <div class="sp uk"><div class="dot"></div><div class="spn">Belfast</div><div class="spd">24–26 May</div><div class="sps">✅ booked</div></div>
       <div class="sp sc"><div class="dot"></div><div class="spn">Edinburgh</div><div class="spd">26–27 May</div><div class="sps">✅ booked</div></div>
       <div class="sp sl"><div class="dot"></div><div class="spn">Sleeper</div><div class="spd">27 May night</div><div class="sps">✅ booked</div></div>
       <div class="sp lo"><div class="dot"></div><div class="spn">London</div><div class="spd">28 May–1 Jun</div><div class="sps">at brother's</div></div>
     </div></div>
 
-    <div class="sh"><span>🇮🇪 Dublin · 18–20 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Temple Bar · #5840.650.627</span></div>
+    <div class="sh"><span>🇮🇪 Dublin · 18–20 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Temple Bar · #[encrypted]</span></div>
     <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">1</div><div class="db"><p class="dt">Arrival evening</p><p class="dd">18 May (Sun) · Arrive Dublin ~16:20</p><p class="dc">BA0832 lands T2 · Pick up rental car · Check in · Bean Hive Coffee · St Stephen's Green · Grafton Street</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Temple Bar · 51 Stephen St Lower</span><span class="hno"> · Quadruple · Breakfast incl · PIN: 1015</span></div></div></div>
     <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">2</div><div class="db"><p class="dt">Dublin full day</p><p class="dd">19 May (Mon)</p><p class="dc">Viking Splash Tour morning · Trinity College + Book of Kells · Ha'penny Bridge · Guinness Storehouse + Gravity Bar · Murphy's Ice Cream</p><div class="tags"><span class="tag t-bl">Book Viking Splash — vikingsplash.com · morning slot</span></div></div></div>
     <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f">3</div><div class="db"><p class="dt">Culture + drive south via Howth</p><p class="dd">20 May (Tue)</p><p class="dc">Dublin Castle · EPIC Museum · Temple Bar · Howth Cliff Walk + Lighthouse · K2 Alpacas · Drive to Kinsale</p><div class="tags"><span class="tag t-bl">Leave Howth by 3 pm · arrive Kinsale ~6 pm</span></div></div></div>
 
-    <div class="sh"><span>🇮🇪 Kinsale / Cork · 20–22 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Cork · #5528.486.702</span></div>
+    <div class="sh"><span>🇮🇪 Kinsale / Cork · 20–22 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Cork · #[encrypted]</span></div>
     <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">4</div><div class="db"><p class="dt">Cork city day</p><p class="dd">21 May (Wed)</p><p class="dc">Cork Historic Doughnut Tour · Cork City Gaol · St Anne's Church Shandon · English Market</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Cork · 11 Morrison's Quay</span><span class="hno"> · Standard Quadruple · Breakfast incl · PIN: 3395 · Arrival ~12–13:00</span></div></div></div>
     <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">5</div><div class="db"><p class="dt">Kinsale morning · drive to Dingle</p><p class="dd">22 May (Thu)</p><p class="dc">Deck of Cards Houses · Fairy Trails · Charles Fort · Scilly Walk · Saint Francis Provisions lunch · Drive Kinsale → Dingle ~2.5 hrs</p><div class="tags"><span class="tag t-bl">Leave by 2 pm · arrive Dingle ~5 pm</span></div></div></div>
 
-    <div class="sh"><span>🇮🇪 Dingle Peninsula · 22–24 May · 2 nights</span><span class="shb warn">⚠️ Dingle Skellig — BOOK NOW</span></div>
-    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">6</div><div class="db"><p class="dt">Dingle arrival &amp; town</p><p class="dd">22 May (Thu) evening</p><p class="dc">Murphy's Ice Cream · Dingle Oceanworld Aquarium · Gallarus Oratory</p><div class="hr"><span class="pip warn">⚠️ Book</span><span class="hn">Dingle Skellig Hotel &amp; Peninsula Spa</span><span class="hno"> · dingleskellig.com · 17m pool + Kids Club · family rooms filling fast!</span></div></div></div>
+    <div class="sh"><span>🇮🇪 Dingle Peninsula · 22–24 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> The Plough B&amp;B · Confirmed #[encrypted]</span></div>
+    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">6</div><div class="db"><p class="dt">Dingle arrival &amp; town</p><p class="dd">22 May (Thu) evening</p><p class="dc">Murphy's Ice Cream · Dingle Oceanworld Aquarium · Gallarus Oratory</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">The Plough B&amp;B · Ventry, Dingle</span><span class="hno"> · Triple Room with Sea View · Breakfast incl · PIN: [encrypted]</span></div></div></div>
     <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e">7</div><div class="db"><p class="dt">Slea Head Drive</p><p class="dd">23 May (Fri)</p><p class="dc">Early start 9 am · Slea Head Drive · Dunmore Head · Lios Stone Circle &amp; Animal Feeding · Conor Pass · Kids Club at hotel evening</p><div class="tags"><span class="tag t-gr">Tara loves animal feeding · Kids Club half-term</span></div></div></div>
 
-    <div class="sh"><span>🇬🇧 Belfast · 24–26 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Belfast Titanic · #26031730526</span></div>
-    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">8</div><div class="db"><p class="dt">Cliffs of Moher en route · Belfast arrival</p><p class="dd">24 May (Sat)</p><p class="dc">Drive Dingle → Cliffs of Moher scenic stop · Moher Hill Farm (lambs in May!) · Bunratty Castle &amp; Folk Park · Belfast</p><div class="tags"><span class="tag t-bl">Start 8:30 am · ~4.5 hrs with stops</span><span class="tag t-am">Pack car snacks</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Belfast Titanic Quarter · 2A Queens Road</span><span class="hno"> · Family Quadruple · R360: 26031730526 · Paid ₹8,591 cash</span></div></div></div>
+    <div class="sh"><span>🇬🇧 Belfast · 24–26 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Belfast Titanic · #[encrypted]</span></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">8</div><div class="db"><p class="dt">Cliffs of Moher en route · Belfast arrival</p><p class="dd">24 May (Sat)</p><p class="dc">Drive Dingle → Cliffs of Moher scenic stop · Moher Hill Farm (lambs in May!) · Bunratty Castle &amp; Folk Park · Belfast</p><div class="tags"><span class="tag t-bl">Start 8:30 am · ~4.5 hrs with stops</span><span class="tag t-am">Pack car snacks</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Belfast Titanic Quarter · 2A Queens Road</span><span class="hno"> · Family Quadruple · R360: [encrypted] · Paid [encrypted]</span></div></div></div>
     <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">9</div><div class="db"><p class="dt">Belfast + Titanic</p><p class="dd">25 May (Sun)</p><p class="dc">Magpie Bakery · Titanic Belfast (2 min walk from hotel!) · Aunt Sandra's Candy Factory</p><div class="tags"><span class="tag t-am">Pre-book Titanic timed entry · titanicbelfast.com</span><span class="tag t-gr">Hotel is literally next door!</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">10</div><div class="db"><p class="dt">Causeway Coast · fly to Edinburgh</p><p class="dd">26 May (Mon)</p><p class="dc">Giant's Causeway · Carrick-a-Rede Rope Bridge (check Tara's comfort with heights) · Return car at Belfast City Airport · EZY326 to Edinburgh</p><div class="tags"><span class="tag t-bl">Bag drop closes 10:55 — arrive airport by 09:30</span><span class="tag t-ok">✅ EZY326 · 11:55 BFS → EDI 12:50 · Seats 16A–16D</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95">10</div><div class="db"><p class="dt">Causeway Coast · fly to Edinburgh</p><p class="dd">26 May (Mon)</p><p class="dc">Giant's Causeway · Carrick-a-Rede Rope Bridge (check Tara's comfort with heights) · Return car at Belfast City Airport · EZY326 to Edinburgh</p><div class="tags"><span class="tag t-bl">Bag drop closes 10:55 — arrive airport by 09:30</span><span class="tag t-ok">✅ EZY326 · 11:55 BFS → EDI 12:50 · Seats [encrypted]</span></div></div></div>
 
     <div class="sh"><span>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Edinburgh · 26–27 May · 1 night</span><span class="shb pi"><span class="okdot"></span> Novotel Edinburgh Centre · QFVLGXVN</span></div>
-    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f">11</div><div class="db"><p class="dt">Full Edinburgh day — Harry Potter trail</p><p class="dd">27 May (Tue)</p><p class="dc">Edinburgh Castle · Royal Mile · Victoria Street (Diagon Alley!) · Greyfriars Kirk + Bobby · Elephant House Café 10 am · Camera Obscura · Holyrood Park · Grassmarket dinner · collect bags · board sleeper 23:40</p><div class="tags"><span class="tag t-vi">Full HP trail in one day</span><span class="tag t-ok">✅ Board Caledonian Sleeper 23:40 — full evening in Edinburgh!</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Novotel Edinburgh Centre · 80 Lauriston Place</span><span class="hno"> · Classic Family Room · Paid €377.24 · Non-refundable · Check-out noon</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f">11</div><div class="db"><p class="dt">Full Edinburgh day — Harry Potter trail</p><p class="dd">27 May (Tue)</p><p class="dc">Edinburgh Castle · Royal Mile · Victoria Street (Diagon Alley!) · Greyfriars Kirk + Bobby · Elephant House Café 10 am · Camera Obscura · Holyrood Park · Grassmarket dinner · collect bags · board sleeper 23:40</p><div class="tags"><span class="tag t-vi">Full HP trail in one day</span><span class="tag t-ok">✅ Board Caledonian Sleeper 23:40 — full evening in Edinburgh!</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Novotel Edinburgh Centre · 80 Lauriston Place</span><span class="hno"> · Classic Family Room · Paid [encrypted] · Non-refundable · Check-out noon</span></div></div></div>
 
-    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🌙 Caledonian Sleeper · Edinburgh → London Euston · Night 27–28 May</span><span class="shb ok"><span class="okdot"></span> Confirmed · CSBJVTPGGW8</span></div>
-    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12">12</div><div class="db slp"><p class="dt" style="color:var(--orange)">Caledonian Sleeper overnight</p><p class="dd" style="color:#7c2d12">Departs 23:40 Edinburgh · arrives London Euston ~07:00 · Coach D Rooms 4 &amp; 5</p><p class="dc" style="color:#7c2d12">Club Family 2 Rooms · Room 5 (Yuvan &amp; Ramyaa) + Room 4 (Sana &amp; Tara) · en-suite shower · Club Car lounge · wake up arriving London · Paid £400</p><div class="tags"><span class="tag t-ok">✅ Ref: CSBJVTPGGW8 · NRS: PP762400 · Order: CSW006231461</span></div></div></div>
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🌙 Caledonian Sleeper · Edinburgh → London Euston · Night 27–28 May</span><span class="shb ok"><span class="okdot"></span> Confirmed · [encrypted]</span></div>
+    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12">12</div><div class="db slp"><p class="dt" style="color:var(--orange)">Caledonian Sleeper overnight</p><p class="dd" style="color:#7c2d12">Departs 23:40 Edinburgh · arrives London Euston ~07:00 · Coach D Rooms 4 &amp; 5</p><p class="dc" style="color:#7c2d12">Club Family 2 Rooms · Room 5 (Yuvan &amp; Ramyaa) + Room 4 (Sana &amp; Tara) · en-suite shower · Club Car lounge · wake up arriving London · Paid [encrypted]</p><div class="tags"><span class="tag t-ok">✅ Ref: [encrypted]</span></div></div></div>
 
     <div class="sh"><span>🇬🇧 London · 28 May – 1 Jun · 5 days</span><span class="shb ok">Brother's place · E18 2HJ · Free!</span></div>
     <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">13</div><div class="db"><p class="dt">Covent Garden · Postal Museum · Paddington Experience</p><p class="dd">28 May (Wed) · arrive Euston ~07:00</p><p class="dc">Euston → Central line to E18 · Covent Garden Piazza · Neal's Yard · Seven Dials Market (lunch) · Postal Museum + Mail Rail, Farringdon · Paddington Bear Experience, County Hall</p><div class="tags"><span class="tag t-am">Pre-book: Postal Museum Mail Rail · Paddington Experience</span></div><div class="hr"><span style="font-size:13px">🏠</span><span class="hn">Brother's place · E18 2HJ, High View Road, South Woodford</span><span class="hno"> · Central line · both girls travel free · Heathrow direct 55 min</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">14</div><div class="db"><p class="dt">Harry Potter Studio Tour + Natural History Museum</p><p class="dd">29 May (Thu)</p><p class="dc">South Woodford → Stratford → Watford Jn (~50 min) · Warner Bros. Studio Tour 15:30 — Great Hall, Platform 9¾, Diagon Alley, Forbidden Forest · Digital Photo &amp; Video Package included · Natural History Museum on the way back (free!)</p><div class="tags"><span class="tag t-ok">✅ Ref 7206841 · 15:30 entry · arrive by 15:10 · 4 tickets + photo package · show e-ticket for shuttle at Watford Jn</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">14</div><div class="db"><p class="dt">Harry Potter Studio Tour + Natural History Museum</p><p class="dd">29 May (Thu)</p><p class="dc">South Woodford → Stratford → Watford Jn (~50 min) · Warner Bros. Studio Tour 15:30 — Great Hall, Platform 9¾, Diagon Alley, Forbidden Forest · Digital Photo &amp; Video Package included · Natural History Museum on the way back (free!)</p><div class="tags"><span class="tag t-ok">✅ Ref [encrypted] · 15:30 entry · arrive by 15:10 · 4 tickets + photo package · show e-ticket for shuttle at Watford Jn</span></div></div></div>
     <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">15</div><div class="db"><p class="dt">Mundo Pixar + Tower of London</p><p class="dd">30 May (Fri)</p><p class="dc">Central → Jubilee → Wembley Park · Mundo Pixar ~65 min · Jubilee → Tower Hill · St Katharine Docks lunch · Tower of London (Crown Jewels + Beefeater tour) · Tower Bridge walk (free)</p><div class="tags"><span class="tag t-sk">mundopixar.com · £76 family of 4</span><span class="tag t-am">Tower: hrp.org.uk · pre-book</span></div></div></div>
     <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a">16</div><div class="db"><p class="dt">Borough Market + Kew Gardens</p><p class="dd">31 May (Sat)</p><p class="dc">Borough Market morning (100+ stalls) · Central → District → Kew Gardens · Treetop Walkway · Climbers &amp; Creepers play zone · lily ponds · Japanese Garden</p><div class="tags"><span class="tag t-gr">kew.org · £6 child / £17 adult</span></div></div></div>
     <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731">17</div><div class="db rest"><p class="dt" style="color:var(--forest)">Rest day · fly home</p><p class="dd" style="color:var(--forest-m)">1 Jun (Sun) — departure</p><p class="dc" style="color:var(--forest)">Slow morning · pack · South Woodford → Heathrow T5 · Central line direct ~55 min · BA0035 departs 12:40 · arrives Chennai 03:30 +1</p></div></div>
@@ -355,11 +408,11 @@ tr:last-child td{border-bottom:none}
 
   <!-- HOTELS -->
   <div id="ht" class="sec">
-    <div class="alert a-ok">5 hotels + Caledonian Sleeper confirmed · London at brother's (free) · Dingle Skellig still to book</div>
+    <div class="alert a-ok">All hotels + Caledonian Sleeper confirmed · London at brother's place</div>
     <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--ok)">6 of 7 confirmed</span></div>
-      <div class="prog"><div class="prog-f" style="width:86%;background:var(--ok-b)"></div></div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">Dingle Skellig Hotel &amp; Peninsula Spa (22–24 May) remaining</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--ok)">7 of 7 confirmed</span></div>
+      <div class="prog"><div class="prog-f" style="width:100%;background:var(--ok-b)"></div></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">All accommodation confirmed ✅</div>
     </div>
     <div class="hgrid">
       <div class="hc ok">
@@ -368,7 +421,7 @@ tr:last-child td{border-bottom:none}
         <div class="hc-name">Premier Inn Dublin City Centre (Temple Bar)</div>
         <div class="hc-addr">51 Stephen Street Lower, D02 N7Y3</div>
         <div class="hc-sub">Quadruple Room · Breakfast included</div>
-        <div class="hc-ref">Conf: 5840.650.627 · PIN: 1015</div>
+        <div class="hc-ref">Conf: [encrypted] · PIN: [encrypted]</div>
         <div class="perks"><span class="pk ok">Breakfast incl</span><span class="pk">Grafton St 2 min</span><span class="pk">Temple Bar doorstep</span><span class="pk">Free cancel until 16 May</span></div>
       </div>
       <div class="hc ok">
@@ -377,16 +430,17 @@ tr:last-child td{border-bottom:none}
         <div class="hc-name">Premier Inn Cork City Centre</div>
         <div class="hc-addr">11 Morrison's Quay, T12 PF78 Cork</div>
         <div class="hc-sub">Standard Quadruple · Breakfast included</div>
-        <div class="hc-ref">Conf: 5528.486.702 · PIN: 3395</div>
+        <div class="hc-ref">Conf: [encrypted] · PIN: [encrypted]</div>
         <div class="perks"><span class="pk ok">Breakfast incl</span><span class="pk">River Lee waterfront</span><span class="pk am">No parking: Q-Park ~€45/night</span><span class="pk">Free cancel until 18 May</span></div>
       </div>
-      <div class="hc warn">
-        <div class="hc-s warn">⚠️ BOOK NOW — May half-term fills fast!</div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
         <div class="hc-city">Dingle · 22–24 May · 2 nights</div>
-        <div class="hc-name">Dingle Skellig Hotel &amp; Peninsula Spa</div>
-        <div class="hc-addr">Dingle Bay, Kerry, Ireland</div>
-        <div class="hc-sub">4-star · dingleskellig.com</div>
-        <div class="perks"><span class="pk">17m pool</span><span class="pk">Kids' pool</span><span class="pk gr">Kids Club (half-term)</span><span class="pk">Washing machine</span><span class="pk">Bay views</span></div>
+        <div class="hc-name">The Plough B&amp;B</div>
+        <div class="hc-addr">Ventry, Dingle, Kerry, Ireland</div>
+        <div class="hc-sub">Triple Room with Sea View · Breakfast included</div>
+        <div class="hc-ref">Conf: [encrypted] · PIN: [encrypted]</div>
+        <div class="perks"><span class="pk ok">Breakfast incl</span><span class="pk">Sea view</span><span class="pk">Free parking</span><span class="pk">Free WiFi</span><span class="pk">Free cancel until 7 May</span></div>
       </div>
       <div class="hc ok">
         <div class="hc-s ok">✓ Confirmed</div>
@@ -394,8 +448,8 @@ tr:last-child td{border-bottom:none}
         <div class="hc-name">Premier Inn Belfast Titanic Quarter</div>
         <div class="hc-addr">2A Queens Road, BT3 9DT</div>
         <div class="hc-sub">Family Quadruple · Non-smoking</div>
-        <div class="hc-ref">R360: 26031730526</div>
-        <div class="perks"><span class="pk ok">Paid ₹8,591 + ₹20,044 pts</span><span class="pk gr">2 min to Titanic Belfast!</span><span class="pk">Water views</span></div>
+        <div class="hc-ref">R360: [encrypted]</div>
+        <div class="perks"><span class="pk ok">Paid [encrypted] + [encrypted] pts</span><span class="pk gr">2 min to Titanic Belfast!</span><span class="pk">Water views</span></div>
       </div>
       <div class="hc ok">
         <div class="hc-s ok">✓ Confirmed</div>
@@ -403,17 +457,17 @@ tr:last-child td{border-bottom:none}
         <div class="hc-name">Novotel Edinburgh Centre ★★★★</div>
         <div class="hc-addr">80 Lauriston Place, EH3 9DE</div>
         <div class="hc-sub">Classic Family Room · 2 adults + 2 children</div>
-        <div class="hc-ref">Ref: QFVLGXVN · Paid €377.24 (£325.85)</div>
+        <div class="hc-ref">Ref: [encrypted] · Paid [encrypted]</div>
         <div class="perks"><span class="pk ok">Non-refundable · fully paid</span><span class="pk">Check-in 15:00</span><span class="pk">Check-out 12:00</span><span class="pk am">No parking (£22/night)</span></div>
       </div>
       <div class="hc ok">
-        <div class="hc-s ok">✓ Confirmed · £400.00 paid</div>
+        <div class="hc-s ok">✓ Confirmed · [encrypted].00 paid</div>
         <div class="hc-city">On the train · Night 27–28 May</div>
         <div class="hc-name">Caledonian Sleeper · Club Family 2 Rooms</div>
         <div class="hc-addr">Departs Edinburgh 23:40 · Euston ~07:00</div>
         <div class="hc-sub">Coach D Room 5 (Yuvan &amp; Ramyaa) · Room 4 (Sana &amp; Tara)</div>
-        <div class="hc-ref">Ref: CSBJVTPGGW8 · NRS: PP762400</div>
-        <div class="perks"><span class="pk ok">Paid £400.00</span><span class="pk">2 rooms · Coach D</span><span class="pk gr">En-suite shower</span><span class="pk gr">Club Car lounge</span></div>
+        <div class="hc-ref">Ref: [encrypted] · NRS: [encrypted]</div>
+        <div class="perks"><span class="pk ok">Paid [encrypted]</span><span class="pk">2 rooms · Coach D</span><span class="pk gr">En-suite shower</span><span class="pk gr">Club Car lounge</span></div>
       </div>
       <div class="hc free">
         <div class="hc-s ok">✓ Arranged — 5 nights FREE</div>
@@ -435,7 +489,7 @@ tr:last-child td{border-bottom:none}
       <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--violet)">02</div><div class="ec-name">Elephant House Café</div><div class="ec-day">Day 11 · 27 May · Edinburgh</div><div class="ec-desc">JK Rowling's writing desk · Writers' Room · George Heriot's School view · HP trail start</div><div class="ec-book" style="color:var(--violet)">elephanthouse.biz · book table for 4 · opens 10 am</div></div>
       <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">03</div><div class="ec-name">Paddington Bear Experience</div><div class="ec-day">Day 13 · 28 May · County Hall, London</div><div class="ec-desc">Multi-room immersive · live actors · full-size train carriage · ~70 min</div><div class="ec-book" style="color:var(--orange)">paddingtonbearexperience.com · timed entry</div></div>
       <div class="ec gy"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--muted)">04</div><div class="ec-name">Postal Museum + Mail Rail</div><div class="ec-day">Day 13 · 28 May · Farringdon, London</div><div class="ec-desc">Real underground mail train · vacuum tubes · interactive exhibits · 4.6★ · perfect for ages 6 &amp; 8</div><div class="ec-book" style="color:var(--muted)">postalmuseum.org · pre-book Mail Rail slot</div></div>
-      <div class="ec vi"><div class="ec-s" style="color:var(--ok)">✅ Confirmed · Ref 7206841</div><div class="ec-n" style="color:var(--violet)">05</div><div class="ec-name">Harry Potter Studio Tour</div><div class="ec-day">Day 14 · 29 May · Watford · 15:30 entry</div><div class="ec-desc">Great Hall · Platform 9¾ · Diagon Alley · Forbidden Forest · 2 × Adult Family + 2 × Child Family · Digital Photo &amp; Video Package · Arrive 15:10</div><div class="ec-book" style="color:var(--ok)">Show e-ticket to board shuttle at Watford Junction</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--ok)">✅ Confirmed · Ref [encrypted]</div><div class="ec-n" style="color:var(--violet)">05</div><div class="ec-name">Harry Potter Studio Tour</div><div class="ec-day">Day 14 · 29 May · Watford · 15:30 entry</div><div class="ec-desc">Great Hall · Platform 9¾ · Diagon Alley · Forbidden Forest · 2 × Adult Family + 2 × Child Family · Digital Photo &amp; Video Package · Arrive 15:10</div><div class="ec-book" style="color:var(--ok)">Show e-ticket to board shuttle at Watford Junction</div></div>
       <div class="ec sk"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--sky-m)">06</div><div class="ec-name">Mundo Pixar Experience</div><div class="ec-day">Day 15 · 30 May · Wembley Park, London</div><div class="ec-desc">World's largest Pixar exhibition · 14 universes: Toy Story, Inside Out, Coco, Up · ~65 min</div><div class="ec-book" style="color:var(--sky-m)">mundopixar.com · £76 family of 4</div></div>
       <div class="ec bl"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--navy)">07</div><div class="ec-name">Titanic Belfast</div><div class="ec-day">Day 9 · 25 May · Belfast</div><div class="ec-desc">World's largest Titanic experience · 2 min walk from Premier Inn · interactive galleries · shipyard ride</div><div class="ec-book" style="color:var(--navy)">titanicbelfast.com · pre-book timed entry</div></div>
     </div>
@@ -454,7 +508,6 @@ tr:last-child td{border-bottom:none}
 
     <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-m);margin-bottom:8px">🚨 Book today</div>
     <div class="bklist">
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Dingle Skellig Hotel — family room <span class="btag urg">URGENT</span></div><div class="bd">22–24 May · 2 nights · dingleskellig.com · May half-term fills extremely fast · pool, Kids Club, bay views</div></div></div>
       <div class="bk am"><div class="bdot" style="background:var(--amber-m)"></div><div><div class="bt">Car hire — Dublin Airport → Belfast City Airport <span class="btag am">Book now</span></div><div class="bd">18–26 May · 8 days · diesel estate/MPV · full CDW + no-excess insurance · rentalcars.com or autoeurope</div></div></div>
     </div>
 
@@ -470,14 +523,14 @@ tr:last-child td{border-bottom:none}
 
     <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:8px">✅ Already confirmed</div>
     <div class="bklist">
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">British Airways — all 4 passengers <span class="btag ok">CONFIRMED</span></div><div class="bd">Ref: YP9MAE · BA0036 Chennai→LHR 18 May 05:35 · BA0832 LHR→Dublin 14:50 · BA0035 LHR→Chennai 1 Jun 12:40 · Paid ₹2,22,012</div></div></div>
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">easyJet EZY326 BFS→EDI <span class="btag ok">CONFIRMED</span></div><div class="bd">26 May 11:55 → 12:50 · Ref: KCB2WDQ · Paid £192.39 · Seats 16A–16D · Bag drop closes 10:55</div></div></div>
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Harry Potter Studio Tour <span class="btag ok">CONFIRMED</span></div><div class="bd">29 May · Ref: 7206841 · 15:30 entry · 2 × Adult + 2 × Child Family + Digital Photo &amp; Video Package · Non-refundable</div></div></div>
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Dublin Temple Bar <span class="btag ok">CONFIRMED</span></div><div class="bd">18–20 May · Conf: 5840.650.627 · PIN: 1015 · Breakfast incl · Free cancel until 16 May</div></div></div>
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Cork City Centre <span class="btag ok">CONFIRMED</span></div><div class="bd">20–22 May · Conf: 5528.486.702 · PIN: 3395 · Breakfast incl · Free cancel until 18 May</div></div></div>
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Belfast Titanic Quarter <span class="btag ok">CONFIRMED</span></div><div class="bd">24–26 May · R360: 26031730526 · Family Quadruple · Paid ₹8,591 cash + ₹20,044 reward points</div></div></div>
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Novotel Edinburgh Centre ★★★★ <span class="btag ok">CONFIRMED</span></div><div class="bd">26–27 May · Ref: QFVLGXVN · Classic Family Room · NON-REFUNDABLE · Paid €377.24 (£325.85) · Check-in 15:00</div></div></div>
-      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Caledonian Sleeper — Club Family 2 Rooms <span class="btag ok">CONFIRMED</span></div><div class="bd">27 May 23:40 EDB→EUS · Ref: CSBJVTPGGW8 · NRS: PP762400 · Coach D Rooms 4 &amp; 5 · Paid £400 · Order: CSW006231461</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">British Airways — all 4 passengers <span class="btag ok">CONFIRMED</span></div><div class="bd">Ref: [encrypted] · BA0036 Chennai→LHR 18 May 05:35 · BA0832 LHR→Dublin 14:50 · BA0035 LHR→Chennai 1 Jun 12:40 · Paid [encrypted]</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">easyJet EZY326 BFS→EDI <span class="btag ok">CONFIRMED</span></div><div class="bd">26 May 11:55 → 12:50 · Ref: [encrypted] · Paid [encrypted] · Seats [encrypted] · Bag drop closes 10:55</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Harry Potter Studio Tour <span class="btag ok">CONFIRMED</span></div><div class="bd">29 May · Ref: [encrypted] · 15:30 entry · 2 × Adult + 2 × Child Family + Digital Photo &amp; Video Package · Non-refundable</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Dublin Temple Bar <span class="btag ok">CONFIRMED</span></div><div class="bd">18–20 May · Conf: [encrypted] · PIN: [encrypted] · Breakfast incl · Free cancel until 16 May</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Cork City Centre <span class="btag ok">CONFIRMED</span></div><div class="bd">20–22 May · Conf: [encrypted] · PIN: [encrypted] · Breakfast incl · Free cancel until 18 May</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Belfast Titanic Quarter <span class="btag ok">CONFIRMED</span></div><div class="bd">24–26 May · R360: [encrypted] · Family Quadruple · Paid [encrypted] + [encrypted] reward points</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Novotel Edinburgh Centre ★★★★ <span class="btag ok">CONFIRMED</span></div><div class="bd">26–27 May · Ref: [encrypted] · Classic Family Room · NON-REFUNDABLE · Paid [encrypted] · Check-in 15:00</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Caledonian Sleeper — Club Family 2 Rooms <span class="btag ok">CONFIRMED</span></div><div class="bd">27 May 23:40 EDB→EUS · Ref: [encrypted] · NRS: [encrypted] · Coach D Rooms 4 &amp; 5 · Paid [encrypted] · Order: [encrypted]</div></div></div>
     </div>
   </div>
 
@@ -485,7 +538,7 @@ tr:last-child td{border-bottom:none}
   <div id="ki" class="sec">
     <div class="alert a-gr">Sana (8) and Tara (6) are the perfect ages for this trip. Here's what to watch for and what they'll love most.</div>
     <div class="kgrid">
-      <div class="kc"><div class="kc-t">Freebies &amp; savings</div><div class="kc-b">Both girls travel free on London tube · Kids Club at Dingle Skellig (May half-term) · Premier Inn Dublin: kids eat free at breakfast · NHM free · Tower Bridge free</div></div>
+      <div class="kc"><div class="kc-t">Freebies &amp; savings</div><div class="kc-b">Both girls travel free on London tube · Premier Inn Dublin: kids eat free at breakfast · NHM free · Tower Bridge free</div></div>
       <div class="kc"><div class="kc-t">Animal highlights</div><div class="kc-b">K2 Alpacas, Howth (Day 3) · Dingle Oceanworld (Day 6) · Lios Stone Circle animal feeding (Day 7) · Moher Hill Farm lambs in May (Day 8) · Greyfriars Bobby, Edinburgh (Day 11)</div></div>
       <div class="kc"><div class="kc-t">Harry Potter trail — 3 countries</div><div class="kc-b">Victoria Street + Greyfriars tombstones, Edinburgh → Elephant House writing desk → Warner Bros. Studio, Watford · Sana (8) will love this thread across the whole trip</div></div>
       <div class="kc"><div class="kc-t">Car journey rule</div><div class="kc-b">Max 2–3 hrs per leg. One exception: Day 8 (Dingle → Belfast via Cliffs ~4.5 hrs). Start 8:30 am, three fun stops, pack snacks, iPad downloaded.</div></div>
@@ -499,7 +552,7 @@ tr:last-child td{border-bottom:none}
 
   <!-- FLIGHTS -->
   <div id="fl" class="sec">
-    <div class="alert a-ok">All 4 flights confirmed · BA ref: YP9MAE · easyJet ref: KCB2WDQ</div>
+    <div class="alert a-ok">All 4 flights confirmed · BA ref: [encrypted] · easyJet ref: [encrypted]</div>
     <div class="fgrid">
       <div class="fc">
         <div class="fc-s">✅ BA0036 — World Traveller</div>
@@ -524,15 +577,15 @@ tr:last-child td{border-bottom:none}
         <div class="fc-note">Connection from BA0036 · same terminal T5 · no transfer needed</div>
       </div>
       <div class="fc">
-        <div class="fc-s">✅ EZY326 — easyJet · Ref: KCB2WDQ</div>
+        <div class="fc-s">✅ EZY326 — easyJet · Ref: [encrypted]</div>
         <div class="fc-route">Belfast Intl → Edinburgh</div>
-        <div class="fc-sub">26 May 2026 · Paid £192.39</div>
+        <div class="fc-sub">26 May 2026 · Paid [encrypted]</div>
         <div class="fc-times">
           <div><div class="fc-time">11:55</div><div class="fc-iata">BFS</div></div>
           <div class="fc-arrow">──────→</div>
           <div style="text-align:right"><div class="fc-time">12:50</div><div class="fc-iata">EDI</div></div>
         </div>
-        <div class="fc-note">Seats 16A (Yuvan) · 16B (Ramyaa) · 16C (Sana) · 16D (Tara) · Bag drop closes 10:55</div>
+        <div class="fc-note">Seats [encrypted] · Bag drop closes 10:55</div>
       </div>
       <div class="fc">
         <div class="fc-s">✅ BA0035 — World Traveller</div>
@@ -547,14 +600,14 @@ tr:last-child td{border-bottom:none}
       </div>
     </div>
     <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px">
-      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Passengers &amp; ticket numbers · BA booking YP9MAE</div>
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Passengers &amp; ticket numbers · BA booking [encrypted]</div>
       <table>
         <thead><tr><th>Passenger</th><th>Ticket number</th><th>Hold baggage</th></tr></thead>
         <tbody>
-          <tr><td>Yuvan (Mr Yuvanesan Muthukumaresan)</td><td>125-2227802129</td><td>1×23kg per flight</td></tr>
-          <tr><td>Ramyaa (Mrs Ramyaa Yuvanesan)</td><td>125-2227802127</td><td>1×23kg per flight</td></tr>
-          <tr><td>Sana (Miss Sana Yuvanesan)</td><td>125-2227802130</td><td>1×23kg + 2 free child items</td></tr>
-          <tr><td>Tara (Miss Tara Yuvanesan)</td><td>125-2227802128</td><td>1×23kg + 2 free child items</td></tr>
+          <tr><td>Yuvan (Mr Yuvanesan Muthukumaresan)</td><td>[encrypted]</td><td>1×23kg per flight</td></tr>
+          <tr><td>Ramyaa (Mrs Ramyaa Yuvanesan)</td><td>[encrypted]</td><td>1×23kg per flight</td></tr>
+          <tr><td>Sana (Miss Sana Yuvanesan)</td><td>[encrypted]</td><td>1×23kg + 2 free child items</td></tr>
+          <tr><td>Tara (Miss Tara Yuvanesan)</td><td>[encrypted]</td><td>1×23kg + 2 free child items</td></tr>
         </tbody>
       </table>
     </div>
@@ -563,10 +616,9 @@ tr:last-child td{border-bottom:none}
 
   <div class="footer">
     <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
-    <a class="fb" href="https://www.dingleskellig.com" target="_blank">🌊 Book Dingle Skellig</a>
     <a class="fb" href="https://www.rentalcars.com" target="_blank">🚗 Book Car Hire</a>
-    <a class="fb ok" href="https://www.britishairways.com/travel/managebooking" target="_blank">✅ Manage BA YP9MAE</a>
-    <a class="fb ok" href="https://www.easyjet.com/en/manage-my-booking" target="_blank">✅ Manage easyJet KCB2WDQ</a>
+    <a class="fb ok" href="https://www.britishairways.com/travel/managebooking" target="_blank">✅ Manage BA [encrypted]</a>
+    <a class="fb ok" href="https://www.easyjet.com/en/manage-my-booking" target="_blank">✅ Manage easyJet [encrypted]</a>
   </div>
 </div>
 
@@ -580,39 +632,268 @@ function show(id,btn){
 </script>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <script>
 const G_HASH = 'cd9bf3491d21031855e1e089165896fba50e6a18030ab9eb9c52166525b677e7';
+const SITE_KEY = '6LfskdwqAAAAAKFybSmhi2Zf3hAwCKuvxHNSA-NE';
+const SENSITIVE = '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';
 
-function gUnlock(){
+function enableForm(msg, color) {
+  const s = document.getElementById('g-status');
+  s.textContent = msg;
+  s.style.color = color || 'rgba(255,255,255,.4)';
+  document.getElementById('g-pw').disabled = false;
+  document.getElementById('g-btn').disabled = false;
+  document.getElementById('g-pw').focus();
+}
+
+function evaluateScore(token) {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    return payload.score || 0;
+  } catch(e) { return 0; }
+}
+
+function runRecaptcha() {
+  grecaptcha.ready(() => {
+    grecaptcha.execute(SITE_KEY, {action:'visit'})
+      .then(token => {
+        if (evaluateScore(token) >= 0.5) {
+          enableForm('\u2713 Verified. Enter password to continue.', 'rgba(110,231,183,.7)');
+        } else {
+          document.getElementById('g-status').textContent = 'Verification failed. Please refresh and try again.';
+          document.getElementById('g-status').style.color = '#fca5a5';
+        }
+      })
+      .catch(() => enableForm('Enter password to continue.'));
+  });
+}
+
+// Self-test on load
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof CryptoJS === 'undefined') {
+    document.getElementById('g-err').textContent = 'Security library failed to load. Please refresh.';
+  }
+});
+
+function onRecaptchaLoad() { runRecaptcha(); }
+if (typeof grecaptcha !== 'undefined') { runRecaptcha(); }
+setTimeout(() => {
+  if (document.getElementById('g-pw').disabled) enableForm('Enter password to continue.');
+}, 5000);
+
+function decryptAndRender(password) {
+  try {
+    const decrypted = CryptoJS.AES.decrypt(SENSITIVE, password).toString(CryptoJS.enc.Utf8);
+    if (!decrypted) return false;
+    const data = JSON.parse(decrypted);
+    // Render passports — in its own try so it never blocks unlock
+    try { renderPassports(data.passports); } catch(e) { console.warn('Passport render error:', e); }
+    // Inject refs — in its own try so it never blocks unlock
+    try { injectSensitiveRefs(data); } catch(e) { console.warn('Inject error:', e); }
+    return true;
+  } catch(e) {
+    console.error('Decrypt error:', e);
+    return false;
+  }
+}
+
+// Global passport store for modal
+let _passports = null;
+
+function showPassport(idx) {
+  const modal = document.getElementById('pp-modal');
+  const body = document.getElementById('pp-modal-body');
+  const nameEl = document.getElementById('pp-modal-name');
+  const av = document.getElementById('pp-modal-av');
+  if (!_passports) {
+    body.innerHTML = '<div class="pp-locked">&#128274; Unlock the dashboard first to view passport details.</div>';
+    nameEl.textContent = 'Passport'; av.textContent = '?'; av.style.background = '#71717a';
+    modal.classList.add('open'); return;
+  }
+  const p = _passports[idx];
+  const expDate = new Date(p.expiry.split('/').reverse().join('-'));
+  const monthsLeft = (expDate - new Date()) / (1000*60*60*24*30);
+  const expClass = monthsLeft > 9 ? 'ok' : 'warn';
+  const expLabel = monthsLeft > 9
+    ? `&#10003; Valid until ${p.expiry} (${Math.floor(monthsLeft)} months remaining)`
+    : `&#9888; Expires ${p.expiry} &mdash; renew before travel!`;
+  av.textContent = p.given[0]; av.style.background = p.color;
+  nameEl.textContent = p.given + ' ' + p.surname;
+  body.innerHTML = `
+    <div class="pp-num-box">
+      <div><div class="pp-num-label">Passport Number</div><div class="pp-num-val">${p.passport_no}</div></div>
+      <div style="font-size:24px">&#128706;</div>
+    </div>
+    <div class="pp-rows">
+      <div class="pp-row"><div class="pp-row-label">Given Name</div><div class="pp-row-val">${p.given}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Surname</div><div class="pp-row-val">${p.surname}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Date of Birth</div><div class="pp-row-val">${p.dob}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Sex</div><div class="pp-row-val">${p.sex === 'M' ? 'Male' : 'Female'}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Place of Birth</div><div class="pp-row-val">${p.place_of_birth}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Nationality</div><div class="pp-row-val">${p.nationality}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Date of Issue</div><div class="pp-row-val">${p.issue_date}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Place of Issue</div><div class="pp-row-val">${p.issued_at}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Date of Expiry</div><div class="pp-row-val">${p.expiry}</div></div>
+      <div class="pp-row"><div class="pp-row-label">Type / Code</div><div class="pp-row-val">P / IND</div></div>
+    </div>
+    <div class="pp-validity ${expClass}">${expLabel}</div>`;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePP() {
+  document.getElementById('pp-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePP(); });
+
+function renderPassports(passports) {
+  _passports = passports; // store globally for modal
+  if (!container) return;
+  const now = new Date();
+  // Passports stored in _passports — accessible via traveller card click modals
+  // Update traveller card subtitles to show passport number hint
+  const tvCards = document.querySelectorAll('.tv');
+  passports.forEach((p, i) => {
+    if (tvCards[i]) {
+      const sub = tvCards[i].querySelector('.tv-a');
+      if (sub) sub.textContent = p.passport_no;
+    }
+  });
+}
+
+function injectSensitiveRefs(data) {
+  // Replace all [encrypted] placeholders in the DOM with real values
+  const f = data.flights;
+  const h = data.hotels;
+  const e = data.experiences;
+
+  const subs = [
+    // Flight refs
+    ['BA ref: [encrypted]', `BA ref: ${f.ba_ref}`],
+    ['Ref: [encrypted] · BA0036', `Ref: ${f.ba_ref} · BA0036`],
+    [`easyJet ref: [encrypted]`, `easyJet ref: ${f.easyjet_ref}`],
+    [`Ref: [encrypted] · Paid`, `Ref: ${f.easyjet_ref} · Paid ${f.easyjet_paid}`],
+    [`Paid [encrypted] · Seats [encrypted]`, `Paid ${f.easyjet_paid} · Seats ${f.seats}`],
+    [`Seats [encrypted]`, `Seats ${f.seats}`],
+    [`Paid [encrypted]`, `Paid ${f.ba_total}`],
+    // Hotel refs — match by position in h array
+  ];
+
+  // Text node replacement throughout DOM
+  function replaceInText(node, from, to) {
+    if (node.nodeType === 3) {
+      if (node.textContent.includes(from)) node.textContent = node.textContent.replaceAll(from, to);
+    } else {
+      node.childNodes.forEach(c => replaceInText(c, from, to));
+    }
+  }
+
+  // Build full substitution map
+  const subMap = [
+    // Flights
+    ['[encrypted]\u00b7 BA0036', `${f.ba_ref} \u00b7 BA0036`],
+    [`easyJet ref: [encrypted]`, `easyJet ref: ${f.easyjet_ref}`],
+    [`Ref: [encrypted]`, `Ref: ${f.easyjet_ref}`],
+    [`Seats [encrypted]`, `Seats ${f.seats}`],
+    [`Paid [encrypted]`, `Paid ${f.ba_total}`],
+    // Hotel confs
+    [`Conf: [encrypted] \u00b7 PIN: [encrypted]`, `Conf: ${h[0].conf} \u00b7 PIN: ${h[0].pin}`],
+    [`#[encrypted]`, `#${h[0].conf}`],
+    // Tickets
+    ...f.tickets.map(t => [`[encrypted]`, t.number]),
+    // HP ref
+    [`Ref: [encrypted]`, `Ref: ${e[0].ref}`],
+  ];
+
+  // Simpler: just do targeted replacements on innerHTML of known containers
+  const dash = document.getElementById('dashboard');
+
+  // Replace all [encrypted] text across the dashboard intelligently
+  // Hotels: inject in order
+  const hotelRefs = [
+    {search: 'Premier Inn Dublin', conf: h[0].conf, pin: h[0].pin},
+    {search: 'Premier Inn Cork', conf: h[1].conf, pin: h[1].pin},
+    {search: 'Plough B', conf: h[2].conf, pin: h[2].pin},
+    {search: 'Premier Inn Belfast', conf: h[3].conf, extra: 'R360: ' + h[3].conf},
+    {search: 'Novotel Edinburgh', conf: h[4].conf},
+    {search: 'Caledonian Sleeper', conf: h[5].conf, extra: 'NRS: ' + h[5].nrs},
+  ];
+
+  // Walk all text nodes
+  const walker = document.createTreeWalker(dash, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+
+  nodes.forEach(node => {
+    let t = node.textContent;
+    if (!t.includes('[encrypted]')) return;
+    // Flight ref substitutions
+    t = t.replace('BA ref: [encrypted]', `BA ref: ${f.ba_ref}`);
+    t = t.replace('easyJet ref: [encrypted]', `easyJet ref: ${f.easyjet_ref}`);
+    t = t.replace('Seats [encrypted]', `Seats ${f.seats}`);
+    // Ticket numbers - sequential
+    f.tickets.forEach(tk => { t = t.replace('[encrypted]', tk.number); });
+    // Amounts
+    t = t.replace('Ref: [encrypted] \u00b7 Paid [encrypted]', `Ref: ${f.easyjet_ref} \u00b7 Paid ${f.easyjet_paid}`);
+    t = t.replace('Paid [encrypted]', `Paid ${f.ba_total}`);
+    // HP Studio ref
+    t = t.replace('Ref: [encrypted]', `Ref: ${e[0].ref}`);
+    // Sleeper refs
+    t = t.replace('[encrypted]', h[5].conf).replace('[encrypted]', h[5].nrs).replace('[encrypted]', h[5].order);
+    // Novotel
+    t = t.replace('[encrypted]', h[4].conf);
+    t = t.replace('Paid [encrypted]', `Paid ${h[4].paid}`);
+    // Belfast
+    t = t.replace('R360: [encrypted]', `R360: ${h[3].conf}`).replace('R360 ref: [encrypted]', `R360: ${h[3].conf}`);
+    t = t.replace('Paid [encrypted]', `Paid ${h[3].paid_inr}`);
+    // Dublin
+    t = t.replace('Conf: [encrypted] \u00b7 PIN: [encrypted]', `Conf: ${h[0].conf} \u00b7 PIN: ${h[0].pin}`).replace('#[encrypted]', `#${h[0].conf}`);
+    // Cork
+    t = t.replace('Conf: [encrypted] \u00b7 PIN: [encrypted]', `Conf: ${h[1].conf} \u00b7 PIN: ${h[1].pin}`).replace('#[encrypted]', `#${h[1].conf}`);
+    // Dingle
+    t = t.replace('Conf: [encrypted] \u00b7 PIN: [encrypted]', `Conf: ${h[2].conf} \u00b7 PIN: ${h[2].pin}`).replace('#[encrypted]', `#${h[2].conf}`);
+    // Remaining [encrypted]
+    t = t.replace(/\[encrypted\]/g, '');
+    node.textContent = t;
+  });
+}
+
+function gUnlock() {
   const pw = document.getElementById('g-pw').value.trim();
   const err = document.getElementById('g-err');
-  if(!pw){err.textContent='Please enter the password.';return;}
-  const hash = CryptoJS.SHA256(pw).toString();
-  if(hash !== G_HASH){
-    err.textContent='Incorrect password. Please try again.';
-    document.getElementById('g-pw').value='';
+  if (!pw) { err.textContent = 'Please enter the password.'; return; }
+  if (CryptoJS.SHA256(pw).toString() !== G_HASH) {
+    err.textContent = 'Incorrect password. Please try again.';
+    document.getElementById('g-pw').value = '';
     document.getElementById('g-pw').focus();
     return;
   }
-  // Show dashboard, hide gate, enable styles
-  document.getElementById('gate').style.display='none';
-  document.getElementById('dashboard').style.display='block';
-  document.getElementById('dash-style').removeAttribute('media');
+  // Decrypt sensitive data and inject
+  if (!decryptAndRender(pw)) {
+    err.textContent = 'Decryption error. Please try again.';
+    return;
+  }
+  // Show dashboard
+  const gate = document.getElementById('gate');
+  gate.style.opacity = '0';
+  setTimeout(() => {
+    gate.style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('dash-style').removeAttribute('media');
+  }, 400);
 }
 
-function gToggle(){
+function gToggle() {
   const inp = document.getElementById('g-pw');
-  inp.type = inp.type==='password'?'text':'password';
+  inp.type = inp.type === 'password' ? 'text' : 'password';
 }
 
-document.getElementById('g-pw').addEventListener('keydown',e=>{
-  if(e.key==='Enter') gUnlock();
+document.getElementById('g-pw').addEventListener('keydown', e => {
+  if (e.key === 'Enter') gUnlock();
 });
-</script>
 
-<!-- Dashboard scripts -->
-<script>
 
 function show(id,btn){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
@@ -622,6 +903,5 @@ function show(id,btn){
 }
 
 </script>
-
 </body>
 </html>
