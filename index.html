@@ -784,13 +784,6 @@ function runRecaptcha() {
   });
 }
 
-// Self-test on load
-window.addEventListener('DOMContentLoaded', () => {
-  if (typeof CryptoJS === 'undefined') {
-    document.getElementById('g-err').textContent = 'Security library failed to load. Please refresh.';
-  }
-});
-
 function onRecaptchaLoad() { runRecaptcha(); }
 if (typeof grecaptcha !== 'undefined') { runRecaptcha(); }
 setTimeout(() => {
@@ -976,6 +969,16 @@ function injectSensitiveRefs(data) {
   });
 }
 
+function revealDashboard() {
+  const gate = document.getElementById('gate');
+  gate.style.opacity = '0';
+  setTimeout(() => {
+    gate.style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('dash-style').removeAttribute('media');
+  }, 400);
+}
+
 function gUnlock() {
   const pw = document.getElementById('g-pw').value.trim();
   const err = document.getElementById('g-err');
@@ -986,20 +989,40 @@ function gUnlock() {
     document.getElementById('g-pw').focus();
     return;
   }
-  // Decrypt sensitive data and inject
   if (!decryptAndRender(pw)) {
     err.textContent = 'Decryption error. Please try again.';
     return;
   }
-  // Show dashboard
-  const gate = document.getElementById('gate');
-  gate.style.opacity = '0';
-  setTimeout(() => {
-    gate.style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    document.getElementById('dash-style').removeAttribute('media');
-  }, 400);
+  // Persist session so refresh skips gate
+  sessionStorage.setItem('trip_auth', G_HASH);
+  sessionStorage.setItem('trip_pw', CryptoJS.AES.encrypt(pw, G_HASH).toString());
+  revealDashboard();
 }
+
+// On page load — restore session if already authenticated
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof CryptoJS === 'undefined') {
+    document.getElementById('g-err').textContent = 'Security library failed to load. Please refresh.';
+    return;
+  }
+  if (sessionStorage.getItem('trip_auth') === G_HASH) {
+    const enc = sessionStorage.getItem('trip_pw');
+    if (enc) {
+      try {
+        const pw = CryptoJS.AES.decrypt(enc, G_HASH).toString(CryptoJS.enc.Utf8);
+        if (pw && CryptoJS.SHA256(pw).toString() === G_HASH) {
+          decryptAndRender(pw);
+          document.getElementById('gate').style.display = 'none';
+          document.getElementById('dashboard').style.display = 'block';
+          document.getElementById('dash-style').removeAttribute('media');
+          return;
+        }
+      } catch(e) {}
+    }
+    // Invalid session — clear and show gate
+    sessionStorage.clear();
+  }
+});
 
 function gToggle() {
   const inp = document.getElementById('g-pw');
