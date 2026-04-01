@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ireland &middot; Scotland &middot; London 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LfskdwqAAAAAKFybSmhi2Zf3hAwCKuvxHNSA-NE&onload=onRecaptchaLoad" async defer></script>
 <style>
+:root{--flag-gradient:linear-gradient(90deg,#169b62 0 33%,#005eb8 33% 44%,#fff 44% 55%,#003078 55% 66%,#cf142b 66% 72%,#fff 72% 78%,#cf142b 78% 84%,#003078 84% 100%)}
 /* GATE */
 #gate{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s}
 .g-box{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:2.5rem 2rem;width:calc(100% - 2rem);max-width:380px;text-align:center;box-sizing:border-box}
-.g-flag{height:4px;background:linear-gradient(90deg,#169b62 0 33%,#005eb8 33% 44%,#fff 44% 55%,#003078 55% 66%,#cf142b 66% 72%,#fff 72% 78%,#cf142b 78% 84%,#003078 84% 100%);margin-bottom:2rem;border-radius:2px}
+.g-flag{height:4px;background:var(--flag-gradient);margin-bottom:2rem;border-radius:2px}
 .g-dest{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
 .g-badge{font-size:12px;border-radius:6px;padding:3px 10px}
 .g-badge.ie{background:rgba(22,155,98,.25);border:.5px solid rgba(22,155,98,.5);color:#6ee7b7}
@@ -67,7 +68,7 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 /* HERO */
 .hero{background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
 .hero::before{content:'🍀';position:absolute;top:20px;right:60px;font-size:120px;opacity:.06;transform:rotate(15deg);line-height:1;pointer-events:none}
-.flag-bar{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#169b62 0 33%,#005eb8 33% 44%,#fff 44% 55%,#003078 55% 66%,#cf142b 66% 72%,#fff 72% 78%,#cf142b 78% 84%,#003078 84% 100%)}
+.flag-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--flag-gradient)}
 .hi{max-width:1140px;margin:0 auto;position:relative;z-index:1}
 .ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-m);margin-bottom:10px}
 .dest-badges{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
@@ -814,16 +815,6 @@ tr:last-child td{border-bottom:none}
 </div>
 
 <script>
-function show(id,btn){
-  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-</script>
-</div>
-
-<script>
 const G_HASH = 'cd9bf3491d21031855e1e089165896fba50e6a18030ab9eb9c52166525b677e7';
 const SITE_KEY = '6LfskdwqAAAAAKFybSmhi2Zf3hAwCKuvxHNSA-NE';
 const SENSITIVE = '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';
@@ -858,7 +849,6 @@ function runRecaptcha() {
 }
 
 function onRecaptchaLoad() { runRecaptcha(); }
-if (typeof grecaptcha !== 'undefined') { runRecaptcha(); }
 setTimeout(() => {
   if (document.getElementById('g-pw').disabled) enableForm('Enter password to continue.');
 }, 5000);
@@ -932,10 +922,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePP(); }
 
 function renderPassports(passports) {
   _passports = passports; // store globally for modal
-  if (!container) return;
-  const now = new Date();
-  // Passports stored in _passports — accessible via traveller card click modals
-  // Update traveller card subtitles to show passport number hint
   const tvCards = document.querySelectorAll('.tv');
   passports.forEach((p, i) => {
     if (tvCards[i]) {
@@ -951,59 +937,7 @@ function injectSensitiveRefs(data) {
   const h = data.hotels;
   const e = data.experiences;
 
-  const subs = [
-    // Flight refs
-    ['BA ref: [encrypted]', `BA ref: ${f.ba_ref}`],
-    ['Ref: [encrypted] · BA0036', `Ref: ${f.ba_ref} · BA0036`],
-    [`easyJet ref: [encrypted]`, `easyJet ref: ${f.easyjet_ref}`],
-    [`Ref: [encrypted] · Paid`, `Ref: ${f.easyjet_ref} · Paid ${f.easyjet_paid}`],
-    [`Paid [encrypted] · Seats [encrypted]`, `Paid ${f.easyjet_paid} · Seats ${f.seats}`],
-    [`Seats [encrypted]`, `Seats ${f.seats}`],
-    [`Paid [encrypted]`, `Paid ${f.ba_total}`],
-    // Hotel refs — match by position in h array
-  ];
-
-  // Text node replacement throughout DOM
-  function replaceInText(node, from, to) {
-    if (node.nodeType === 3) {
-      if (node.textContent.includes(from)) node.textContent = node.textContent.replaceAll(from, to);
-    } else {
-      node.childNodes.forEach(c => replaceInText(c, from, to));
-    }
-  }
-
-  // Build full substitution map
-  const subMap = [
-    // Flights
-    ['[encrypted]\u00b7 BA0036', `${f.ba_ref} \u00b7 BA0036`],
-    [`easyJet ref: [encrypted]`, `easyJet ref: ${f.easyjet_ref}`],
-    [`Ref: [encrypted]`, `Ref: ${f.easyjet_ref}`],
-    [`Seats [encrypted]`, `Seats ${f.seats}`],
-    [`Paid [encrypted]`, `Paid ${f.ba_total}`],
-    // Hotel confs
-    [`Conf: [encrypted] \u00b7 PIN: [encrypted]`, `Conf: ${h[0].conf} \u00b7 PIN: ${h[0].pin}`],
-    [`#[encrypted]`, `#${h[0].conf}`],
-    // Tickets
-    ...f.tickets.map(t => [`[encrypted]`, t.number]),
-    // HP ref
-    [`Ref: [encrypted]`, `Ref: ${e[0].ref}`],
-  ];
-
-  // Simpler: just do targeted replacements on innerHTML of known containers
   const dash = document.getElementById('dashboard');
-
-  // Replace all [encrypted] text across the dashboard intelligently
-  // Hotels: inject in order
-  const hotelRefs = [
-    {search: 'Premier Inn Dublin', conf: h[0].conf, pin: h[0].pin},
-    {search: 'Premier Inn Cork', conf: h[1].conf, pin: h[1].pin},
-    {search: 'Plough B', conf: h[2].conf, pin: h[2].pin},
-    {search: 'Premier Inn Belfast', conf: h[3].conf, extra: 'R360: ' + h[3].conf},
-    {search: 'Novotel Edinburgh', conf: h[4].conf},
-    {search: 'Caledonian Sleeper', conf: h[5].conf, extra: 'NRS: ' + h[5].nrs},
-  ];
-
-  // Walk all text nodes
   const walker = document.createTreeWalker(dash, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while(walker.nextNode()) nodes.push(walker.currentNode);
@@ -1116,14 +1050,12 @@ document.getElementById('g-pw').addEventListener('keydown', e => {
   if (e.key === 'Enter') gUnlock();
 });
 
-
 function show(id,btn){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
-
 </script>
 </body>
 </html>
