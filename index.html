@@ -78,6 +78,29 @@
 .g-badge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
 .g-badge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
 .g-trip-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 6px}
+/* Passport modal — always active so it works regardless of dash-style state */
+#pp-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:99998;display:none;align-items:center;justify-content:center;padding:1rem}
+#pp-modal.open{display:flex}
+.pp-modal-box{background:#fff;border-radius:16px;padding:0;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:ppIn .2s ease}
+@keyframes ppIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.pp-modal-header{padding:16px 18px 14px;display:flex;align-items:center;gap:12px}
+.pp-modal-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:white;flex-shrink:0}
+.pp-modal-name{font-size:15px;font-weight:700;color:#18181b}
+.pp-modal-sub{font-size:11px;color:#71717a;margin-top:1px}
+.pp-modal-close{margin-left:auto;background:none;border:none;font-size:20px;cursor:pointer;color:#71717a;padding:4px;line-height:1}
+.pp-modal-close:hover{color:#18181b}
+.pp-modal-body{padding:0 18px 18px}
+.pp-num-box{background:#f4f4f5;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.pp-num-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#71717a}
+.pp-num-val{font-size:20px;font-weight:700;letter-spacing:.12em;color:#1e3a5f;font-family:monospace}
+.pp-rows{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pp-row{display:flex;flex-direction:column;gap:2px}
+.pp-row-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#71717a}
+.pp-row-val{font-size:12px;font-weight:600;color:#18181b}
+.pp-validity{margin-top:12px;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:600;text-align:center}
+.pp-validity.ok{background:#dcfce7;color:#166534;border:.5px solid #16a34a}
+.pp-validity.warn{background:#fef3c7;color:#92400e;border:.5px solid #d97706}
+.pp-locked{padding:20px;text-align:center;color:#71717a;font-size:13px}
 </style>
 <style id="dash-style" media="none">
 
@@ -124,29 +147,6 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 .tv-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white;flex-shrink:0}
 .tv-n{font-size:11px;color:rgba(255,255,255,.85);font-weight:500}
 .tv-a{font-size:10px;color:rgba(255,255,255,.45)}
-/* Passport modal */
-#pp-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:99998;display:none;align-items:center;justify-content:center;padding:1rem}
-#pp-modal.open{display:flex}
-.pp-modal-box{background:#fff;border-radius:16px;padding:0;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:ppIn .2s ease}
-@keyframes ppIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.pp-modal-header{padding:16px 18px 14px;display:flex;align-items:center;gap:12px}
-.pp-modal-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:white;flex-shrink:0}
-.pp-modal-name{font-size:15px;font-weight:700;color:#18181b}
-.pp-modal-sub{font-size:11px;color:#71717a;margin-top:1px}
-.pp-modal-close{margin-left:auto;background:none;border:none;font-size:20px;cursor:pointer;color:#71717a;padding:4px;line-height:1}
-.pp-modal-close:hover{color:#18181b}
-.pp-modal-body{padding:0 18px 18px}
-.pp-num-box{background:#f4f4f5;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.pp-num-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#71717a}
-.pp-num-val{font-size:20px;font-weight:700;letter-spacing:.12em;color:#1e3a5f;font-family:monospace}
-.pp-rows{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pp-row{display:flex;flex-direction:column;gap:2px}
-.pp-row-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#71717a}
-.pp-row-val{font-size:12px;font-weight:600;color:#18181b}
-.pp-validity{margin-top:12px;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:600;text-align:center}
-.pp-validity.ok{background:#dcfce7;color:#166534;border:.5px solid #16a34a}
-.pp-validity.warn{background:#fef3c7;color:#92400e;border:.5px solid #d97706}
-.pp-locked{padding:20px;text-align:center;color:#71717a;font-size:13px}
 .stats{display:flex;gap:6px;flex-wrap:wrap}
 .st{background:rgba(255,255,255,.07);border:.5px solid rgba(255,255,255,.12);border-radius:var(--rs);padding:8px 13px;text-align:center;min-width:68px}
 .st-n{font-size:19px;font-weight:500;color:white;line-height:1}
@@ -837,10 +837,12 @@ tr:last-child td{border-bottom:none}
   </div>
 
 
+  <div class="footer">
     <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
     <a class="fb" href="https://www.rentalcars.com" target="_blank">🚗 Book Car Hire</a>
     <a class="fb ok" href="https://www.britishairways.com/travel/managebooking" target="_blank">✅ Manage BA [encrypted]</a>
     <a class="fb ok" href="https://www.easyjet.com/en/manage-my-booking" target="_blank">✅ Manage easyJet [encrypted]</a>
+  </div>
   </div>
 </div>
 
@@ -930,7 +932,7 @@ tr:last-child td{border-bottom:none}
     <div class="sh"><span>🏯 Osaka · 18–21 Oct · 3 nights</span><span class="shb pi"><span class="okdot"></span> Hotel to book</span></div>
     <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span style="font-size:9px;font-weight:500;opacity:.8">19 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D13</span><span style="font-size:9px;font-weight:600;opacity:.85">Mon</span></div><div class="db slp"><p class="dt" style="color:var(--orange)">Universal Studios Japan 🎮</p><p class="dd" style="color:#7c2d12">19 Oct (Mon) — full day</p><p class="dc" style="color:#7c2d12">Full day at USJ · Super Nintendo World (Mario Kart ride, power-up bands) · Wizarding World of Harry Potter (ties to the Ireland trip!) · Minion Park · arrive at opening · Express Pass strongly recommended to skip long queues</p><div class="tags"><span class="tag t-am">Buy dated tickets + Express Pass + area timed-entry early</span><span class="tag t-vi">Power-Up Band for Mario Kart fun</span></div></div></div>
     <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span style="font-size:9px;font-weight:500;opacity:.8">20 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D14</span><span style="font-size:9px;font-weight:600;opacity:.85">Tue</span></div><div class="db"><p class="dt">Osaka Aquarium Kaiyukan 🐋</p><p class="dd">20 Oct (Tue)</p><p class="dc">Kaiyukan — one of the world's best aquariums, whale sharks in the giant central tank · Tempozan Ferris Wheel · Legoland Discovery Centre option · last-minute souvenir + gachapon shopping · farewell dinner</p><div class="tags"><span class="tag t-sk">Whale sharks — a guaranteed kid favourite</span><span class="tag t-bl">Pack tonight · forward souvenirs home if needed</span></div></div></div>
-    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span style="font-size:9px;font-weight:500;opacity:.8">21 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D15</span><span style="font-size:9px;font-weight:600;opacity:.85">Wed</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Fly home from Kansai · late-night flight</p><p class="dd" style="color:var(--forest-m)">21 Oct (Wed) — depart KIX 23:25</p><p class="dc" style="color:var(--forest)">Full last day — flight isn't until 23:25, so a relaxed final day in Osaka · late check-out or store bags · last konbini breakfast &amp; tax-free shopping · aim to reach Kansai Airport (KIX, ~50–75 min) by ~20:30 · SQ 623 to Singapore, then SQ 528 home to Chennai (arrives 22 Oct, 22:00)</p><div class="tags"><span class="tag t-bl">★ Shortlisted: Singapore Airlines · 1 stop · see Flights tab</span><span class="tag t-am">Long 15h40m layover at Changi — see the Flights tab</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span style="font-size:9px;font-weight:500;opacity:.8">21 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D15</span><span style="font-size:9px;font-weight:600;opacity:.85">Wed</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Fly home from Kansai · late-night flight</p><p class="dd" style="color:var(--forest-m)">21 Oct (Wed) — depart KIX 23:25</p><p class="dc" style="color:var(--forest)">Full last day — flight isn't until 23:25, so a relaxed final day in Osaka · late check-out or luggage storage · last konbini breakfast &amp; tax-free shopping · aim to reach Kansai Airport (KIX, ~50–75 min from central Osaka) by 20:00 — Singapore Airlines international bag-drop closes 90 min before departure (≈21:55) and the airport is busy; earlier is better with kids · SQ 623 to Singapore, then SQ 528 home to Chennai (arrives 22 Oct, 22:00)</p><div class="tags"><span class="tag t-bl">★ Shortlisted: Singapore Airlines · 1 stop · see Flights tab</span><span class="tag t-am">Long 15h40m layover at Changi — see the Flights tab</span></div></div></div>
   </div>
 
   <!-- HOTELS -->
@@ -1219,10 +1221,11 @@ function showPassport(idx) {
   }
   const p = _passports[idx];
   const expDate = new Date(p.expiry.split('/').reverse().join('-'));
-  const monthsLeft = (expDate - new Date()) / (1000*60*60*24*30);
+  const now = new Date();
+  const monthsLeft = (expDate.getFullYear() - now.getFullYear()) * 12 + (expDate.getMonth() - now.getMonth()) + (expDate.getDate() >= now.getDate() ? 0 : -1);
   const expClass = monthsLeft > 9 ? 'ok' : 'warn';
   const expLabel = monthsLeft > 9
-    ? `&#10003; Valid until ${p.expiry} (${Math.floor(monthsLeft)} months remaining)`
+    ? `&#10003; Valid until ${p.expiry} (${monthsLeft} months remaining)`
     : `&#9888; Expires ${p.expiry} &mdash; renew before travel!`;
   av.textContent = p.given[0]; av.style.background = p.color;
   nameEl.textContent = p.given + ' ' + p.surname;
