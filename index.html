@@ -46,6 +46,29 @@
 .pp-exp{font-size:10px;padding:2px 7px;border-radius:5px;display:inline-block;margin-top:6px}
 .pp-exp.ok{background:#dcfce7;color:#166534;border:.5px solid #16a34a}
 .pp-exp.warn{background:#fef3c7;color:#92400e;border:.5px solid #d97706}
+/* TRIP PICKER */
+#trip-picker{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 28%,#2d3561 52%,#7f1d1d 80%,#9f1239 100%);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9999;padding:2rem 1rem;overflow-y:auto}
+.tp-head{text-align:center;margin-bottom:2rem}
+.tp-eyebrow{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px}
+.tp-title{font-family:Georgia,serif;font-size:30px;font-weight:300;color:#fff;line-height:1.15}
+.tp-sub{font-size:13px;color:rgba(255,255,255,.55);margin-top:8px}
+.tp-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:760px;width:100%}
+.tp-card{flex:1;min-width:280px;max-width:350px;border-radius:18px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);backdrop-filter:blur(14px);transition:transform .2s,box-shadow .2s,border-color .2s}
+.tp-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.35);border-color:rgba(255,255,255,.4)}
+.tp-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:54px}
+.tp-banner.ie{background:linear-gradient(135deg,#1a4731,#0d4f4f 60%,#2d3561)}
+.tp-banner.jp{background:linear-gradient(135deg,#9f1239,#7f1d1d 55%,#1e1b4b)}
+.tp-body{padding:18px 20px 22px}
+.tp-flag{display:flex;gap:6px;margin-bottom:10px;font-size:14px}
+.tp-name{font-size:18px;font-weight:600;color:#fff;margin-bottom:4px}
+.tp-dates{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px}
+.tp-status{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:12px}
+.tp-status.ok{background:rgba(22,163,74,.25);color:#6ee7b7;border:.5px solid rgba(22,163,74,.5)}
+.tp-status.plan{background:rgba(217,119,6,.2);color:#fcd34d;border:.5px solid rgba(217,119,6,.45)}
+.tp-cta{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:6px}
+.tp-meta{font-size:11px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:8px}
+.switch-trip{position:absolute;top:14px;right:16px;z-index:5;font-size:11px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;backdrop-filter:blur(8px);transition:background .15s}
+.switch-trip:hover{background:rgba(255,255,255,.25)}
 </style>
 <style id="dash-style" media="none">
 
@@ -69,6 +92,12 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 .hero{background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
 .hero::before{content:'🍀';position:absolute;top:20px;right:60px;font-size:120px;opacity:.06;transform:rotate(15deg);line-height:1;pointer-events:none}
 .flag-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--flag-gradient)}
+.hero.jp{background:linear-gradient(135deg,#9f1239 0%,#7f1d1d 35%,#1e1b4b 70%,#312e81 100%)}
+.hero.jp::before{content:'🌸'}
+.flag-bar.jp{background:linear-gradient(90deg,#bc002d 0 15%,#fff 15% 85%,#bc002d 85% 100%)}
+.dbadge.jp{background:rgba(188,0,45,.25);border:.5px solid rgba(188,0,45,.5);color:#fca5a5}
+.dbadge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
+.dbadge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
 .hi{max-width:1140px;margin:0 auto;position:relative;z-index:1}
 .ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-m);margin-bottom:10px}
 .dest-badges{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
@@ -304,12 +333,46 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
+<!-- TRIP PICKER -->
+<div id="trip-picker">
+  <div class="tp-head">
+    <div class="tp-eyebrow">Welcome back · Choose your adventure</div>
+    <div class="tp-title">Two trips. One family.</div>
+    <div class="tp-sub">Pick a dashboard to open</div>
+  </div>
+  <div class="tp-grid">
+    <div class="tp-card" onclick="selectTrip('ireland')">
+      <div class="tp-banner ie">🍀</div>
+      <div class="tp-body">
+        <div class="tp-flag"><span>🇮🇪</span><span>🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span>🇬🇧</span></div>
+        <div class="tp-name">Ireland · Scotland · London</div>
+        <div class="tp-dates">18 May – 1 June 2026 · 15 days</div>
+        <div class="tp-status ok">✓ Confirmed &amp; booked</div>
+        <div class="tp-cta">Open dashboard →</div>
+        <div class="tp-meta">Dublin · Cork · Dingle · Belfast · Edinburgh · London</div>
+      </div>
+    </div>
+    <div class="tp-card" onclick="selectTrip('japan')">
+      <div class="tp-banner jp">🗾</div>
+      <div class="tp-body">
+        <div class="tp-flag"><span>🇯🇵</span></div>
+        <div class="tp-name">Japan</div>
+        <div class="tp-dates">7 – 21 October 2026 · 15 days</div>
+        <div class="tp-status plan">◷ Planning</div>
+        <div class="tp-cta">Open dashboard →</div>
+        <div class="tp-meta">Tokyo · Kyoto · Osaka</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- DASHBOARD -->
-<div id="dashboard" style="display:none">
+<div id="dashboard" class="dash-root" style="display:none">
   
 
   <div class="hero">
   <div class="flag-bar"></div>
+  <button class="switch-trip" onclick="switchTrip()">⇄ Switch trip</button>
   <div class="hi">
     <div class="ey">Family trip · Confirmed itinerary · 2026</div>
     <div class="dest-badges">
@@ -772,6 +835,280 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
+<!-- ===================== JAPAN DASHBOARD ===================== -->
+<div id="dashboard-japan" class="dash-root" style="display:none">
+  <div class="hero jp">
+  <div class="flag-bar jp"></div>
+  <button class="switch-trip" onclick="switchTrip()">⇄ Switch trip</button>
+  <div class="hi">
+    <div class="ey" style="color:#fca5a5">Family trip · Planning · Autumn 2026</div>
+    <div class="dest-badges">
+      <span class="dbadge jp">🇯🇵 Tokyo</span>
+      <span class="dsep">·</span>
+      <span class="dbadge jp2">⛩️ Kyoto</span>
+      <span class="dsep">·</span>
+      <span class="dbadge jp3">🏯 Osaka</span>
+    </div>
+    <div class="ht">Tokyo <em>&middot;</em> Kyoto <em>&middot;</em> Osaka</div>
+    <div class="hs">7 – 21 October 2026 &nbsp;·&nbsp; 15 days &nbsp;·&nbsp; Status: planning — book by August</div>
+    <div class="travelers">
+      <div class="tv" onclick="showPassport(0)"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">Tap for passport</div></div></div>
+      <div class="tv" onclick="showPassport(1)"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">Tap for passport</div></div></div>
+      <div class="tv" onclick="showPassport(2)"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">Tap for passport</div></div></div>
+      <div class="tv" onclick="showPassport(3)"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">Tap for passport</div></div></div>
+    </div>
+    <div class="stats">
+      <div class="st"><div class="st-n">15</div><div class="st-l">Total days</div></div>
+      <div class="st"><div class="st-n">6</div><div class="st-l">Tokyo nights</div></div>
+      <div class="st"><div class="st-n">4</div><div class="st-l">Kyoto nights</div></div>
+      <div class="st"><div class="st-n">3</div><div class="st-l">Osaka nights</div></div>
+      <div class="st ac"><div class="st-n">2</div><div class="st-l">Theme parks</div></div>
+      <div class="st"><div class="st-n">1</div><div class="st-l">Nara day trip</div></div>
+      <div class="st"><div class="st-n">2</div><div class="st-l">Bullet trains</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tb active" onclick="show('jit',this)">All 15 days</button>
+    <button class="tb" onclick="show('jht',this)">Hotels</button>
+    <button class="tb" onclick="show('jex',this)">Experiences</button>
+    <button class="tb" onclick="show('jbk',this)">Book now</button>
+    <button class="tb" onclick="show('jki',this)">Kid tips</button>
+    <button class="tb" onclick="show('jfl',this)">Flights</button>
+    <button class="tb" onclick="show('jtr',this)">🚄 Trains</button>
+  </div>
+
+  <!-- ALL 15 DAYS -->
+  <div id="jit" class="sec active">
+    <div class="alert a-am">🗓️ Planning stage — nothing booked yet. Priorities to lock early: Ghibli Museum tickets (sell out ~1 month ahead), Tokyo Disney, Universal Studios + Express Pass, and flights.</div>
+    <div class="spine"><div class="sr">
+      <div class="sp ie"><div class="dot"></div><div class="spn">Fly out</div><div class="spd">7 Oct</div><div class="sps">overnight</div></div>
+      <div class="sp uk"><div class="dot"></div><div class="spn">Tokyo</div><div class="spd">8–14 Oct</div><div class="sps">6 nights</div></div>
+      <div class="sp sl"><div class="dot"></div><div class="spn">Shinkansen</div><div class="spd">14 Oct</div><div class="sps">to Kyoto</div></div>
+      <div class="sp sc"><div class="dot"></div><div class="spn">Kyoto</div><div class="spd">14–18 Oct</div><div class="sps">4 nights</div></div>
+      <div class="sp ie"><div class="dot"></div><div class="spn">Nara</div><div class="spd">16 Oct</div><div class="sps">day trip</div></div>
+      <div class="sp uk"><div class="dot"></div><div class="spn">Osaka</div><div class="spd">18–21 Oct</div><div class="sps">3 nights</div></div>
+      <div class="sp lo"><div class="dot"></div><div class="spn">Fly home</div><div class="spd">21 Oct</div><div class="sps">from KIX</div></div>
+    </div></div>
+
+    <div class="sh"><span>✈️ Travel · 7–8 Oct</span><span class="shb pi"><span class="okdot"></span> Flights to book</span></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span style="font-size:9px;font-weight:500;opacity:.8">7 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D1</span><span style="font-size:9px;font-weight:600;opacity:.85">Wed</span></div><div class="db"><p class="dt">Fly Chennai → Tokyo</p><p class="dd">7 Oct (Wed) · overnight flight</p><p class="dc">Evening departure from Chennai · overnight flight (likely 1 stop via Singapore / Bangkok / Hong Kong) · sleep on board · download movies &amp; games for the girls · pack a change of clothes in hand luggage</p><div class="tags"><span class="tag t-am">Book flights early for best fares</span><span class="tag t-bl">Aisle + window for the girls to swap</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span style="font-size:9px;font-weight:500;opacity:.8">8 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D2</span><span style="font-size:9px;font-weight:600;opacity:.85">Thu</span></div><div class="db"><p class="dt">Arrive Tokyo · easy first evening</p><p class="dd">8 Oct (Thu)</p><p class="dc">Land Haneda (HND) or Narita (NRT) · pick up pocket WiFi / activate eSIM · collect IC cards (Suica/Welcome Suica) · train or Airport Limousine bus to hotel · konbini dinner adventure (7-Eleven / Lawson / FamilyMart — onigiri, katsu sando, melon pan) · early night to beat jet lag</p><div class="tags"><span class="tag t-vi">Konbini dinner = instant kid hit</span><span class="tag t-am">Pre-order pocket WiFi for airport pickup</span></div></div></div>
+
+    <div class="sh"><span>🇯🇵 Tokyo · 8–14 Oct · 6 nights</span><span class="shb pi"><span class="okdot"></span> Hotel to book</span></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span style="font-size:9px;font-weight:500;opacity:.8">9 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D3</span><span style="font-size:9px;font-weight:600;opacity:.85">Fri</span></div><div class="db"><p class="dt">Asakusa · Senso-ji · Tokyo Skytree</p><p class="dd">9 Oct (Fri)</p><p class="dc">Senso-ji Temple &amp; Nakamise shopping street (street snacks!) · rickshaw photo · Sumida River walk · Tokyo Skytree observation deck · Solamachi mall · Pokémon Center / Kirby Café nearby</p><div class="tags"><span class="tag t-bl">Gentle first full day · lots of snacks</span><span class="tag t-am">Skytree timed tickets online to skip queues</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span style="font-size:9px;font-weight:500;opacity:.8">10 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D4</span><span style="font-size:9px;font-weight:600;opacity:.85">Sat</span></div><div class="db slp"><p class="dt" style="color:var(--orange)">Tokyo Disneyland 🏰</p><p class="dd" style="color:#7c2d12">10 Oct (Sat) — full day</p><p class="dc" style="color:#7c2d12">Full day at Tokyo Disneyland (classic castle park, best for ages 6 &amp; 9) · arrive at opening · use the Tokyo Disney Resort app for Standby Pass &amp; Premier Access · parade + evening fireworks · matching ears for Sana &amp; Tara</p><div class="tags"><span class="tag t-am">Buy dated tickets online in advance — weekends sell out</span><span class="tag t-vi">Download the official Tokyo Disney Resort app</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span style="font-size:9px;font-weight:500;opacity:.8">11 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D5</span><span style="font-size:9px;font-weight:600;opacity:.85">Sun</span></div><div class="db"><p class="dt">teamLab Planets · Odaiba</p><p class="dd">11 Oct (Sun)</p><p class="dc">teamLab Planets TOYOSU — barefoot through water &amp; light rooms (magical for kids) · Odaiba: life-size Unicorn Gundam statue · Miraikan science museum (ASIMO-style robots, hands-on) · DiverCity / Aqua City for dinner · rainbow bridge views</p><div class="tags"><span class="tag t-vi">Pre-book teamLab Planets timed entry — sells out</span><span class="tag t-bl">Bring/wear shorts — you walk through water</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span style="font-size:9px;font-weight:500;opacity:.8">12 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D6</span><span style="font-size:9px;font-weight:600;opacity:.85">Mon</span></div><div class="db"><p class="dt">Ghibli Museum · Harajuku · Pokémon</p><p class="dd">12 Oct (Mon)</p><p class="dc">Ghibli Museum, Mitaka (Totoro, exclusive short film) · stroll Inokashira Park · Harajuku — Takeshita Street rainbow candy &amp; crepes · Kiddy Land (5 floors of toys) · Pokémon Center · Meiji Shrine forest walk</p><div class="tags"><span class="tag t-am">⚠️ Ghibli tickets via Lawson — released 10th of prior month, sell out in minutes</span><span class="tag t-vi">Takeshita St crepes = mandatory</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span style="font-size:9px;font-weight:500;opacity:.8">13 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D7</span><span style="font-size:9px;font-weight:600;opacity:.85">Tue</span></div><div class="db"><p class="dt">Ueno Zoo · Shibuya</p><p class="dd">13 Oct (Tue)</p><p class="dc">Ueno Zoo (giant pandas!) + Ueno Park · choose: National Museum of Nature &amp; Science (dinosaurs) · afternoon Shibuya — the famous Scramble Crossing · Hachiko statue · Shibuya Sky observation deck at sunset · gachapon &amp; arcade fun</p><div class="tags"><span class="tag t-gr">Pandas for Tara · Shibuya Sky for the view</span><span class="tag t-bl">Last Tokyo day — pack tonight</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🚄 Shinkansen · Tokyo → Kyoto · 14 Oct</span><span class="shb ok"><span class="okdot"></span> ~2h15 · reserve seats</span></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span style="font-size:9px;font-weight:500;opacity:.8">14 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D8</span><span style="font-size:9px;font-weight:600;opacity:.85">Wed</span></div><div class="db"><p class="dt">Bullet train to Kyoto · Fushimi Inari</p><p class="dd">14 Oct (Wed)</p><p class="dc">Forward big bags by takkyubin the day before · morning Shinkansen Tokyo → Kyoto (~2h15) · ekiben lunch boxes on the train (a treat!) · Mt Fuji on the right side · check in Kyoto · late afternoon Fushimi Inari — thousands of red torii gates, walk as far as the girls want</p><div class="tags"><span class="tag t-ok">Reserve seats — ask for Fuji side (seats D/E going west)</span><span class="tag t-vi">Fushimi Inari is free &amp; open late — fewer crowds at dusk</span></div></div></div>
+
+    <div class="sh"><span>⛩️ Kyoto · 14–18 Oct · 4 nights</span><span class="shb pi"><span class="okdot"></span> Hotel to book</span></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span style="font-size:9px;font-weight:500;opacity:.8">15 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D9</span><span style="font-size:9px;font-weight:600;opacity:.85">Thu</span></div><div class="db"><p class="dt">Arashiyama — bamboo &amp; monkeys</p><p class="dd">15 Oct (Thu)</p><p class="dc">Arashiyama Bamboo Grove (go early) · Iwatayama Monkey Park — wild monkeys + city view (a climb, kids love it) · Togetsukyo Bridge · Tenryu-ji garden · Sagano scenic railway option · rickshaw ride · sweet-potato &amp; matcha treats</p><div class="tags"><span class="tag t-gr">Monkey park = top kid highlight</span><span class="tag t-bl">Arrive bamboo grove before 9 am</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span style="font-size:9px;font-weight:500;opacity:.8">16 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D10</span><span style="font-size:9px;font-weight:600;opacity:.85">Fri</span></div><div class="db"><p class="dt">Nara day trip 🦌</p><p class="dd">16 Oct (Fri)</p><p class="dc">Train to Nara (~45 min) · Nara Park — 1,000+ free-roaming deer that bow for crackers (shika senbei) · Todai-ji Temple &amp; the Great Buddha · Isuien Garden · back to Kyoto for dinner</p><div class="tags"><span class="tag t-gr">Deer that bow — unforgettable for Sana &amp; Tara</span><span class="tag t-am">Buy deer crackers from park vendors only</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span style="font-size:9px;font-weight:500;opacity:.8">17 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D11</span><span style="font-size:9px;font-weight:600;opacity:.85">Sat</span></div><div class="db"><p class="dt">Golden Pavilion · kimono · Gion</p><p class="dd">17 Oct (Sat)</p><p class="dc">Kinkaku-ji (Golden Pavilion) · kids' kimono / yukata rental + photos · Nishiki Market food street · Kyoto Railway Museum option (huge hit for kids) · evening Gion lantern-lit streets · Pontocho alley</p><div class="tags"><span class="tag t-vi">Child kimono rental — book a morning slot</span><span class="tag t-sk">Alt: Kyoto Railway Museum if rainy</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🚆 Kyoto → Osaka · 18 Oct</span><span class="shb ok"><span class="okdot"></span> ~15–30 min by train</span></div>
+    <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span style="font-size:9px;font-weight:500;opacity:.8">18 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D12</span><span style="font-size:9px;font-weight:600;opacity:.85">Sun</span></div><div class="db"><p class="dt">To Osaka · Castle · Dotonbori</p><p class="dd">18 Oct (Sun)</p><p class="dc">Short train Kyoto → Osaka · drop bags / check in · Osaka Castle &amp; park (museum inside) · evening Dotonbori — Glico running man, giant crab signs, takoyaki &amp; okonomiyaki street food · Ferris-wheel views · Don Quijote mega store</p><div class="tags"><span class="tag t-sk">Dotonbori lights = wow factor</span><span class="tag t-am">Takoyaki &amp; okonomiyaki — Osaka specialities</span></div></div></div>
+
+    <div class="sh"><span>🏯 Osaka · 18–21 Oct · 3 nights</span><span class="shb pi"><span class="okdot"></span> Hotel to book</span></div>
+    <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span style="font-size:9px;font-weight:500;opacity:.8">19 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D13</span><span style="font-size:9px;font-weight:600;opacity:.85">Mon</span></div><div class="db slp"><p class="dt" style="color:var(--orange)">Universal Studios Japan 🎮</p><p class="dd" style="color:#7c2d12">19 Oct (Mon) — full day</p><p class="dc" style="color:#7c2d12">Full day at USJ · Super Nintendo World (Mario Kart ride, power-up bands) · Wizarding World of Harry Potter (ties to the Ireland trip!) · Minion Park · arrive at opening · Express Pass strongly recommended to skip long queues</p><div class="tags"><span class="tag t-am">Buy dated tickets + Express Pass + area timed-entry early</span><span class="tag t-vi">Power-Up Band for Mario Kart fun</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span style="font-size:9px;font-weight:500;opacity:.8">20 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D14</span><span style="font-size:9px;font-weight:600;opacity:.85">Tue</span></div><div class="db"><p class="dt">Osaka Aquarium Kaiyukan 🐋</p><p class="dd">20 Oct (Tue)</p><p class="dc">Kaiyukan — one of the world's best aquariums, whale sharks in the giant central tank · Tempozan Ferris Wheel · Legoland Discovery Centre option · last-minute souvenir + gachapon shopping · farewell dinner</p><div class="tags"><span class="tag t-sk">Whale sharks — a guaranteed kid favourite</span><span class="tag t-bl">Pack tonight · forward souvenirs home if needed</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span style="font-size:9px;font-weight:500;opacity:.8">21 Oct</span><span style="font-size:13px;font-weight:700;line-height:1">D15</span><span style="font-size:9px;font-weight:600;opacity:.85">Wed</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Fly home from Kansai</p><p class="dd" style="color:var(--forest-m)">21 Oct (Wed) — departure</p><p class="dc" style="color:var(--forest)">Slow morning · last konbini breakfast · train / bus to Kansai Airport (KIX, ~50–75 min from city) · final tax-free shopping · fly home to Chennai</p></div></div>
+  </div>
+
+  <!-- HOTELS -->
+  <div id="jht" class="sec">
+    <div class="alert a-am">Nothing booked yet — these are target areas &amp; styles. Aim for family rooms (4 people) near a major train line. Many Tokyo/Osaka rooms are small; look for "family room", "triple", or connecting rooms / apart-hotels.</div>
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--amber)">0 of 3 booked</span></div>
+      <div class="prog"><div class="prog-f" style="width:4%;background:var(--amber-m)"></div></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">Book Tokyo first — it fills up fastest</div>
+    </div>
+    <div class="hgrid">
+      <div class="hc">
+        <div class="hc-s" style="color:var(--amber)">◷ To book</div>
+        <div class="hc-city">Tokyo · 8–14 Oct · 6 nights</div>
+        <div class="hc-name">Family room near Ueno / Asakusa or Shinjuku</div>
+        <div class="hc-addr">Pick a hub on the JR Yamanote line</div>
+        <div class="hc-sub">Family room for 4 · breakfast handy · near a station</div>
+        <div class="perks"><span class="pk">Yamanote line access</span><span class="pk am">Book early — fills fast</span><span class="pk">Coin laundry a plus</span></div>
+      </div>
+      <div class="hc">
+        <div class="hc-s" style="color:var(--amber)">◷ To book</div>
+        <div class="hc-city">Kyoto · 14–18 Oct · 4 nights</div>
+        <div class="hc-name">Family room near Kyoto Station or Downtown</div>
+        <div class="hc-addr">Kyoto Station / Karasuma–Shijo area</div>
+        <div class="hc-sub">Family room for 4 · easy bus &amp; train access</div>
+        <div class="perks"><span class="pk">Near Kyoto Station</span><span class="pk gr">Day-trip friendly (Nara)</span></div>
+      </div>
+      <div class="hc">
+        <div class="hc-s" style="color:var(--amber)">◷ To book</div>
+        <div class="hc-city">Osaka · 18–21 Oct · 3 nights</div>
+        <div class="hc-name">Family room near Namba or USJ</div>
+        <div class="hc-addr">Namba / Shinsaibashi (food) or near Universal City</div>
+        <div class="hc-sub">Family room for 4 · close to Dotonbori or USJ</div>
+        <div class="perks"><span class="pk">Walk to Dotonbori</span><span class="pk gr">Or stay by USJ for park day</span></div>
+      </div>
+    </div>
+    <div class="alert a-bl">💡 Tip: Japanese hotels often cap rooms at 2–3 guests. Search specifically for "family rooms" or book apart-hotels (e.g. serviced apartments) for a family of four — they include kitchenettes &amp; laundry, great with kids.</div>
+  </div>
+
+  <!-- EXPERIENCES -->
+  <div id="jex" class="sec">
+    <div class="alert a-bl">Kid-magnet experiences for Sana (9) &amp; Tara (6). Three of these — Ghibli, teamLab, Disney/USJ — must be booked well ahead.</div>
+    <div class="egrid">
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Book ~1 month ahead</div><div class="ec-n" style="color:var(--orange)">01</div><div class="ec-name">Ghibli Museum, Mitaka</div><div class="ec-day">Day 6 · 12 Oct · Tokyo</div><div class="ec-desc">Totoro, a Ghibli-only short film, the Catbus play area · whimsical &amp; magical · timed entry only</div><div class="ec-book" style="color:var(--orange)">Tickets via Lawson — released 10th of prior month, sell out fast</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">02</div><div class="ec-name">Tokyo Disneyland</div><div class="ec-day">Day 4 · 10 Oct · Tokyo</div><div class="ec-desc">Classic castle park · perfect ages · parade &amp; fireworks · use the Disney app for ride passes</div><div class="ec-book" style="color:var(--orange)">tokyodisneyresort.jp · dated tickets online · weekends sell out</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Sells out</div><div class="ec-n" style="color:var(--violet)">03</div><div class="ec-name">teamLab Planets TOYOSU</div><div class="ec-day">Day 5 · 11 Oct · Tokyo</div><div class="ec-desc">Barefoot through water &amp; mirrored light rooms · immersive digital art · pure wonder for kids</div><div class="ec-book" style="color:var(--violet)">teamlab.art · pre-book timed entry · wear shorts</div></div>
+      <div class="ec sk"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--sky-m)">04</div><div class="ec-name">Tokyo Skytree</div><div class="ec-day">Day 3 · 9 Oct · Asakusa</div><div class="ec-desc">One of the world's tallest towers · glass-floor panels · views across Tokyo</div><div class="ec-book" style="color:var(--sky-m)">tokyo-skytree.jp · timed tickets skip the queue</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--forest)">05</div><div class="ec-name">Fushimi Inari Shrine</div><div class="ec-day">Day 8 · 14 Oct · Kyoto</div><div class="ec-desc">Thousands of vivid red torii gates winding up the hill · free · open 24h · best at dusk</div><div class="ec-book" style="color:var(--forest)">Free · no booking · go late afternoon</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--amber)">◷ Tickets at gate</div><div class="ec-n" style="color:var(--forest)">06</div><div class="ec-name">Arashiyama Monkey Park</div><div class="ec-day">Day 9 · 15 Oct · Kyoto</div><div class="ec-desc">Hike up to wild Japanese macaques + panoramic Kyoto view · feed them from inside the hut</div><div class="ec-book" style="color:var(--forest)">Pay at entrance · wear comfy shoes</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--ok)">🦌 Free</div><div class="ec-n" style="color:var(--forest)">07</div><div class="ec-name">Nara Deer Park</div><div class="ec-day">Day 10 · 16 Oct · Nara</div><div class="ec-desc">1,000+ bowing deer + the Great Buddha at Todai-ji · gentle, unforgettable</div><div class="ec-book" style="color:var(--forest)">Free park · buy deer crackers on site</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">◷ Book a slot</div><div class="ec-n" style="color:var(--violet)">08</div><div class="ec-name">Kids' Kimono / Yukata</div><div class="ec-day">Day 11 · 17 Oct · Kyoto</div><div class="ec-desc">Dress Sana &amp; Tara in kimono + photos in Gion's old streets · many rental shops</div><div class="ec-book" style="color:var(--violet)">Book a morning rental slot near Gion</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Express Pass</div><div class="ec-n" style="color:var(--orange)">09</div><div class="ec-name">Universal Studios Japan</div><div class="ec-day">Day 13 · 19 Oct · Osaka</div><div class="ec-desc">Super Nintendo World (Mario Kart!) · Harry Potter · Minions · power-up bands</div><div class="ec-book" style="color:var(--orange)">usj.co.jp · dated ticket + Express Pass + area timed entry</div></div>
+      <div class="ec sk"><div class="ec-s" style="color:var(--amber)">◷ Still to book</div><div class="ec-n" style="color:var(--sky-m)">10</div><div class="ec-name">Osaka Aquarium Kaiyukan</div><div class="ec-day">Day 14 · 20 Oct · Osaka</div><div class="ec-desc">Whale sharks in a giant central tank · one of the world's best aquariums</div><div class="ec-book" style="color:var(--sky-m)">kaiyukan.com · buy online to skip the line</div></div>
+      <div class="ec bl"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--navy)">11</div><div class="ec-name">Shibuya Sky + Scramble</div><div class="ec-day">Day 7 · 13 Oct · Tokyo</div><div class="ec-desc">Open-air rooftop deck above the world's busiest crossing · sunset views</div><div class="ec-book" style="color:var(--navy)">Timed tickets online for sunset slots</div></div>
+    </div>
+  </div>
+
+  <!-- BOOK NOW -->
+  <div id="jbk" class="sec">
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Booking status</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+        <div style="background:var(--ok-l);border:.5px solid var(--ok-b);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--ok)">0</div><div style="font-size:10px;color:var(--ok)">Confirmed</div></div>
+        <div style="background:var(--rose-l);border:.5px solid var(--rose-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--rose-m)">4</div><div style="font-size:10px;color:var(--rose-m)">Book first</div></div>
+        <div style="background:var(--amber-l);border:.5px solid var(--amber-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--amber)">7+</div><div style="font-size:10px;color:var(--amber)">Then these</div></div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-m);margin-bottom:8px">🚨 Lock these first (sell out / price rises)</div>
+    <div class="bklist">
+      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Flights Chennai ⇄ Tokyo / Osaka <span class="btag urg">Book early</span></div><div class="bd">Out to Tokyo (HND/NRT) 7 Oct · home from Kansai (KIX) 21 Oct · "multi-city" open-jaw is most efficient · prices climb closer to autumn</div></div></div>
+      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Ghibli Museum tickets <span class="btag urg">Sells out in minutes</span></div><div class="bd">For 12 Oct · released on the 10th of the prior month (≈10 Sep) via Lawson · set a reminder &amp; be ready at release time</div></div></div>
+      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Tokyo Disneyland tickets <span class="btag urg">Dated entry</span></div><div class="bd">10 Oct · buy dated tickets online · weekends are busiest · download the Tokyo Disney Resort app</div></div></div>
+      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Universal Studios Japan + Express Pass <span class="btag urg">Express Pass</span></div><div class="bd">19 Oct · dated ticket + Express Pass + Super Nintendo World timed entry — these sell out, buy together</div></div></div>
+    </div>
+
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--forest-m);margin-bottom:8px">📅 Book in good time</div>
+    <div class="bklist">
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Hotels — Tokyo, Kyoto, Osaka</div><div class="bd">Family rooms for 4 · book Tokyo first · see Hotels tab</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">teamLab Planets TOYOSU</div><div class="bd">11 Oct · teamlab.art · timed entry sells out on weekends</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Shinkansen seat reservations</div><div class="bd">Tokyo → Kyoto (14 Oct) · reserve once dates fixed · ask for Fuji side · see Trains tab</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Tokyo Skytree &amp; Shibuya Sky</div><div class="bd">Timed tickets online · pick sunset slots</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Osaka Aquarium Kaiyukan</div><div class="bd">20 Oct · kaiyukan.com · buy online to skip the line</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Kids' kimono rental, Kyoto</div><div class="bd">17 Oct · reserve a morning slot near Gion</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Pocket WiFi / eSIM + IC cards</div><div class="bd">Pre-order pocket WiFi for airport pickup, or buy eSIMs · set up Suica/ICOCA in Apple/Google Wallet</div></div></div>
+    </div>
+  </div>
+
+  <!-- KID TIPS -->
+  <div id="jki" class="sec">
+    <div class="alert a-gr">Japan is wonderfully kid-friendly — clean, safe, punctual, and full of small delights. Here's what makes it easy &amp; fun with Sana (9) and Tara (6).</div>
+    <div class="kgrid">
+      <div class="kc"><div class="kc-t">Konbini magic</div><div class="kc-b">7-Eleven, Lawson &amp; FamilyMart are everywhere · cheap tasty meals, onigiri, fried chicken, melon pan, puddings · great for picky eaters &amp; quick breakfasts</div></div>
+      <div class="kc"><div class="kc-t">IC cards for everyone</div><div class="kc-b">Get a Suica (Tokyo) / ICOCA (Kansai) each — tap on/off trains, buses &amp; vending machines · kids' versions exist · or add Suica to phone wallets</div></div>
+      <div class="kc"><div class="kc-t">Gachapon &amp; vending</div><div class="kc-b">Capsule-toy machines everywhere · give each girl a small daily coin budget · drink vending machines on every corner (hot &amp; cold)</div></div>
+      <div class="kc"><div class="kc-t">Train etiquette</div><div class="kc-b">Quiet voices, no eating on local trains, line up on platform marks · rush hour (8–9 am) is packed — avoid with kids · trains are spotless &amp; on time</div></div>
+      <div class="kc"><div class="kc-t">Luggage forwarding (takkyubin)</div><div class="kc-b">Send big suitcases hotel-to-hotel (e.g. Tokyo → Kyoto) for ~¥2,000/bag · travel light on the Shinkansen with just a day bag · arrives next day</div></div>
+      <div class="kc"><div class="kc-t">October weather</div><div class="kc-b">Mild &amp; pleasant, ~16–23°C · early autumn leaves starting · light layers + a packable rain jacket · comfy walking shoes (lots of steps!)</div></div>
+      <div class="kc"><div class="kc-t">Shoes off indoors</div><div class="kc-b">Remove shoes at temples, some restaurants &amp; ryokan · easy slip-on shoes save time · clean socks all round</div></div>
+      <div class="kc"><div class="kc-t">Food for kids</div><div class="kc-b">Loads of wins: ramen, udon, gyoza, tempura, katsu, sushi conveyor belts, crepes, taiyaki · note: ask about veg/halal needs in advance — flag dietary requirements at booking</div></div>
+      <div class="kc"><div class="kc-t">Toilets &amp; amenities</div><div class="kc-b">High-tech heated toilets (a novelty for kids!) · clean public toilets everywhere · baby/kid facilities in malls &amp; stations</div></div>
+      <div class="kc"><div class="kc-t">Purikura &amp; arcades</div><div class="kc-b">Photo-sticker booths &amp; game arcades (claw machines!) in every entertainment district · a fun rainy-afternoon backup</div></div>
+      <div class="kc"><div class="kc-t">Theme-park strategy</div><div class="kc-b">Arrive at opening, use ride-pass apps (Disney) / Express Pass (USJ), big rides first, breaks in the afternoon · bring a portable charger</div></div>
+      <div class="kc"><div class="kc-t">Stay connected</div><div class="kc-b">Pocket WiFi or eSIM keeps maps + translation handy · Google Maps is excellent for trains · Google Translate camera for menus</div></div>
+    </div>
+  </div>
+
+  <!-- FLIGHTS -->
+  <div id="jfl" class="sec">
+    <div class="alert a-am">✈️ Flights not booked yet. An open-jaw / multi-city ticket (into Tokyo, out of Osaka) avoids backtracking. Below is the target shape — confirm exact times when booking.</div>
+    <div class="fgrid">
+      <div class="fc" style="background:var(--amber-l);border-color:var(--amber-m)">
+        <div class="fc-s" style="color:var(--amber)">◷ To book — Outbound</div>
+        <div class="fc-route">Chennai → Tokyo</div>
+        <div class="fc-sub">7 Oct 2026 · overnight · likely 1 stop</div>
+        <div class="fc-times">
+          <div><div class="fc-time">eve</div><div class="fc-iata">MAA</div></div>
+          <div class="fc-arrow">──────→</div>
+          <div style="text-align:right"><div class="fc-time">+1 day</div><div class="fc-iata">HND / NRT</div></div>
+        </div>
+        <div class="fc-note">Via Singapore / Bangkok / Hong Kong · land morning–midday 8 Oct</div>
+      </div>
+      <div class="fc" style="background:var(--amber-l);border-color:var(--amber-m)">
+        <div class="fc-s" style="color:var(--amber)">◷ To book — Return</div>
+        <div class="fc-route">Osaka → Chennai</div>
+        <div class="fc-sub">21 Oct 2026 · likely 1 stop</div>
+        <div class="fc-times">
+          <div><div class="fc-time">day</div><div class="fc-iata">KIX</div></div>
+          <div class="fc-arrow">──────→</div>
+          <div style="text-align:right"><div class="fc-time">21 Oct</div><div class="fc-iata">MAA</div></div>
+        </div>
+        <div class="fc-note">Fly out of Kansai (KIX) — no need to return to Tokyo</div>
+      </div>
+    </div>
+    <div class="alert a-bl">💡 Search "multi-city": MAA→Tokyo and Osaka→MAA in one ticket. Carriers to compare: Singapore Airlines, Cathay Pacific, Thai, ANA/JAL (via partners), AirAsia (budget, 1–2 stops). Book seats together &amp; pre-order kids' meals.</div>
+    <div class="alert a-am">📄 Reminder: India passports — Japan requires a visa. Apply 1–2 months ahead. Check each passport has 6+ months validity beyond 21 Oct (tap the traveller chips above to review expiry dates).</div>
+  </div>
+
+  <!-- TRAINS -->
+  <div id="jtr" class="sec">
+    <div class="alert a-ok">🚄 Japan runs on trains — fast, spotless, punctual. With this route (Tokyo → Kyoto → Osaka) a full Japan Rail Pass usually is NOT worth it; point-to-point tickets + IC cards are cheaper. Quick maths below.</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:1.25rem">
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--navy)">2h15</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Tokyo→Kyoto</div></div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--forest)">~30m</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Kyoto→Osaka</div></div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--amber)">~45m</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Kyoto→Nara</div></div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--violet)">320</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">km/h top speed</div></div>
+    </div>
+
+    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border)">Key journeys</div>
+    <table>
+      <thead><tr><th>When</th><th>Route</th><th>Train</th><th>Time</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:var(--ink)">14 Oct</td><td>Tokyo → Kyoto</td><td>Tokaido Shinkansen (Hikari/Nozomi)</td><td>~2h15</td><td>Reserve seats · Fuji on the right (west-bound)</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">16 Oct</td><td>Kyoto → Nara → Kyoto</td><td>JR / Kintetsu line</td><td>~45m each way</td><td>Day trip · IC card fine, no reservation</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">18 Oct</td><td>Kyoto → Osaka</td><td>JR Special Rapid / Kintetsu</td><td>~15–30m</td><td>Frequent · just tap your IC card</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">19 Oct</td><td>Osaka → Universal City</td><td>JR Yumesaki line</td><td>~11m</td><td>From Osaka station via Nishikujo</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">21 Oct</td><td>Osaka → Kansai Airport</td><td>Haruka express / Nankai</td><td>~50–75m</td><td>For the flight home</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border)">Passes &amp; cards</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem">
+      <div style="background:var(--navy-l);border:.5px solid #b5d4f4;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px">🎫 IC cards (Suica / ICOCA)</div>
+        <div style="font-size:12px;color:var(--navy);line-height:1.9">Get one each · tap on/off all city trains, subways &amp; buses · top up at machines · also buys drinks &amp; konbini snacks · add to phone wallet where possible</div>
+      </div>
+      <div style="background:var(--forest-l);border:.5px solid var(--forest-m);border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:8px">💴 JR Pass — probably skip</div>
+        <div style="font-size:12px;color:var(--forest);line-height:1.9">After the 2023 price rise, a 7-day JR Pass rarely pays off for just Tokyo–Kyoto–Osaka · buy the single Shinkansen ticket instead · note the Nozomi isn't covered by the pass anyway</div>
+      </div>
+      <div style="background:var(--amber-l);border:.5px solid #fde68a;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:8px">🧳 Travel light on the bullet train</div>
+        <div style="font-size:12px;color:var(--amber);line-height:1.9">Oversized bags need a reserved space behind the back row · easier: forward big suitcases Tokyo→Kyoto by takkyubin &amp; ride with day bags</div>
+      </div>
+      <div style="background:var(--violet-l);border:.5px solid #c4b5fd;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--violet);margin-bottom:8px">📱 Navigation</div>
+        <div style="font-size:12px;color:var(--violet);line-height:1.9">Google Maps is excellent for Japanese trains — platforms, exits, live times · screenshot routes offline · station numbering (e.g. JY03) helps kids follow along</div>
+      </div>
+    </div>
+    <div class="alert a-bl">🚸 Kids: under 6 generally ride free on laps; ages 6–11 are usually half fare. Tara (6) &amp; Sana (9) qualify for child fares — buy child IC cards or child tickets.</div>
+  </div>
+
+    <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
+    <button class="fb" onclick="switchTrip()">⇄ Switch to Ireland trip</button>
+    <a class="fb" href="https://www.google.com/flights" target="_blank">✈️ Search Flights</a>
+    <a class="fb" href="https://www.japan-guide.com" target="_blank">🗾 Japan Guide</a>
+  </div>
+</div>
+
 <script>
 const G_HASH = 'cd9bf3491d21031855e1e089165896fba50e6a18030ab9eb9c52166525b677e7';
 const SITE_KEY = '6LfskdwqAAAAAKFybSmhi2Zf3hAwCKuvxHNSA-NE';
@@ -939,9 +1276,23 @@ function revealDashboard() {
   gate.style.opacity = '0';
   setTimeout(() => {
     gate.style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
     document.getElementById('dash-style').removeAttribute('media');
+    document.getElementById('trip-picker').style.display = 'flex';
   }, 400);
+}
+
+function selectTrip(which) {
+  document.getElementById('trip-picker').style.display = 'none';
+  document.getElementById('dashboard').style.display = which === 'ireland' ? 'block' : 'none';
+  document.getElementById('dashboard-japan').style.display = which === 'japan' ? 'block' : 'none';
+  window.scrollTo(0, 0);
+}
+
+function switchTrip() {
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('dashboard-japan').style.display = 'none';
+  document.getElementById('trip-picker').style.display = 'flex';
+  window.scrollTo(0, 0);
 }
 
 function gUnlock() {
@@ -978,8 +1329,8 @@ window.addEventListener('DOMContentLoaded', () => {
         if (pw && CryptoJS.SHA256(pw).toString() === G_HASH) {
           decryptAndRender(pw);
           document.getElementById('gate').style.display = 'none';
-          document.getElementById('dashboard').style.display = 'block';
           document.getElementById('dash-style').removeAttribute('media');
+          document.getElementById('trip-picker').style.display = 'flex';
           return;
         }
       } catch(e) {}
@@ -999,8 +1350,9 @@ document.getElementById('g-pw').addEventListener('keydown', e => {
 });
 
 function show(id,btn){
-  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
+  const root = btn.closest('.dash-root') || document;
+  root.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  root.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
