@@ -413,17 +413,6 @@ tr:last-child td{border-bottom:none}
       <div class="tv"><div class="tv-av" style="background:#be185d">N</div><div><div class="tv-n">Naveen</div><div class="tv-a">Joins 24–27 May</div></div></div>
     </div>
 
-    <!-- Passport modal -->
-    <div id="pp-modal" onclick="if(event.target===this)closePP()">
-      <div class="pp-modal-box">
-        <div class="pp-modal-header" id="pp-modal-header">
-          <div class="pp-modal-av" id="pp-modal-av"></div>
-          <div><div class="pp-modal-name" id="pp-modal-name"></div><div class="pp-modal-sub">Republic of India · Passport</div></div>
-          <button class="pp-modal-close" onclick="closePP()">&#10005;</button>
-        </div>
-        <div class="pp-modal-body" id="pp-modal-body"></div>
-      </div>
-    </div>
     <div class="stats">
       <div class="st"><div class="st-n">15</div><div class="st-l">Total days</div></div>
       <div class="st"><div class="st-n">6</div><div class="st-l">Ireland days</div></div>
@@ -1125,10 +1114,24 @@ tr:last-child td{border-bottom:none}
     <div class="alert a-bl">🚸 Kids: under 6 generally ride free on laps; ages 6–11 are usually half fare. Tara (6) &amp; Sana (9) qualify for child fares — buy child IC cards or child tickets.</div>
   </div>
 
+  <div class="footer">
     <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
     <button class="fb" onclick="switchTrip()">⇄ Switch to Ireland trip</button>
     <a class="fb" href="https://www.google.com/flights" target="_blank">✈️ Search Flights</a>
     <a class="fb" href="https://www.japan-guide.com" target="_blank">🗾 Japan Guide</a>
+  </div>
+  </div>
+</div>
+
+<!-- PASSPORT MODAL — at body level so it works from both dashboards -->
+<div id="pp-modal" onclick="if(event.target===this)closePP()">
+  <div class="pp-modal-box">
+    <div class="pp-modal-header" id="pp-modal-header">
+      <div class="pp-modal-av" id="pp-modal-av"></div>
+      <div><div class="pp-modal-name" id="pp-modal-name"></div><div class="pp-modal-sub">Republic of India · Passport</div></div>
+      <button class="pp-modal-close" onclick="closePP()">&#10005;</button>
+    </div>
+    <div class="pp-modal-body" id="pp-modal-body"></div>
   </div>
 </div>
 
@@ -1239,13 +1242,18 @@ function closePP() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePP(); });
 
 function renderPassports(passports) {
-  _passports = passports; // store globally for modal
-  const tvCards = document.querySelectorAll('.tv');
-  passports.forEach((p, i) => {
-    if (tvCards[i]) {
-      const sub = tvCards[i].querySelector('.tv-a');
-      if (sub) sub.textContent = p.passport_no;
-    }
+  _passports = passports;
+  // Update traveller chips in both dashboards independently
+  ['dashboard', 'dashboard-japan'].forEach(dashId => {
+    const dash = document.getElementById(dashId);
+    if (!dash) return;
+    const tvCards = dash.querySelectorAll('.tv[onclick]');
+    passports.forEach((p, i) => {
+      if (tvCards[i]) {
+        const sub = tvCards[i].querySelector('.tv-a');
+        if (sub) sub.textContent = p.passport_no;
+      }
+    });
   });
 }
 
