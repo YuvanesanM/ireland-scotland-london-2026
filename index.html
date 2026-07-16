@@ -7,8 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LfskdwqAAAAAKFybSmhi2Zf3hAwCKuvxHNSA-NE&onload=onRecaptchaLoad" async defer></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{--flag-gradient:linear-gradient(90deg,#169b62 0 33%,#005eb8 33% 44%,#fff 44% 55%,#003078 55% 66%,#cf142b 66% 72%,#fff 72% 78%,#cf142b 78% 84%,#003078 84% 100%)}
+/* GOOGLE SIGN-IN GATE */
+#g-oauth{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);display:flex;align-items:center;justify-content:center;z-index:100000;transition:opacity .4s}
+.go-btn-wrap{display:flex;justify-content:center;min-height:44px;margin:1.5rem 0 .5rem}
+.go-err{color:#fca5a5;font-size:12px;min-height:18px;margin-top:8px}
+.go-note{font-size:11px;color:rgba(255,255,255,.45);margin-top:12px;line-height:1.6}
+.go-retry{margin-top:12px;font-size:12px;color:#93c5fd;background:none;border:none;cursor:pointer;text-decoration:underline;display:none}
 /* GATE */
 #gate{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s}
 .g-box{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:2.5rem 2rem;width:calc(100% - 2rem);max-width:380px;text-align:center;box-sizing:border-box}
@@ -318,6 +325,21 @@ tr:last-child td{border-bottom:none}
 </head>
 <body>
 
+<!-- GOOGLE SIGN-IN GATE -->
+<div id="g-oauth">
+  <div class="g-box">
+    <div class="g-flag"></div>
+    <div class="g-lock">&#128272;</div>
+    <div class="g-title">Family Travel 2026</div>
+    <p class="g-sub">Sign in with Google to continue</p>
+    <div class="go-btn-wrap" id="go-btn"></div>
+    <div class="go-err" id="go-err"></div>
+    <button class="go-retry" id="go-retry" onclick="location.reload()">Sign-in didn&rsquo;t load &mdash; tap to retry</button>
+    <p class="go-note">Access is limited to authorised family accounts.</p>
+    <div class="g-shield">&#128272; Google Sign-In &middot; booking details stay AES-256 encrypted</div>
+  </div>
+</div>
+
 <!-- GATE -->
 <div id="gate">
   <div class="g-box">
@@ -336,9 +358,9 @@ tr:last-child td{border-bottom:none}
     </div>
     <div class="g-lock">&#128274;</div>
     <div class="g-title">Family Travel 2026</div>
-    <p class="g-sub">Two adventures &middot; one login</p>
+    <p class="g-sub">Signed in &#10003; &middot; enter your unlock code to reveal booking details</p>
     <div class="g-status" id="g-status">Verifying&hellip;</div>
-    <label class="g-label" for="g-pw">Password</label>
+    <label class="g-label" for="g-pw">Unlock code</label>
     <div class="g-inp-wrap">
       <input class="g-inp" type="password" id="g-pw" placeholder="Enter password" autocomplete="off" disabled>
       <button class="g-eye" onclick="gToggle()">&#128065;</button>
@@ -1186,7 +1208,10 @@ function enableForm(msg, color) {
   s.style.color = color || 'rgba(255,255,255,.4)';
   document.getElementById('g-pw').disabled = false;
   document.getElementById('g-btn').disabled = false;
-  document.getElementById('g-pw').focus();
+  // Only grab focus once the Google gate is dismissed (avoids popping the
+  // mobile keyboard behind the sign-in overlay).
+  const o = document.getElementById('g-oauth');
+  if (!o || o.style.display === 'none') document.getElementById('g-pw').focus();
 }
 
 function evaluateScore(token) {
@@ -1398,6 +1423,7 @@ function logout() {
   // and the login gate is shown fresh.
   sessionStorage.clear();
   _passports = null;
+  try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch(e) {}
   location.reload();
 }
 
@@ -1421,12 +1447,40 @@ function gUnlock() {
   revealDashboard();
 }
 
-// On page load — restore session if already authenticated
-window.addEventListener('DOMContentLoaded', () => {
-  if (typeof CryptoJS === 'undefined') {
-    document.getElementById('g-err').textContent = 'Security library failed to load. Please refresh.';
+// ---- Google Sign-In gate (access control for authorised family accounts) ----
+const G_CLIENT_ID = '717827758789-99ugj40a6j2rr4r7db26shn0hivq0vv0.apps.googleusercontent.com';
+const G_ALLOW = ['mailyuvanesh@gmail.com', 'ramyaayuvan@gmail.com'];
+
+function decodeJwt(t) {
+  try { return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))); }
+  catch(e) { return null; }
+}
+
+function handleGoogleCredential(resp) {
+  const err = document.getElementById('go-err');
+  const p = resp && resp.credential ? decodeJwt(resp.credential) : null;
+  if (!p) { err.textContent = 'Sign-in failed. Please try again.'; return; }
+  const now = Math.floor(Date.now() / 1000);
+  const issOK = p.iss === 'accounts.google.com' || p.iss === 'https://accounts.google.com';
+  if (p.aud !== G_CLIENT_ID || !issOK || (p.exp && p.exp < now)) {
+    err.textContent = 'Sign-in could not be verified. Please try again.'; return;
+  }
+  const email = (p.email || '').trim().toLowerCase();
+  if (!p.email_verified || G_ALLOW.indexOf(email) === -1) {
+    err.textContent = '“' + (p.email || 'This account') + '” isn’t authorised for this trip.';
+    try { google.accounts.id.disableAutoSelect(); } catch(e) {}
     return;
   }
+  sessionStorage.setItem('google_ok', email);
+  proceedAfterGoogle();
+}
+
+// Move from the Google gate to the encrypted-unlock step (auto-skip if the
+// unlock code is already cached for this session).
+function proceedAfterGoogle() {
+  const o = document.getElementById('g-oauth');
+  o.style.opacity = '0';
+  setTimeout(() => { o.style.display = 'none'; }, 400);
   if (sessionStorage.getItem('trip_auth') === G_HASH) {
     const enc = sessionStorage.getItem('trip_pw');
     if (enc) {
@@ -1441,9 +1495,67 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       } catch(e) {}
     }
-    // Invalid session — clear and show gate
-    sessionStorage.clear();
   }
+  const gate = document.getElementById('gate');
+  gate.style.display = 'flex'; gate.style.opacity = '1';
+  const pwEl = document.getElementById('g-pw');
+  if (pwEl && !pwEl.disabled) pwEl.focus();
+}
+
+let _gTries = 0;
+function initGoogle() {
+  if (!(window.google && google.accounts && google.accounts.id)) {
+    if (++_gTries > 40) { document.getElementById('go-retry').style.display = 'inline-block'; return; }
+    return setTimeout(initGoogle, 150);
+  }
+  google.accounts.id.initialize({
+    client_id: G_CLIENT_ID,
+    callback: handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: false
+  });
+  google.accounts.id.renderButton(document.getElementById('go-btn'), {
+    theme: 'filled_blue', size: 'large', shape: 'pill', text: 'signin_with', width: 260
+  });
+  try { google.accounts.id.prompt(); } catch(e) {}
+}
+
+// On page load — Google sign-in is required first; then restore/unlock refs.
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof CryptoJS === 'undefined') {
+    document.getElementById('g-err').textContent = 'Security library failed to load. Please refresh.';
+  }
+  const gEmail = sessionStorage.getItem('google_ok');
+  const googleOK = gEmail && G_ALLOW.indexOf(gEmail) !== -1;
+
+  // Full restore — Google + unlock code both cached this session
+  if (googleOK && sessionStorage.getItem('trip_auth') === G_HASH) {
+    const enc = sessionStorage.getItem('trip_pw');
+    if (enc) {
+      try {
+        const pw = CryptoJS.AES.decrypt(enc, G_HASH).toString(CryptoJS.enc.Utf8);
+        if (pw && CryptoJS.SHA256(pw).toString() === G_HASH) {
+          decryptAndRender(pw);
+          document.getElementById('g-oauth').style.display = 'none';
+          document.getElementById('gate').style.display = 'none';
+          document.getElementById('dash-style').removeAttribute('media');
+          document.getElementById('trip-picker').style.display = 'flex';
+          return;
+        }
+      } catch(e) {}
+    }
+    sessionStorage.removeItem('trip_auth');
+    sessionStorage.removeItem('trip_pw');
+  }
+
+  // Google already verified this session → straight to the unlock step
+  if (googleOK) {
+    document.getElementById('g-oauth').style.display = 'none';
+    return;
+  }
+
+  // Otherwise show the Google gate
+  initGoogle();
 });
 
 function gToggle() {
