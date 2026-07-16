@@ -60,6 +60,12 @@
 .tp-title{font-family:Georgia,serif;font-size:30px;font-weight:300;color:#fff;line-height:1.15}
 .tp-sub{font-size:13px;color:rgba(255,255,255,.55);margin-top:8px}
 .tp-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:760px;width:100%}
+.tp-section{width:100%;max-width:760px;margin-bottom:1.75rem}
+.tp-section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:0 0 12px 2px;display:flex;align-items:center;gap:7px}
+.tp-section .tp-grid{justify-content:flex-start}
+.tp-card.past{opacity:.68;filter:saturate(.8)}
+.tp-card.past:hover{opacity:1;filter:none}
+.tp-past-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:12px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);border:.5px solid rgba(255,255,255,.25)}
 .tp-card{flex:1;min-width:280px;max-width:350px;border-radius:18px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);backdrop-filter:blur(14px);transition:transform .2s,box-shadow .2s,border-color .2s}
 .tp-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.35);border-color:rgba(255,255,255,.4)}
 .tp-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:54px}
@@ -374,23 +380,24 @@ tr:last-child td{border-bottom:none}
 <!-- TRIP PICKER -->
 <div id="trip-picker">
   <div class="tp-head">
-    <div class="tp-eyebrow">Welcome back · Choose your adventure</div>
-    <div class="tp-title">Two trips. One family.</div>
-    <div class="tp-sub">Pick a dashboard to open</div>
+    <div class="tp-eyebrow">Welcome back</div>
+    <div class="tp-title">Your trips</div>
+    <div class="tp-sub">Upcoming and past adventures — pick one to open</div>
   </div>
-  <div class="tp-grid">
-    <div class="tp-card" onclick="selectTrip('ireland')">
-      <div class="tp-banner ie">🍀</div>
-      <div class="tp-body">
-        <div class="tp-flag"><span>🇮🇪</span><span>🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span>🇬🇧</span></div>
-        <div class="tp-name">Ireland · Scotland · London</div>
-        <div class="tp-dates">18 May – 1 June 2026 · 15 days</div>
-        <div class="tp-status ok">✓ Confirmed &amp; booked</div>
-        <div class="tp-cta">Open dashboard →</div>
-        <div class="tp-meta">Dublin · Cork · Dingle · Belfast · Edinburgh · London</div>
-      </div>
-    </div>
-    <div class="tp-card" onclick="selectTrip('japan')">
+
+  <div class="tp-section" id="tp-upcoming-sec">
+    <div class="tp-section-label">✈️ Upcoming</div>
+    <div class="tp-grid" id="tp-upcoming"></div>
+  </div>
+
+  <div class="tp-section" id="tp-past-sec">
+    <div class="tp-section-label">🗄️ Past trips</div>
+    <div class="tp-grid" id="tp-past"></div>
+  </div>
+
+  <!-- Cards (JS sorts these into Upcoming / Past by end date) -->
+  <div id="tp-cards-src" style="display:none">
+    <div class="tp-card" data-end="2027-01-21" onclick="selectTrip('japan')">
       <div class="tp-banner jp">🗾</div>
       <div class="tp-body">
         <div class="tp-flag"><span>🇯🇵</span></div>
@@ -401,7 +408,19 @@ tr:last-child td{border-bottom:none}
         <div class="tp-meta">Osaka · Kyoto · Tokyo</div>
       </div>
     </div>
+    <div class="tp-card" data-end="2026-06-01" onclick="selectTrip('ireland')">
+      <div class="tp-banner ie">🍀</div>
+      <div class="tp-body">
+        <div class="tp-flag"><span>🇮🇪</span><span>🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span>🇬🇧</span></div>
+        <div class="tp-name">Ireland · Scotland · London</div>
+        <div class="tp-dates">18 May – 1 June 2026 · 15 days</div>
+        <div class="tp-status ok">✓ Confirmed &amp; booked</div>
+        <div class="tp-cta">Open dashboard →</div>
+        <div class="tp-meta">Dublin · Cork · Dingle · Belfast · Edinburgh · London</div>
+      </div>
+    </div>
   </div>
+
   <button class="tp-logout" onclick="logout()">⎋ Log out</button>
 </div>
 
@@ -1491,8 +1510,40 @@ function enterDashboards() {
   if (gate) gate.style.display = 'none';
   document.getElementById('dash-style').removeAttribute('media');
   hideSensitivePlaceholders();
+  arrangeTrips();
   document.getElementById('trip-picker').style.display = 'flex';
   window.scrollTo(0, 0);
+}
+
+// Sort the trip cards into Upcoming (end date today or later, soonest
+// first) and Past (most recent first) by each card's data-end date.
+function arrangeTrips() {
+  const up = document.getElementById('tp-upcoming');
+  const past = document.getElementById('tp-past');
+  if (!up || !past) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const cards = Array.prototype.slice.call(document.querySelectorAll('#trip-picker .tp-card'));
+  const endOf = c => new Date(c.getAttribute('data-end'));
+  const upcoming = cards.filter(c => endOf(c) >= today).sort((a, b) => endOf(a) - endOf(b));
+  const done = cards.filter(c => endOf(c) < today).sort((a, b) => endOf(b) - endOf(a));
+
+  upcoming.forEach(c => { c.classList.remove('past'); up.appendChild(c); });
+  done.forEach(c => {
+    c.classList.add('past');
+    if (!c.querySelector('.tp-past-tag')) {
+      const tag = document.createElement('div');
+      tag.className = 'tp-past-tag';
+      tag.textContent = '✓ Completed';
+      const body = c.querySelector('.tp-body');
+      body.insertBefore(tag, body.firstChild);
+      const cta = c.querySelector('.tp-cta');
+      if (cta) cta.textContent = 'Open recap →';
+    }
+    past.appendChild(c);
+  });
+
+  document.getElementById('tp-upcoming-sec').style.display = up.children.length ? '' : 'none';
+  document.getElementById('tp-past-sec').style.display = past.children.length ? '' : 'none';
 }
 
 // Without the unlock code there is no key to decrypt booking refs, so
