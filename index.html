@@ -1290,7 +1290,7 @@ function showPassport(idx) {
   const nameEl = document.getElementById('pp-modal-name');
   const av = document.getElementById('pp-modal-av');
   if (!_passports) {
-    body.innerHTML = '<div class="pp-locked">&#128274; Unlock the dashboard first to view passport details.</div>';
+    body.innerHTML = '<div class="pp-locked">&#128274; Passport details are kept private and aren’t stored on this page. Check your saved documents / email.</div>';
     nameEl.textContent = 'Passport'; av.textContent = '?'; av.style.background = '#71717a';
     modal.classList.add('open'); return;
   }
@@ -1475,31 +1475,42 @@ function handleGoogleCredential(resp) {
   proceedAfterGoogle();
 }
 
-// Move from the Google gate to the encrypted-unlock step (auto-skip if the
-// unlock code is already cached for this session).
+// Google sign-in is the only gate. On success go straight into the
+// dashboards. The booking refs stay AES-encrypted and are not decrypted
+// (no unlock code), so any encrypted placeholder is shown as a lock glyph
+// rather than exposed.
 function proceedAfterGoogle() {
   const o = document.getElementById('g-oauth');
   o.style.opacity = '0';
   setTimeout(() => { o.style.display = 'none'; }, 400);
-  if (sessionStorage.getItem('trip_auth') === G_HASH) {
-    const enc = sessionStorage.getItem('trip_pw');
-    if (enc) {
-      try {
-        const pw = CryptoJS.AES.decrypt(enc, G_HASH).toString(CryptoJS.enc.Utf8);
-        if (pw && CryptoJS.SHA256(pw).toString() === G_HASH) {
-          decryptAndRender(pw);
-          document.getElementById('gate').style.display = 'none';
-          document.getElementById('dash-style').removeAttribute('media');
-          document.getElementById('trip-picker').style.display = 'flex';
-          return;
-        }
-      } catch(e) {}
-    }
-  }
+  enterDashboards();
+}
+
+function enterDashboards() {
   const gate = document.getElementById('gate');
-  gate.style.display = 'flex'; gate.style.opacity = '1';
-  const pwEl = document.getElementById('g-pw');
-  if (pwEl && !pwEl.disabled) pwEl.focus();
+  if (gate) gate.style.display = 'none';
+  document.getElementById('dash-style').removeAttribute('media');
+  hideSensitivePlaceholders();
+  document.getElementById('trip-picker').style.display = 'flex';
+  window.scrollTo(0, 0);
+}
+
+// Without the unlock code there is no key to decrypt booking refs, so
+// replace the leftover [encrypted] placeholders with a lock glyph (keeps
+// the layout clean and never exposes the real values).
+function hideSensitivePlaceholders() {
+  ['dashboard', 'dashboard-japan'].forEach(id => {
+    const root = document.getElementById(id);
+    if (!root) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+    nodes.forEach(n => {
+      if (n.textContent.indexOf('[encrypted]') !== -1) {
+        n.textContent = n.textContent.replace(/#?\[encrypted\]/g, '🔒');
+      }
+    });
+    root.querySelectorAll('.tv[onclick] .tv-a').forEach(el => { el.textContent = '🔒 Private'; });
+  });
 }
 
 let _gTries = 0;
@@ -1520,41 +1531,16 @@ function initGoogle() {
   try { google.accounts.id.prompt(); } catch(e) {}
 }
 
-// On page load — Google sign-in is required first; then restore/unlock refs.
+// On page load — Google sign-in is the only gate.
 window.addEventListener('DOMContentLoaded', () => {
-  if (typeof CryptoJS === 'undefined') {
-    document.getElementById('g-err').textContent = 'Security library failed to load. Please refresh.';
-  }
   const gEmail = sessionStorage.getItem('google_ok');
   const googleOK = gEmail && G_ALLOW.indexOf(gEmail) !== -1;
-
-  // Full restore — Google + unlock code both cached this session
-  if (googleOK && sessionStorage.getItem('trip_auth') === G_HASH) {
-    const enc = sessionStorage.getItem('trip_pw');
-    if (enc) {
-      try {
-        const pw = CryptoJS.AES.decrypt(enc, G_HASH).toString(CryptoJS.enc.Utf8);
-        if (pw && CryptoJS.SHA256(pw).toString() === G_HASH) {
-          decryptAndRender(pw);
-          document.getElementById('g-oauth').style.display = 'none';
-          document.getElementById('gate').style.display = 'none';
-          document.getElementById('dash-style').removeAttribute('media');
-          document.getElementById('trip-picker').style.display = 'flex';
-          return;
-        }
-      } catch(e) {}
-    }
-    sessionStorage.removeItem('trip_auth');
-    sessionStorage.removeItem('trip_pw');
-  }
-
-  // Google already verified this session → straight to the unlock step
   if (googleOK) {
+    // Already verified this session → go straight in
     document.getElementById('g-oauth').style.display = 'none';
+    enterDashboards();
     return;
   }
-
-  // Otherwise show the Google gate
   initGoogle();
 });
 
