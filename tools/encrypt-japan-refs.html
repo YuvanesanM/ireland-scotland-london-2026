@@ -23,12 +23,20 @@
   <h1>🔒 Encrypt Japan booking refs</h1>
   <p>Fill in your booking references and the <strong>same password</strong> you use to unlock the dashboard, then click Encrypt. Copy the output string and paste it into the <code>SENSITIVE_JP</code> constant in <code>index.html</code>. Your password and PNRs never leave this page — only the encrypted string is safe to commit.</p>
 
-  <label for="data">Data to encrypt (JSON — add or remove keys freely)</label>
-  <textarea id="data">{
+  <label for="data">Data to encrypt (JSON — fill the values, add/remove keys freely)</label>
+  <textarea id="data" style="min-height:220px">{
   "out_pnr": "",
-  "ret_pnr": ""
+  "ret_pnr": "",
+  "out_tkt_y": "",
+  "out_tkt_r": "",
+  "out_tkt_s": "",
+  "out_tkt_t": "",
+  "ret_tkt_y": "",
+  "ret_tkt_r": "",
+  "ret_tkt_s": "",
+  "ret_tkt_t": ""
 }</textarea>
-  <p style="font-size:12px;color:#71717a;margin:6px 0 0">Keys must match the <code>data-k</code> attributes in the flight cards. Currently used: <code>out_pnr</code> (Thai/outbound) and <code>ret_pnr</code> (Air India/return). You can add more (e.g. <code>"out_ticket_yuvan": "..."</code>) and reference them with <code>&lt;span class="jp-ref" data-k="out_ticket_yuvan"&gt;</code>.</p>
+  <p style="font-size:12px;color:#71717a;margin:6px 0 0">Keys match the <code>data-k</code> attributes already in the Flights tab: <code>out_pnr</code>/<code>ret_pnr</code> (booking refs), and per-passenger e-tickets <code>out_tkt_y/r/s/t</code> (Thai) &amp; <code>ret_tkt_y/r/s/t</code> (Air India). Leave any value blank to keep its masked fallback. Add more keys any time and reference them with <code>&lt;span class="jp-ref" data-k="yourKey"&gt;</code>.</p>
 
   <label for="pw">Dashboard password</label>
   <input id="pw" type="password" autocomplete="off" placeholder="Same password as the login gate">
