@@ -78,6 +78,7 @@
 .tp-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:54px}
 .tp-banner.ie{background:linear-gradient(135deg,#1a4731,#0d4f4f 60%,#2d3561)}
 .tp-banner.jp{background:linear-gradient(135deg,#9f1239,#7f1d1d 55%,#1e1b4b)}
+.tp-banner.kl{background:linear-gradient(135deg,#0f766e,#0c4a6e 55%,#1e3a5f)}
 .tp-body{padding:18px 20px 22px}
 .tp-flag{display:flex;gap:6px;margin-bottom:10px;font-size:14px}
 .tp-name{font-size:18px;font-weight:600;color:#fff;margin-bottom:4px}
@@ -97,6 +98,8 @@
 .g-badge.jp{background:rgba(188,0,45,.25);border:.5px solid rgba(188,0,45,.5);color:#fca5a5}
 .g-badge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
 .g-badge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
+.g-badge.kl{background:rgba(13,148,136,.28);border:.5px solid rgba(13,148,136,.5);color:#5eead4}
+.g-badge.mng{background:rgba(234,88,12,.22);border:.5px solid rgba(234,88,12,.45);color:#fdba74}
 .g-trip-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 6px}
 /* Passport modal — always active so it works regardless of dash-style state */
 #pp-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:99998;display:none;align-items:center;justify-content:center;padding:1rem}
@@ -150,6 +153,11 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 .dbadge.jp{background:rgba(188,0,45,.25);border:.5px solid rgba(188,0,45,.5);color:#fca5a5}
 .dbadge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
 .dbadge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
+.hero.kl{background:linear-gradient(135deg,#0f766e 0%,#0c4a6e 40%,#1e3a5f 70%,#164e63 100%)}
+.hero.kl::before{content:'🌴'}
+.flag-bar.kl{background:linear-gradient(90deg,#0d9488 0 40%,#fbbf24 40% 60%,#0d9488 60% 100%)}
+.dbadge.kl{background:rgba(13,148,136,.28);border:.5px solid rgba(13,148,136,.5);color:#5eead4}
+.dbadge.mng{background:rgba(234,88,12,.22);border:.5px solid rgba(234,88,12,.45);color:#fdba74}
 .hi{max-width:1140px;margin:0 auto;position:relative;z-index:1}
 .ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-m);margin-bottom:10px}
 .dest-badges{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
@@ -370,6 +378,11 @@ tr:last-child td{border-bottom:none}
       <span class="g-badge jp2">&#9962;&#65039; Kyoto</span>
       <span class="g-badge jp3">&#127983; Osaka</span>
     </div>
+    <p class="g-trip-label" style="margin-top:14px">Trip 3 · September 2026</p>
+    <div class="g-dest">
+      <span class="g-badge kl">&#127796; Bekal</span>
+      <span class="g-badge mng">&#9973; Mangaluru</span>
+    </div>
     <div class="g-lock">&#128274;</div>
     <div class="g-title">Family Travel 2026</div>
     <p class="g-sub">Signed in &#10003; &middot; enter your unlock code to reveal booking details</p>
@@ -405,6 +418,17 @@ tr:last-child td{border-bottom:none}
 
   <!-- Cards (JS sorts these into Upcoming / Past by end date) -->
   <div id="tp-cards-src" style="display:none">
+    <div class="tp-card" data-end="2026-09-14" onclick="selectTrip('kerala')">
+      <div class="tp-banner kl">🌴</div>
+      <div class="tp-body">
+        <div class="tp-flag"><span>🌴</span><span>⛵</span></div>
+        <div class="tp-name">Bekal &amp; Mangaluru</div>
+        <div class="tp-dates">11 – 14 September 2026 · 4 days</div>
+        <div class="tp-status ok">✓ Confirmed &amp; booked</div>
+        <div class="tp-cta">Open dashboard →</div>
+        <div class="tp-meta">Taj Bekal Resort &amp; Spa · Vivanta Mangalore</div>
+      </div>
+    </div>
     <div class="tp-card" data-end="2027-01-21" onclick="selectTrip('japan')">
       <div class="tp-banner jp">🗾</div>
       <div class="tp-body">
@@ -1217,6 +1241,161 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
+<!-- ===================== BEKAL / MANGALURU DASHBOARD ===================== -->
+<div id="dashboard-bekal" class="dash-root" style="display:none">
+  <div class="hero kl">
+  <div class="flag-bar kl"></div>
+  <div class="hero-ctrls">
+    <button class="switch-trip" onclick="switchTrip()">⇄ Trips</button>
+    <button class="switch-trip out" onclick="logout()">⎋ Logout</button>
+  </div>
+  <div class="hi">
+    <div class="ey" style="color:#5eead4">Family trip · Confirmed &amp; booked · September 2026</div>
+    <div class="dest-badges">
+      <span class="dbadge kl">🌴 Bekal</span>
+      <span class="dsep">·</span>
+      <span class="dbadge mng">⛵ Mangaluru</span>
+    </div>
+    <div class="ht">Bekal <em>&middot;</em> Mangaluru</div>
+    <div class="hs">11 – 14 September 2026 &nbsp;·&nbsp; 4 days &nbsp;·&nbsp; Flights &amp; hotels booked</div>
+    <div class="travelers">
+      <div class="tv"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">Adult</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">Adult</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">Child</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">Child</div></div></div>
+    </div>
+    <div class="stats">
+      <div class="st"><div class="st-n">4</div><div class="st-l">Total days</div></div>
+      <div class="st"><div class="st-n">2</div><div class="st-l">Bekal nights</div></div>
+      <div class="st"><div class="st-n">1</div><div class="st-l">Mangaluru night</div></div>
+      <div class="st ok"><div class="st-n">2</div><div class="st-l">Flights booked</div></div>
+      <div class="st ok"><div class="st-n">2</div><div class="st-l">Hotels booked</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tb active" onclick="show('kit',this)">All 4 days</button>
+    <button class="tb" onclick="show('kht',this)">Hotels</button>
+    <button class="tb" onclick="show('kfl',this)">Flights</button>
+    <button class="tb" onclick="show('kki',this)">Kid tips</button>
+  </div>
+
+  <!-- ALL 4 DAYS -->
+  <div id="kit" class="sec active">
+    <div class="alert a-ok">✅ Fully booked — flights, Taj Bekal Resort &amp; Spa, and Vivanta Mangalore are all confirmed. A short, relaxed beach &amp; backwater getaway.</div>
+    <div class="spine"><div class="sr">
+      <div class="sp ie"><div class="dot"></div><div class="spn">Fly out</div><div class="spd">11 Sep</div><div class="sps">MAA→IXE 05:40</div></div>
+      <div class="sp uk"><div class="dot"></div><div class="spn">Bekal</div><div class="spd">11–13 Sep</div><div class="sps">2 nights</div></div>
+      <div class="sp sc"><div class="dot"></div><div class="spn">Mangaluru</div><div class="spd">13–14 Sep</div><div class="sps">1 night</div></div>
+      <div class="sp lo"><div class="dot"></div><div class="spn">Fly home</div><div class="spd">14 Sep</div><div class="sps">IXE→MAA 07:55</div></div>
+    </div></div>
+
+    <div class="sh"><span>✈️ Travel · 11 Sep</span><span class="shb ok"><span class="okdot"></span> Flights booked</span></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f"><span style="font-size:9px;font-weight:500;opacity:.8">11 Sep</span><span style="font-size:13px;font-weight:700;line-height:1">D1</span><span style="font-size:9px;font-weight:600;opacity:.85">Fri</span></div><div class="db"><p class="dt">Fly Chennai → Mangaluru · transfer to Bekal</p><p class="dd">Depart Chennai (MAA) 05:40 → land Mangaluru (IXE) 07:25 · IndiGo 6E 7346</p><p class="dc">Early departure — reach Chennai airport (Terminal 4) by ~04:00 for the 05:40 flight · IndiGo 6E 7346 (ATR), 1h 45m · land Mangaluru (IXE) 07:25 · road transfer Mangaluru → Bekal (~1.5–2h along the coast) · check in to Taj Bekal Resort &amp; Spa, Deluxe Villa Courtyard View · settle in — private courtyard, resort grounds, beach &amp; backwater views · relaxed first evening, all meals included from check-in</p><div class="tags"><span class="tag t-am">Very early flight — pack the night before</span><span class="tag t-ok">All-meals-inclusive package starts today</span></div></div></div>
+
+    <div class="sh"><span>🌴 Bekal · 11–13 Sep · 2 nights</span><span class="shb ok"><span class="okdot"></span> Taj Bekal Resort &amp; Spa</span></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f"><span style="font-size:9px;font-weight:500;opacity:.8">12 Sep</span><span style="font-size:13px;font-weight:700;line-height:1">D2</span><span style="font-size:9px;font-weight:600;opacity:.85">Sat</span></div><div class="db"><p class="dt">Full day at Taj Bekal Resort &amp; Spa</p><p class="dd">12 Sep (Sat)</p><p class="dc">A full resort day — beach time on the Bekal coastline, the resort pool, spa treatments for the adults, kids' activities · explore the backwater-facing grounds and courtyard villas · all meals included (breakfast, lunch, dinner) as part of the Limited Period Escapes package · an early-evening walk along the beach as the light turns gold</p><div class="tags"><span class="tag t-ok">All-meals-inclusive — no need to plan meals</span><span class="tag t-vi">Book a spa slot early if you want one</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🚗 Bekal → Mangaluru · 13 Sep</span><span class="shb ok"><span class="okdot"></span> ~1.5–2h by road</span></div>
+    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12"><span style="font-size:9px;font-weight:500;opacity:.8">13 Sep</span><span style="font-size:13px;font-weight:700;line-height:1">D3</span><span style="font-size:9px;font-weight:600;opacity:.85">Sun</span></div><div class="db"><p class="dt">Bekal Fort → transfer to Mangaluru</p><p class="dd">13 Sep (Sun) · check out Bekal this morning, check into Mangaluru this evening</p><p class="dc">Morning: Bekal Fort — Kerala's largest fort, a short drive from the resort, with sweeping Arabian Sea views from the ramparts (a great photo stop with the kids) · check out of Taj Bekal · road transfer Bekal → Mangaluru (~1.5–2h) · check in to Vivanta Mangalore Oldport Road (formerly Taj Manjarun), Premium Room River View, by the afternoon · relaxed evening — river views from the room, or a stroll near Old Port Road</p><div class="tags"><span class="tag t-gr">Bekal Fort is open till evening</span><span class="tag t-bl">Bags travel with you — no forwarding needed</span></div></div></div>
+
+    <div class="sh"><span>⛵ Mangaluru · 13–14 Sep · 1 night</span><span class="shb ok"><span class="okdot"></span> Vivanta Mangalore Oldport Road</span></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span style="font-size:9px;font-weight:500;opacity:.8">14 Sep</span><span style="font-size:13px;font-weight:700;line-height:1">D4</span><span style="font-size:9px;font-weight:600;opacity:.85">Mon</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Fly home from Mangaluru · early flight</p><p class="dd" style="color:var(--forest-m)">14 Sep (Mon) — depart Mangaluru (IXE) 07:55</p><p class="dc" style="color:var(--forest)">An early start — check out of the Vivanta well before the standard checkout time, so pack the night before · IndiGo 6E 7345 (ATR) Mangaluru → Chennai, 07:55 → 09:40 (1h 45m) · lands Chennai Terminal 1 · home by mid-morning</p><div class="tags"><span class="tag t-ok">✅ Booked: IndiGo · both flights confirmed</span><span class="tag t-bl">Leave the hotel by ~6am for the 07:55 flight</span></div></div></div>
+  </div>
+
+  <!-- HOTELS -->
+  <div id="kht" class="sec">
+    <div class="alert a-ok">✅ Both hotels confirmed — Taj Bekal Resort &amp; Spa (2 nights) and Vivanta Mangalore Oldport Road (1 night).</div>
+    <div class="hgrid">
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Bekal, Kerala · 11–13 Sep · 2 nights</div>
+        <div class="hc-name">Taj Bekal Resort &amp; Spa</div>
+        <div class="hc-addr">Kerala · +91 46723 02000</div>
+        <div class="hc-sub">Deluxe Villa Courtyard View · Limited Period Escapes — all meals inclusive · 2 Adults, 2 Children</div>
+        <div class="hc-ref">Booking #[encrypted] · Itinerary #[encrypted]</div>
+        <div class="perks"><span class="pk ok">All meals included</span><span class="pk">Villa with courtyard</span><span class="pk am">₹61,977 total</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Mangaluru · 13–14 Sep · 1 night</div>
+        <div class="hc-name">Vivanta Mangalore Oldport Road</div>
+        <div class="hc-addr">Old Port Road, near Mangaluru City Bus Stand · formerly Taj Manjarun</div>
+        <div class="hc-sub">Premium Room River View · 2 Adults, 2 Children · booked via MakeMyTrip</div>
+        <div class="hc-ref">R360 ID: [encrypted]</div>
+        <div class="perks"><span class="pk ok">River view</span><span class="pk">Wi-Fi for 4 devices</span><span class="pk am">₹13,619 total (₹9,533 pts + ₹4,086 cash)</span></div>
+      </div>
+    </div>
+    <div class="alert a-bl">💡 Taj Bekal check-in is standard 2pm on 11 Sep · Vivanta Mangalore check-out is 12pm on 14 Sep, but the 07:55 flight means leaving well before then.</div>
+  </div>
+
+  <!-- FLIGHTS -->
+  <div id="kfl" class="sec">
+    <div class="alert a-ok">✅ Both flights booked with IndiGo — direct Chennai ⇄ Mangaluru, all 4 travellers confirmed on the same booking each way.</div>
+    <div class="fgrid">
+      <div class="fc">
+        <div class="fc-s">✅ Booked — Outbound · IndiGo</div>
+        <div class="fc-route">Chennai → Mangaluru</div>
+        <div class="fc-sub">11 Sep 2026 · Direct · 1h 45m · PNR [encrypted]</div>
+        <div class="fc-times">
+          <div><div class="fc-time">05:40</div><div class="fc-iata">MAA · T4</div></div>
+          <div class="fc-arrow">──1h45m──→</div>
+          <div style="text-align:right"><div class="fc-time">07:25</div><div class="fc-iata">IXE</div></div>
+        </div>
+        <div class="fc-note">6E 7346 · ATR turboprop · check-in/bag drop closes 04:40</div>
+      </div>
+      <div class="fc">
+        <div class="fc-s">✅ Booked — Return · IndiGo</div>
+        <div class="fc-route">Mangaluru → Chennai</div>
+        <div class="fc-sub">14 Sep 2026 · Direct · 1h 45m · PNR [encrypted]</div>
+        <div class="fc-times">
+          <div><div class="fc-time">07:55</div><div class="fc-iata">IXE</div></div>
+          <div class="fc-arrow">──1h45m──→</div>
+          <div style="text-align:right"><div class="fc-time">09:40</div><div class="fc-iata">MAA · T1</div></div>
+        </div>
+        <div class="fc-note">6E 7345 · ATR turboprop · check-in/bag drop closes 06:55</div>
+      </div>
+    </div>
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Seats — booked on both flights</div>
+      <table>
+        <thead><tr><th>Passenger</th><th>Outbound seat</th><th>Return seat</th></tr></thead>
+        <tbody>
+          <tr><td>Yuvan</td><td>16F (Window)</td><td>16F (Window)</td></tr>
+          <tr><td>Ramyaa</td><td>16D (Aisle)</td><td>16D (Aisle)</td></tr>
+          <tr><td>Sana</td><td>16C (Aisle)</td><td>16C (Aisle)</td></tr>
+          <tr><td>Tara</td><td>16A (Window)</td><td>16A (Window)</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:10px;color:var(--muted);margin-top:8px">Same row (16) both ways — window/aisle seats for the girls to swap.</div>
+    </div>
+    <div class="alert a-am">🧳 Baggage: 15kg check-in + 7kg cabin per person (domestic). ATR aircraft — smaller overhead bins, keep hand luggage compact.</div>
+  </div>
+
+  <!-- KID TIPS -->
+  <div id="kki" class="sec">
+    <div class="alert a-gr">A short, easy family getaway — beach, backwaters and two very early flights. Here's what makes it smooth with Sana (9) and Tara (6).</div>
+    <div class="kgrid">
+      <div class="kc"><div class="kc-t">Very early flights both ways</div><div class="kc-b">05:40 out, 07:55 back — let the kids sleep in the car to the airport, and plan an early bedtime the night before each flight</div></div>
+      <div class="kc"><div class="kc-t">Sun protection</div><div class="kc-b">Kerala coast sun is strong even in September · sunscreen, hats, and swimwear with UV protection for the beach &amp; pool</div></div>
+      <div class="kc"><div class="kc-t">All-meals-inclusive at Bekal</div><div class="kc-b">Breakfast, lunch &amp; dinner included at the resort — no need to plan meals or carry snacks for those 2 days</div></div>
+      <div class="kc"><div class="kc-t">Evening insect repellent</div><div class="kc-b">Backwater-adjacent properties can have mosquitoes near dusk — pack a kid-safe repellent for evenings outdoors</div></div>
+      <div class="kc"><div class="kc-t">Road transfer comfort</div><div class="kc-b">Bekal ↔ Mangaluru is ~1.5–2h by road — pack snacks, water and a tablet/books for the girls</div></div>
+      <div class="kc"><div class="kc-t">Pack the night before</div><div class="kc-b">Both flights are early morning — have bags packed and ready so departure mornings stay stress-free</div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
+    <button class="fb" onclick="switchTrip()">⇄ Switch trips</button>
+    <a class="fb ok" href="https://www.tajhotels.com/en-in/taj/taj-bekal-resort-and-spa-kerala/" target="_blank">✅ Manage Taj Bekal</a>
+    <a class="fb ok" href="https://www.goindigo.in/web-check-in.html" target="_blank">✅ IndiGo Web Check-in</a>
+  </div>
+  </div>
+</div>
+
 <!-- PASSPORT MODAL — at body level so it works from both dashboards -->
 <div id="pp-modal" onclick="if(event.target===this)closePP()">
   <div class="pp-modal-box">
@@ -1436,16 +1615,22 @@ function revealDashboard() {
   }, 400);
 }
 
+const TRIP_DASHBOARDS = { ireland: 'dashboard', japan: 'dashboard-japan', kerala: 'dashboard-bekal' };
+
 function selectTrip(which) {
   document.getElementById('trip-picker').style.display = 'none';
-  document.getElementById('dashboard').style.display = which === 'ireland' ? 'block' : 'none';
-  document.getElementById('dashboard-japan').style.display = which === 'japan' ? 'block' : 'none';
+  Object.entries(TRIP_DASHBOARDS).forEach(([key, id]) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = (key === which) ? 'block' : 'none';
+  });
   window.scrollTo(0, 0);
 }
 
 function switchTrip() {
-  document.getElementById('dashboard').style.display = 'none';
-  document.getElementById('dashboard-japan').style.display = 'none';
+  Object.values(TRIP_DASHBOARDS).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
   document.getElementById('trip-picker').style.display = 'flex';
   window.scrollTo(0, 0);
 }
@@ -1563,7 +1748,7 @@ function arrangeTrips() {
 // replace the leftover [encrypted] placeholders with a lock glyph (keeps
 // the layout clean and never exposes the real values).
 function hideSensitivePlaceholders() {
-  ['dashboard', 'dashboard-japan'].forEach(id => {
+  ['dashboard', 'dashboard-japan', 'dashboard-bekal'].forEach(id => {
     const root = document.getElementById(id);
     if (!root) return;
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
