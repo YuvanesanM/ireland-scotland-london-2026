@@ -298,6 +298,23 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 .btag.urg{background:var(--rose-l);color:var(--rose-m);border-color:var(--rose-m)}
 .btag.am{background:var(--amber-l);color:var(--amber);border-color:var(--amber-m)}
 
+/* PRIORITY BOOKING TIMELINE */
+.pbt-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.pbt-item{display:flex;gap:12px;align-items:center;padding:11px 14px;border-radius:var(--r);border:.5px solid var(--border);background:var(--w)}
+.pbt-item.pbt-open{border-color:var(--ok-b);background:var(--ok-l)}
+.pbt-item.pbt-today{border-color:var(--rose-m);background:var(--rose-l)}
+.pbt-date{min-width:64px;text-align:center;font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-l);border-radius:8px;padding:6px 4px;flex-shrink:0;line-height:1.3}
+.pbt-main{flex:1;min-width:0}
+.pbt-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.pbt-why{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:2px}
+.pbt-when{font-size:10px;color:var(--muted);font-style:italic}
+.pbt-status{flex-shrink:0;text-align:right;font-size:11px;font-weight:600;color:var(--muted);min-width:96px}
+.pbt-item.pbt-today .pbt-status{color:var(--rose-m)}
+.pbt-item.pbt-open .pbt-status{color:var(--ok)}
+.pbt-link{display:block;font-size:10px;font-weight:500;color:var(--navy-m);text-decoration:none;margin-top:3px}
+.pbt-link:hover{text-decoration:underline}
+@media(max-width:600px){.pbt-item{flex-wrap:wrap}.pbt-status{width:100%;text-align:left;margin-top:4px;min-width:0}}
+
 /* PROGRESS BAR */
 .prog{height:6px;border-radius:3px;background:var(--border);margin-bottom:4px;overflow:hidden}
 .prog-f{height:100%;border-radius:3px}
@@ -969,7 +986,7 @@ tr:last-child td{border-bottom:none}
 
   <!-- ALL 16 DAYS -->
   <div id="jit" class="sec active">
-    <div class="alert a-ok">✅ Flights booked — Thai Airways into Osaka (6 Jan) &amp; Air India home from Tokyo (21 Jan). Now lock the sell-out bookings: Kichi Kichi Omurice, Gion Corner, teamLab Planets, Tokyo Disneyland, Shibuya Sky, and the three family hotels. 🎂 Tara's birthday falls on Day 6 (11 Jan) in Kyoto — kimono rental booked to mark the day!</div>
+    <div class="alert a-ok">✅ Flights booked — Thai Airways into Osaka (6 Jan) &amp; Air India home from Tokyo (21 Jan). See the Book Now tab for the priority booking timeline — Gion Corner, teamLab Planets, Tokyo Disneyland, Shibuya Sky and more each open on a different date. 🎂 Tara's birthday falls on Day 6 (11 Jan) in Kyoto — kimono rental booked to mark the day!</div>
     <div class="spine"><div class="sr wide">
       <div class="sp ie"><div class="dot"></div><div class="spn">Arrive Osaka</div><div class="spd">6 Jan</div><div class="sps">KIX 15:45</div></div>
       <div class="sp uk"><div class="dot"></div><div class="spn">Osaka</div><div class="spd">6–10 Jan</div><div class="sps">4 nights</div></div>
@@ -992,7 +1009,7 @@ tr:last-child td{border-bottom:none}
     <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span style="font-size:9px;font-weight:500;opacity:.8">9 Jan</span><span style="font-size:13px;font-weight:700;line-height:1">D4</span><span style="font-size:9px;font-weight:600;opacity:.85">Sat</span></div><div class="db"><p class="dt">Nara day trip 🦌 — deer, mochi &amp; a hilltop cable car</p><p class="dd">9 Jan (Sat) · ~35–45 min from Namba by train</p><p class="dc">Nara Park — 1,000+ free-roaming deer that bow for crackers (shika senbei), a guaranteed family favourite · Nakatanidou for the famous rapid-fire mochi-pounding show · on the way back, ride the Ikoma Cable Car — a scenic ride up to a hilltop amusement park, a fun way to end the day before returning to Osaka</p><div class="tags"><span class="tag t-gr">Deer that bow — unforgettable for Sana &amp; Tara</span><span class="tag t-am">Buy deer crackers from park vendors only</span></div></div></div>
 
     <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🚄 Himeji day trip → Kyoto · 10 Jan</span><span class="shb ok"><span class="okdot"></span> ~1.5h via Shin-Osaka</span></div>
-    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span style="font-size:9px;font-weight:500;opacity:.8">10 Jan</span><span style="font-size:13px;font-weight:700;line-height:1">D5</span><span style="font-size:9px;font-weight:600;opacity:.85">Sun</span></div><div class="db"><p class="dt">Himeji Castle day trip → transfer to Kyoto</p><p class="dd">10 Jan (Sun) · check out Osaka this morning, check into Kyoto this evening</p><p class="dc">Morning: Himeji Castle — Japan's finest original castle, allow 2.5h · Koko-en, the adjoining Edo-style garden · early afternoon transfer Himeji → Kyoto via Shin-Osaka (~1.5h by Shinkansen) — check out of the Osaka hotel before heading out, check into the Kyoto hotel by evening · settle in with an evening stroll along Pontocho Alley · dinner at Kichi Kichi Omurice — the famous theatrical omurice chef (book well ahead for an arrival-night table) · Iyoshi Cola for a craft cola nightcap</p><div class="tags"><span class="tag t-am">⚠️ Book Kichi Kichi Omurice well in advance</span><span class="tag t-bl">Bags travel with you today — no forwarding needed</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span style="font-size:9px;font-weight:500;opacity:.8">10 Jan</span><span style="font-size:13px;font-weight:700;line-height:1">D5</span><span style="font-size:9px;font-weight:600;opacity:.85">Sun</span></div><div class="db"><p class="dt">Himeji Castle day trip → transfer to Kyoto</p><p class="dd">10 Jan (Sun) · check out Osaka this morning, check into Kyoto this evening</p><p class="dc">Morning: Himeji Castle — Japan's finest original castle, allow 2.5h · Koko-en, the adjoining Edo-style garden · early afternoon transfer Himeji → Kyoto via Shin-Osaka (~1.5h by Shinkansen) — check out of the Osaka hotel before heading out, check into the Kyoto hotel by evening · settle in with an evening stroll along Pontocho Alley, then dinner at one of its many riverside restaurants · Iyoshi Cola for a craft cola nightcap</p><div class="tags"><span class="tag t-bl">Bags travel with you today — no forwarding needed</span></div></div></div>
 
     <div class="sh"><span>⛩️ Kyoto · 10–13 Jan · 3 nights</span><span class="shb pi"><span class="okdot"></span> Hotel to book</span></div>
     <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span style="font-size:9px;font-weight:500;opacity:.8">11 Jan</span><span style="font-size:13px;font-weight:700;line-height:1">D6</span><span style="font-size:9px;font-weight:600;opacity:.85">Mon</span></div><div class="db slp" style="background:#fdf2f8;border-color:#f0abfc"><p class="dt" style="color:#a21caf">🎂 Tara's Birthday! · Fushimi Inari · kimono day in Gion</p><p class="dd" style="color:#a21caf">11 Jan (Mon)</p><p class="dc" style="color:#86198f">Go early (8am) to Fushimi Inari Taisha — do the lower loop with the kids, the full summit is 2–3h · Gion/Higashiyama: Ninenzaka's historic stone-paved slope, with a kids' kimono rental to mark Tara's birthday in style · snack stops along Sannenzaka — Ochanokosaisai's viral chilli-powder treat, Miffy's Oyatsu-do, Komatsuya Honke's stamped pancake roll · Gion Corner for a daytime/early-evening geisha-arts show (book ahead) · Northern/Eastern Kyoto: the rabbit-themed Okazaki Shrine · WIFE &amp; HUSBAND for picnic-basket coffee · BUTTER Hoboku Rakunojo's butter sandwiches for lunch · Vineria Il Passaggio for a parents' wine-time nightcap</p><div class="tags"><span class="tag t-vi">🎂 Kimono rental booked for Tara's birthday</span><span class="tag t-am">⚠️ Book Gion Corner ahead</span><span class="tag t-bl">Bring a small birthday treat for the hotel room tonight</span></div></div></div>
@@ -1051,10 +1068,10 @@ tr:last-child td{border-bottom:none}
 
   <!-- EXPERIENCES -->
   <div id="jex" class="sec">
-    <div class="alert a-bl">Kid-magnet experiences for Sana (9) &amp; Tara (6/7 🎂). Several of these — Kichi Kichi, Gion Corner, teamLab, Disneyland, Shibuya Sky — must be booked well ahead.</div>
+    <div class="alert a-bl">Kid-magnet experiences for Sana (9) &amp; Tara (6/7 🎂). Several of these — Gion Corner, teamLab, Disneyland, Shibuya Sky — have hard release dates; see the Book Now tab's priority timeline.</div>
     <div class="egrid">
       <div class="ec sk"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--sky-m)">01</div><div class="ec-name">Himeji Castle</div><div class="ec-day">Day 5 · 10 Jan · Himeji</div><div class="ec-desc">Japan's finest original castle · allow 2.5h · adjoining Koko-en garden</div><div class="ec-book" style="color:var(--sky-m)">No booking · allow extra time on weekends</div></div>
-      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Book well ahead</div><div class="ec-n" style="color:var(--orange)">02</div><div class="ec-name">Kichi Kichi Omurice</div><div class="ec-day">Day 5 · 10 Jan · Kyoto</div><div class="ec-desc">The famous theatrical omurice chef — a Kyoto arrival-night highlight</div><div class="ec-book" style="color:var(--orange)">Book well in advance for a dinner table</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--rose-m)">⚠️ Tricky to fit — see note</div><div class="ec-n" style="color:var(--orange)">02</div><div class="ec-name">Kichi Kichi Omurice</div><div class="ec-day">Kyoto — no fixed day</div><div class="ec-desc">The famous theatrical omurice chef — genuinely worth it, but hard to schedule around this trip's early Kyoto mornings</div><div class="ec-book" style="color:var(--rose-m)">Same-day, in-person queue only from ~8am (system changed 2024) — only works if an adult can skip part of a morning to queue centrally; treat as opportunistic, not a fixed booking</div></div>
       <div class="ec gr"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--forest)">03</div><div class="ec-name">Fushimi Inari Shrine</div><div class="ec-day">Day 6 · 11 Jan · Kyoto</div><div class="ec-desc">Thousands of vivid red torii gates winding up the hill · free · open 24h</div><div class="ec-book" style="color:var(--forest)">Free · no booking · go early (8am)</div></div>
       <div class="ec vi"><div class="ec-s" style="color:#a21caf">🎂 Tara's birthday</div><div class="ec-n" style="color:var(--violet)">04</div><div class="ec-name">Kids' Kimono Rental, Ninenzaka</div><div class="ec-day">Day 6 · 11 Jan · Kyoto</div><div class="ec-desc">Dress Sana &amp; Tara in kimono for photos on Ninenzaka's historic slope — marking Tara's birthday</div><div class="ec-book" style="color:var(--violet)">Book a morning rental slot near Gion</div></div>
       <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Book ahead</div><div class="ec-n" style="color:var(--violet)">05</div><div class="ec-name">Gion Corner</div><div class="ec-day">Day 6 · 11 Jan · Kyoto</div><div class="ec-desc">Daytime/early-evening geisha-arts show — dance, tea ceremony, music</div><div class="ec-book" style="color:var(--violet)">Book ahead — set showtimes</div></div>
@@ -1076,8 +1093,8 @@ tr:last-child td{border-bottom:none}
       <div style="font-size:12px;font-weight:600;margin-bottom:8px">Booking status</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
         <div style="background:var(--ok-l);border:.5px solid var(--ok-b);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--ok)">✓</div><div style="font-size:10px;color:var(--ok)">Flights booked</div></div>
-        <div style="background:var(--rose-l);border:.5px solid var(--rose-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--rose-m)">7</div><div style="font-size:10px;color:var(--rose-m)">Book first</div></div>
-        <div style="background:var(--amber-l);border:.5px solid var(--amber-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--amber)">7+</div><div style="font-size:10px;color:var(--amber)">Then these</div></div>
+        <div style="background:var(--navy-l);border:.5px solid #b5d4f4;border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--navy)">10</div><div style="font-size:10px;color:var(--navy)">Windows tracked</div></div>
+        <div style="background:var(--rose-l);border:.5px solid var(--rose-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--rose-m)">1</div><div style="font-size:10px;color:var(--rose-m)">Can't pre-book</div></div>
       </div>
     </div>
 
@@ -1086,27 +1103,23 @@ tr:last-child td{border-bottom:none}
       <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Flights Chennai ⇄ Japan <span class="btag ok">Booked</span></div><div class="bd">Open-jaw, into Osaka &amp; out of Tokyo: <b>Out</b> Thai Airways TG 338/672, MAA 6 Jan 01:00 → BKK → KIX 15:45 · <b>Home</b> Air India AI 357/2895, HND 21 Jan 10:30 → DEL → MAA 22 Jan 00:30 · all 4 travellers · see Flights tab</div></div></div>
     </div>
 
-    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-m);margin-bottom:8px">🚨 Lock these first (sell out / limited seatings)</div>
-    <div class="bklist">
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Kichi Kichi Omurice <span class="btag urg">Book well ahead</span></div><div class="bd">10 Jan, Kyoto arrival night · the famous theatrical omurice chef — limited seatings, book early</div></div></div>
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">🎂 Kids' kimono rental — Tara's birthday <span class="btag urg">Book a slot</span></div><div class="bd">11 Jan, Ninenzaka/Gion · reserve a morning slot ahead of the birthday day</div></div></div>
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Gion Corner <span class="btag urg">Book ahead</span></div><div class="bd">11 Jan · geisha-arts show — set showtimes, book ahead</div></div></div>
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Ninja Tokyo / Sumo dinner show <span class="btag urg">Book ahead</span></div><div class="bd">16 Jan, Ginza/Otemachi · pick one — both need advance reservations</div></div></div>
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Shibuya Sky <span class="btag urg">Timed slot</span></div><div class="bd">18 Jan · book a sunset slot online in advance</div></div></div>
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">teamLab Planets TOYOSU <span class="btag urg">Sells out</span></div><div class="bd">19 Jan · teamlab.art · pre-book timed entry</div></div></div>
-      <div class="bk urg"><div class="bdot" style="background:var(--rose-m)"></div><div><div class="bt">Tokyo Disneyland tickets <span class="btag urg">Dated entry</span></div><div class="bd">20 Jan · buy dated tickets online · download the Tokyo Disney Resort app</div></div></div>
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:4px">🎯 Priority booking timeline</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Researched Jul 2026, sorted by when each booking window actually opens — 🔒 = a fixed release rule, 💡 = our recommended buffer for a flexible window. Tap ▶ links to go straight to the booking site.</div>
+    <div class="pbt-list" id="jp-booking-timeline">
+      <div style="font-size:12px;color:var(--muted);padding:12px">Loading timeline…</div>
     </div>
 
-    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--forest-m);margin-bottom:8px">📅 Book in good time</div>
+    <div class="alert a-am">⚠️ <b>Kichi Kichi Omurice</b> changed its system in 2024 — no advance reservations exist any more, it's same-day, in-person queue only from ~8am. Every full Kyoto day already has an early-morning start elsewhere (Fushimi Inari, Arashiyama), so fitting this in means one adult skipping part of a morning to queue centrally. Treat it as an opportunistic extra, not a fixed plan — Kyoto has plenty of other great dinner spots as a backup.</div>
+    <div class="alert a-bl">📄 <b>Japan visa (India):</b> apply <b>by ~1 Dec 2026</b> for a comfortable buffer — official VFS Global processing is 4–7 working days, but realistic end-to-end (appointment + document prep + return) runs 2–3 weeks. A new eVisa option is expected to launch Sep 2026 and may simplify this — worth checking closer to the time. Confirm each passport has 6+ months' validity beyond 21 Jan 2027.</div>
+
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--forest-m);margin-bottom:8px">📅 No fixed date — just get to it</div>
     <div class="bklist">
       <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Hotels — Osaka, Kyoto, Tokyo</div><div class="bd">Family rooms for 4 · book Osaka &amp; Tokyo first · see Hotels tab</div></div></div>
-      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Shinkansen seat reservations</div><div class="bd">Osaka→Himeji→Kyoto (10 Jan) &amp; Kyoto→Yokohama→Tokyo (13 Jan) · reserve once fixed · see Trains tab</div></div></div>
-      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Cup Noodles Museum</div><div class="bd">13 Jan, Yokohama · book the make-your-own workshop slot</div></div></div>
-      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Mt Fuji &amp; Kawaguchiko highway bus</div><div class="bd">15 Jan from Shinjuku · reserve bus seats ahead in peak season</div></div></div>
       <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Kimono Tea Ceremony, MAIKOYA</div><div class="bd">12 Jan, Kyoto · book ahead if doing this</div></div></div>
       <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Sushi Making Tokyo class</div><div class="bd">19 Jan · book a class slot if prioritising this</div></div></div>
       <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Pocket WiFi / eSIM + IC cards</div><div class="bd">Pre-order pocket WiFi for airport pickup, or buy eSIMs · set up ICOCA/Suica in Apple/Google Wallet</div></div></div>
     </div>
+    <div style="font-size:10px;color:var(--muted);margin-top:4px">Booking windows researched Jul 2026 from official sites &amp; current traveller reports — policies can change, so double-check the live site closer to your date.</div>
   </div>
 
   <!-- KID TIPS -->
@@ -1183,7 +1196,7 @@ tr:last-child td{border-bottom:none}
       <div style="font-size:10px;color:var(--muted);margin-top:8px">Numbers are masked in the public page · full values appear after login once the encrypted refs blob is added. Baggage: Thai 1 checked bag/person; Air India 2 checked bags/person.</div>
     </div>
     <div class="alert a-am">🛫 Getaway day: the Tokyo → Delhi leg leaves Haneda at 10:30, so plan a ~06:45 hotel checkout and arrive HND by ~07:30 (Air India closes international check-in 60 min before, but allow buffer with four travellers).</div>
-    <div class="alert a-am">📄 Reminder: India passports — Japan requires a visa. Apply 1–2 months ahead. Check each passport has 6+ months validity beyond 21 Jan 2027 (tap the traveller chips above to review expiry dates).</div>
+    <div class="alert a-am">📄 Reminder: India passports — Japan requires a visa. Apply by ~1 Dec 2026 for a comfortable buffer (see the exact timeline in the Book Now tab). Check each passport has 6+ months validity beyond 21 Jan 2027 (tap the traveller chips above to review expiry dates).</div>
   </div>
 
   <!-- TRAINS -->
@@ -1709,8 +1722,64 @@ function enterDashboards() {
   document.getElementById('dash-style').removeAttribute('media');
   hideSensitivePlaceholders();
   arrangeTrips();
+  renderBookingTimeline();
   document.getElementById('trip-picker').style.display = 'flex';
   window.scrollTo(0, 0);
+}
+
+// Japan booking-priority timeline — researched Jul 2026. `date` is when the
+// booking window actually opens: 'fixed' = a confirmed release rule from the
+// vendor (exact date/time), 'reco' = our own recommended buffer for an item
+// with no hard advance-booking rule. Sorted and live-countdown-rendered by
+// renderBookingTimeline() below.
+const JP_BOOKING_WINDOWS = [
+  { date:'2026-10-11', type:'fixed', icon:'🎭', item:'Gion Corner tickets', when:'for the 11 Jan geisha-arts show', why:'Official online booking opens 3 months ahead of the show date.', url:'https://www.kyoto-gioncorner.com/global/en.html' },
+  { date:'2026-10-19', type:'fixed', icon:'💧', item:'teamLab Planets TOYOSU', when:'for the 19 Jan visit', why:'3rd-party sites (Klook etc.) open bookings ~3 months ahead; the official teamlab.art site follows about a month later.', url:'https://www.teamlab.art/e/planets/' },
+  { date:'2026-11-22', type:'fixed', icon:'🏰', item:'Tokyo Disneyland dated ticket', when:'for the 20 Jan visit', why:'Releases exactly 60 days ahead, on sale 2:00pm Japan time — set an alarm, popular dates can sell out same day.', url:'https://www.tokyodisneyresort.jp/en/ticket/' },
+  { date:'2026-12-10', type:'fixed', icon:'🚄', item:'Shinkansen seats — Osaka→Himeji→Kyoto', when:'for 10 Jan travel', why:'Standard JR reservation window opens exactly 1 month before travel (Smart EX may allow booking online earlier).', url:'https://smart-ex.jp/en/lp/app/' },
+  { date:'2026-12-13', type:'fixed', icon:'🚄', item:'Shinkansen seats — Kyoto→Yokohama→Tokyo', when:'for 13 Jan travel', why:'Same 1-month rule as above.', url:'https://smart-ex.jp/en/lp/app/' },
+  { date:'2026-12-15', type:'fixed', icon:'🚌', item:'Kawaguchiko highway bus (Shinjuku)', when:'for the 15 Jan day trip', why:'Online reservation opens exactly 1 month ahead of travel.', url:'https://highway-buses.jp/course/kawaguchiko.php' },
+  { date:'2026-12-21', type:'reco', icon:'🎎', item:"Kids' kimono rental, Ninenzaka 🎂", when:"for 11 Jan — Tara's birthday", why:'No fixed system window, but ~3 weeks ahead is a safe buffer for size &amp; time-slot availability on a date that can’t move.', url:'' },
+  { date:'2026-12-28', type:'reco', icon:'🍜', item:'Cup Noodles Museum — My Cup Noodle Factory', when:'for the 13 Jan visit', why:'No fixed advance window, but numbered workshop tickets are capacity-limited and sell out same day — reserve online a few weeks ahead to be safe.', url:'https://www.cupnoodles-museum.jp/en/yokohama/' },
+  { date:'2027-01-04', type:'fixed', icon:'🌇', item:'Shibuya Sky', when:'for the 18 Jan sunset slot', why:'⚠️ Opens only 2 weeks ahead, midnight Japan time — the tightest window of the whole trip.', url:'https://www.shibuya-scramble-square.com/sky/' },
+  { date:'2027-01-09', type:'reco', icon:'🥷', item:'Ninja Tokyo or Sumo dinner show', when:'for the 16 Jan evening', why:'Recommended at least 1 week ahead — weekend dinner slots fill fast, and a credit card is required to hold the booking.', url:'https://ninja-tokyo.jp/en/' }
+];
+
+function renderBookingTimeline() {
+  const el = document.getElementById('jp-booking-timeline');
+  if (!el) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const items = JP_BOOKING_WINDOWS
+    .map(b => ({ ...b, openDate: new Date(b.date) }))
+    .sort((a, b) => a.openDate - b.openDate);
+
+  el.innerHTML = items.map(b => {
+    const diffDays = Math.round((b.openDate - today) / 86400000);
+    let cls, status;
+    if (diffDays > 0) {
+      cls = '';
+      status = `Opens in ${diffDays} day${diffDays === 1 ? '' : 's'}`;
+    } else if (diffDays === 0) {
+      cls = 'pbt-today';
+      status = '🔴 Opens today!';
+    } else {
+      cls = 'pbt-open';
+      status = '✅ Window is open';
+    }
+    const dateLabel = b.openDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    const ruleTag = b.type === 'fixed' ? '🔒' : '💡';
+    const link = b.url ? `<a class="pbt-link" href="${b.url}" target="_blank" rel="noopener">Official site →</a>` : '';
+    return `<div class="pbt-item ${cls}">
+      <div class="pbt-date">${ruleTag}<br>${dateLabel}</div>
+      <div class="pbt-main">
+        <div class="pbt-title">${b.icon} ${b.item}</div>
+        <div class="pbt-why">${b.why}</div>
+        <div class="pbt-when">${b.when}</div>
+        ${link}
+      </div>
+      <div class="pbt-status">${status}</div>
+    </div>`;
+  }).join('');
 }
 
 // Sort the trip cards into Upcoming (end date today or later, soonest
