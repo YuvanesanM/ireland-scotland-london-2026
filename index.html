@@ -60,15 +60,22 @@
 .tp-title{font-family:Georgia,serif;font-size:30px;font-weight:300;color:#fff;line-height:1.15}
 .tp-sub{font-size:13px;color:rgba(255,255,255,.55);margin-top:8px}
 .tp-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:760px;width:100%}
-.tp-section{width:100%;max-width:760px;margin-bottom:1.75rem}
+.tp-section{width:100%;max-width:640px;margin-bottom:1.75rem}
 .tp-section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:0 0 12px 2px;display:flex;align-items:center;gap:7px}
-.tp-section .tp-grid{flex-direction:column;gap:16px}
+.tp-section .tp-grid{flex-direction:column;gap:10px}
 .tp-section .tp-card{width:100%;max-width:none;flex:none;display:flex;align-items:stretch;text-align:left}
-.tp-section .tp-banner{height:auto;width:150px;flex-shrink:0}
-.tp-section .tp-body{flex:1;display:flex;flex-direction:column;justify-content:center}
+.tp-section .tp-banner{height:auto;width:100px;flex-shrink:0;font-size:34px}
+.tp-section .tp-body{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:12px 16px;min-width:0}
+.tp-section .tp-flag,.tp-section .tp-status,.tp-section .tp-countdown,.tp-section .tp-cta{align-self:flex-start;flex:none}
+.tp-section .tp-name{margin-bottom:2px}
+.tp-section .tp-dates{margin-bottom:6px}
+.tp-section .tp-status{margin-bottom:6px}
+.tp-section .tp-meta{margin-top:4px}
+.tp-countdown{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;color:#fcd34d;background:rgba(251,191,36,.14);border:.5px solid rgba(251,191,36,.4);border-radius:20px;padding:3px 10px;margin-bottom:6px}
+.tp-countdown:empty{display:none;padding:0;border:none;margin:0}
 @media(max-width:560px){
-  .tp-section .tp-banner{width:92px;font-size:38px}
-  .tp-section .tp-body{padding:14px 16px}
+  .tp-section .tp-banner{width:72px;font-size:26px}
+  .tp-section .tp-body{padding:10px 12px}
 }
 .tp-card.past{opacity:.68;filter:saturate(.8)}
 .tp-card.past:hover{opacity:1;filter:none}
@@ -435,23 +442,25 @@ tr:last-child td{border-bottom:none}
 
   <!-- Cards (JS sorts these into Upcoming / Past by end date) -->
   <div id="tp-cards-src" style="display:none">
-    <div class="tp-card" data-end="2026-09-14" onclick="selectTrip('kerala')">
+    <div class="tp-card" data-end="2026-09-14" data-start="2026-09-11" onclick="selectTrip('kerala')">
       <div class="tp-banner kl">🌴</div>
       <div class="tp-body">
         <div class="tp-flag"><span>🌴</span><span>⛵</span></div>
         <div class="tp-name">Bekal &amp; Mangaluru</div>
         <div class="tp-dates">11 – 14 September 2026 · 4 days</div>
+        <div class="tp-countdown"></div>
         <div class="tp-status ok">✓ Confirmed &amp; booked</div>
         <div class="tp-cta">Open dashboard →</div>
         <div class="tp-meta">Taj Bekal Resort &amp; Spa · Vivanta Mangalore</div>
       </div>
     </div>
-    <div class="tp-card" data-end="2027-01-21" onclick="selectTrip('japan')">
+    <div class="tp-card" data-end="2027-01-21" data-start="2027-01-06" onclick="selectTrip('japan')">
       <div class="tp-banner jp">🗾</div>
       <div class="tp-body">
         <div class="tp-flag"><span>🇯🇵</span></div>
         <div class="tp-name">Japan</div>
         <div class="tp-dates">6 – 21 January 2027 · 16 days</div>
+        <div class="tp-countdown"></div>
         <div class="tp-status plan">✈️ Flights booked · planning</div>
         <div class="tp-cta">Open dashboard →</div>
         <div class="tp-meta">Osaka · Kyoto · Tokyo</div>
@@ -1033,9 +1042,14 @@ tr:last-child td{border-bottom:none}
   <div id="jht" class="sec">
     <div class="alert a-am">Nothing booked yet — these are target areas &amp; styles. Aim for family rooms (4 people) near a major train line. Many Tokyo/Osaka rooms are small; look for "family room", "triple", or connecting rooms / apart-hotels.</div>
     <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--amber)">0 of 3 booked</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--amber)" id="jht-progress-label">0 of 3 booked</span></div>
       <div class="prog"><div class="prog-f" style="width:4%;background:var(--amber-m)"></div></div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">Book Tokyo &amp; Osaka first — they fill up fastest</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">Book Osaka &amp; Tokyo first — they fill up fastest, and family/quad rooms are scarce</div>
+    </div>
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-m);margin-bottom:4px">⏳ Pending — none booked yet</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">No fixed release dates for hotels — these are our own recommended book-by targets, based on how fast family/quad rooms in Japan typically go.</div>
+    <div class="pbt-list" id="jp-hotel-tracker">
+      <div style="font-size:12px;color:var(--muted);padding:12px">Loading…</div>
     </div>
     <div class="hgrid">
       <div class="hc">
@@ -1723,6 +1737,7 @@ function enterDashboards() {
   hideSensitivePlaceholders();
   arrangeTrips();
   renderBookingTimeline();
+  renderHotelTracker();
   document.getElementById('trip-picker').style.display = 'flex';
   window.scrollTo(0, 0);
 }
@@ -1782,6 +1797,65 @@ function renderBookingTimeline() {
   }).join('');
 }
 
+// Japan hotel booking tracker — all 3 still pending. No fixed release rule
+// like the tickets above, so "recommendBy" is our own sensible target date
+// (family/quad rooms in Japan are the scarce resource, not a release system).
+// booked:false for every entry until this is updated by hand once reserved.
+const JP_HOTEL_TRACKER = [
+  { city: 'Osaka (Namba/USJ area)', nights: '6–10 Jan · 4 nights', recommendBy: '2026-09-15', icon: '🏯', booked: false, note: 'First stop off the plane — lock this in early so the rest of the trip has a base.' },
+  { city: 'Tokyo (Yamanote line hub)', nights: '13–21 Jan · 8 nights', recommendBy: '2026-10-01', icon: '🗼', booked: false, note: 'The biggest chunk of the trip (8 nights) — family/quad rooms here go first.' },
+  { city: 'Kyoto (Station/Gion area)', nights: '10–13 Jan · 3 nights', recommendBy: '2026-10-15', icon: '⛩️', booked: false, note: 'Shortest stay, but still worth locking in before ticket-booking season ramps up.' }
+];
+
+function renderHotelTracker() {
+  const el = document.getElementById('jp-hotel-tracker');
+  if (!el) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const items = JP_HOTEL_TRACKER
+    .map(h => ({ ...h, byDate: new Date(h.recommendBy) }))
+    .sort((a, b) => a.byDate - b.byDate);
+
+  el.innerHTML = items.map(h => {
+    let cls, status;
+    if (h.booked) {
+      cls = 'pbt-open';
+      status = '✅ Booked';
+    } else {
+      const diffDays = Math.round((h.byDate - today) / 86400000);
+      if (diffDays > 0) {
+        cls = '';
+        status = `${diffDays} day${diffDays === 1 ? '' : 's'} left to book by`;
+      } else {
+        cls = 'pbt-today';
+        status = '⚠️ Past our target — book ASAP';
+      }
+    }
+    const dateLabel = h.byDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    return `<div class="pbt-item ${cls}">
+      <div class="pbt-date">💡<br>${dateLabel}</div>
+      <div class="pbt-main">
+        <div class="pbt-title">${h.icon} ${h.city}</div>
+        <div class="pbt-why">${h.note}</div>
+        <div class="pbt-when">${h.nights}</div>
+      </div>
+      <div class="pbt-status">${status}</div>
+    </div>`;
+  }).join('');
+
+  const bookedCount = JP_HOTEL_TRACKER.filter(h => h.booked).length;
+  const label = document.getElementById('jht-progress-label');
+  if (label) {
+    label.textContent = `${bookedCount} of ${JP_HOTEL_TRACKER.length} booked`;
+    label.style.color = bookedCount === JP_HOTEL_TRACKER.length ? 'var(--ok)' : 'var(--amber)';
+  }
+  const bar = document.querySelector('#jht .prog-f');
+  if (bar) {
+    const pct = Math.max(4, Math.round((bookedCount / JP_HOTEL_TRACKER.length) * 100));
+    bar.style.width = pct + '%';
+    bar.style.background = bookedCount === JP_HOTEL_TRACKER.length ? 'var(--ok-b)' : 'var(--amber-m)';
+  }
+}
+
 // Sort the trip cards into Upcoming (end date today or later, soonest
 // first) and Past (most recent first) by each card's data-end date.
 function arrangeTrips() {
@@ -1794,7 +1868,22 @@ function arrangeTrips() {
   const upcoming = cards.filter(c => endOf(c) >= today).sort((a, b) => endOf(a) - endOf(b));
   const done = cards.filter(c => endOf(c) < today).sort((a, b) => endOf(b) - endOf(a));
 
-  upcoming.forEach(c => { c.classList.remove('past'); up.appendChild(c); });
+  upcoming.forEach(c => {
+    c.classList.remove('past');
+    up.appendChild(c);
+    const cd = c.querySelector('.tp-countdown');
+    if (!cd) return;
+    const startAttr = c.getAttribute('data-start');
+    const start = startAttr ? new Date(startAttr) : null;
+    if (start && start > today) {
+      const days = Math.round((start - today) / 86400000);
+      cd.textContent = `🗓️ In ${days} day${days === 1 ? '' : 's'}`;
+    } else if (start && start.getTime() === today.getTime()) {
+      cd.textContent = '🎉 Starts today!';
+    } else {
+      cd.textContent = '✈️ Trip in progress';
+    }
+  });
   done.forEach(c => {
     c.classList.add('past');
     if (!c.querySelector('.tp-past-tag')) {
