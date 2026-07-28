@@ -266,6 +266,14 @@ body{font-family:'Outfit',sans-serif;background:#f0ede8;color:var(--ink);line-he
 .hc-dates b{font-weight:700}
 .hc-dates .arr{color:var(--forest-m)}
 .hc-dates .dep{color:var(--rose-m)}
+.hc-picks{background:var(--faint);border-radius:8px;padding:9px 11px;margin-top:8px}
+.hc-pick-h{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.hc-pick{font-size:11px;color:var(--ink);line-height:1.6;margin-bottom:7px}
+.hc-pick:last-child{margin-bottom:0}
+.hc-pick-tag{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:4px;background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);margin-left:4px}
+.hc-pick-tag.alt{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.hc-pick a{color:var(--navy-m);text-decoration:none;font-weight:600}
+.hc-pick a:hover{text-decoration:underline}
 .hc-addr{font-size:11px;color:var(--muted);margin-bottom:2px}
 .hc-sub{font-size:11px;color:var(--muted);margin-bottom:8px}
 .hc-ref{font-size:10px;font-weight:600;background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);padding:2px 7px;border-radius:5px;display:inline-block;margin-bottom:7px}
@@ -1044,7 +1052,7 @@ tr:last-child td{border-bottom:none}
 
   <!-- HOTELS -->
   <div id="jht" class="sec">
-    <div class="alert a-am">Nothing booked yet — these are target areas &amp; styles. Aim for family rooms (4 people) near a major train line. Many Tokyo/Osaka rooms are small; look for "family room", "triple", or connecting rooms / apart-hotels.</div>
+    <div class="alert a-am">Nothing booked yet. Each card below has a suggested pick (MIMARU's apartment-hotel chain — real kitchens, dining tables, and rooms built for 4+ — is the best fit across all three cities) plus a traditional-hotel alternative if you'd rather have daily housekeeping over self-catering.</div>
     <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--amber)" id="jht-progress-label">0 of 3 booked</span></div>
       <div class="prog"><div class="prog-f" style="width:4%;background:var(--amber-m)"></div></div>
@@ -1064,6 +1072,11 @@ tr:last-child td{border-bottom:none}
         <div class="hc-addr">Namba / Shinsaibashi (food) or near Universal City</div>
         <div class="hc-sub">Family room for 4 · close to Dotonbori or USJ · first stop off the plane</div>
         <div class="perks"><span class="pk">Walk to Dotonbori</span><span class="pk gr">Or stay by USJ for park day</span><span class="pk am">Airport rail links (KIX)</span></div>
+        <div class="hc-picks">
+          <div class="hc-pick-h">Suggested — not booked yet</div>
+          <div class="hc-pick"><b>MIMARU Osaka Namba Station</b><span class="hc-pick-tag">Best fit</span><br>4 min walk to Namba Station · apartment-style: real kitchen, dining table &amp; bunk-bed rooms built for families · approx. $150–220/night <a href="https://mimaruhotels.com/en/hotel/namba-station/" target="_blank">Official site →</a></div>
+          <div class="hc-pick"><b>Namba Oriental Hotel</b><span class="hc-pick-tag alt">Alt · traditional</span><br>3 min walk to Nankai Namba Station · 23m²+ rooms, standard hotel service (daily housekeeping, front desk) if you'd rather not self-cater</div>
+        </div>
       </div>
       <div class="hc">
         <div class="hc-s" style="color:var(--amber)">◷ To book</div>
@@ -1073,6 +1086,11 @@ tr:last-child td{border-bottom:none}
         <div class="hc-addr">Kyoto Station / Karasuma–Shijo / Gion area</div>
         <div class="hc-sub">Family room for 4 · easy bus &amp; train access · close to Ninenzaka for the kimono day</div>
         <div class="perks"><span class="pk">Near Kyoto Station</span><span class="pk gr">Walkable to Gion/Higashiyama</span></div>
+        <div class="hc-picks">
+          <div class="hc-pick-h">Suggested — not booked yet</div>
+          <div class="hc-pick"><b>MIMARU Kyoto Station</b><span class="hc-pick-tag">Best fit · Station option</span><br>5 min walk to Kyoto Station · apartment-style, sleeps up to 8, full kitchen &amp; dining area <a href="https://mimaruhotels.com/en/hotel/kyoto-station/" target="_blank">Official site →</a></div>
+          <div class="hc-pick"><b>MIMARU Kyoto Shinmachi Sanjo</b> or <b>Kawaramachi Gojo</b><span class="hc-pick-tag alt">Alt · Gion option</span><br>Central Kyoto, a shorter walk/bus to Ninenzaka &amp; Gion than the station — worth it if the kimono day matters more than a quick Nara/Osaka transfer <a href="https://mimaruhotels.com/en/destination/kyoto/" target="_blank">See Kyoto locations →</a></div>
+        </div>
       </div>
       <div class="hc">
         <div class="hc-s" style="color:var(--amber)">◷ To book</div>
@@ -1082,6 +1100,11 @@ tr:last-child td{border-bottom:none}
         <div class="hc-addr">Pick a hub on the JR Yamanote line</div>
         <div class="hc-sub">Family room for 4 · breakfast handy · near a station · easy for Haneda on getaway day</div>
         <div class="perks"><span class="pk">Yamanote line access</span><span class="pk am">Book early — fills fast</span><span class="pk">Coin laundry a plus</span></div>
+        <div class="hc-picks">
+          <div class="hc-pick-h">Suggested — not booked yet</div>
+          <div class="hc-pick"><b>MIMARU Tokyo Ueno East</b> (or Ueno North)<span class="hc-pick-tag">Best fit</span><br>3–4 min walk to Ueno Station — actually on the Yamanote line, so easiest for Haneda on getaway day · apartment-style, sleeps up to 8 <a href="https://mimaruhotels.com/en/hotel/ueno-east/" target="_blank">Official site →</a></div>
+          <div class="hc-pick"><b>MIMARU Tokyo Asakusa Station</b><span class="hc-pick-tag alt">Alt · closer to Day 12</span><br>1 min walk to Asakusa Station, right in the Senso-ji/Skytree cluster — one change needed to reach the Yamanote line itself <a href="https://mimaruhotels.com/en/hotel/asakusa-station/" target="_blank">Official site →</a></div>
+        </div>
       </div>
     </div>
     <div class="alert a-am">⏰ Tokyo checkout is very early (~6am) for the flight — confirm with the hotel in advance whether early/express checkout or a 24-hour front desk is available, since standard staffed check-out is usually from ~10–11am.</div>
