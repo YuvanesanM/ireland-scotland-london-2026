@@ -1060,7 +1060,7 @@ tr:last-child td{border-bottom:none}
       <div class="prog"><div class="prog-f" style="width:4%;background:var(--amber-m)"></div></div>
       <div style="font-size:10px;color:var(--muted);margin-top:4px">Book Osaka &amp; Tokyo first — they fill up fastest, and family/quad rooms are scarce</div>
     </div>
-    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-m);margin-bottom:4px">⏳ Pending — none booked yet</div>
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-m);margin-bottom:4px" id="jht-pending-heading">⏳ Loading…</div>
     <div style="font-size:11px;color:var(--muted);margin-bottom:10px">No fixed release dates for hotels — these are our own recommended book-by targets, based on how fast family/quad rooms in Japan typically go.</div>
     <div class="pbt-list" id="jp-hotel-tracker">
       <div style="font-size:12px;color:var(--muted);padding:12px">Loading…</div>
@@ -1850,12 +1850,15 @@ function renderHotelTracker() {
     .sort((a, b) => a.byDate - b.byDate);
 
   el.innerHTML = items.map(h => {
-    let cls, status;
+    let cls, status, dateBadge;
     if (h.booked) {
       cls = 'pbt-open';
       status = '✅ Booked';
+      dateBadge = '✅<br>Booked';
     } else {
       const diffDays = Math.round((h.byDate - today) / 86400000);
+      const dateLabel = h.byDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      dateBadge = `💡<br>${dateLabel}`;
       if (diffDays > 0) {
         cls = '';
         status = `${diffDays} day${diffDays === 1 ? '' : 's'} left to book by`;
@@ -1864,9 +1867,8 @@ function renderHotelTracker() {
         status = '⚠️ Past our target — book ASAP';
       }
     }
-    const dateLabel = h.byDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
     return `<div class="pbt-item ${cls}">
-      <div class="pbt-date">💡<br>${dateLabel}</div>
+      <div class="pbt-date">${dateBadge}</div>
       <div class="pbt-main">
         <div class="pbt-title">${h.icon} ${h.city}</div>
         <div class="pbt-why">${h.note}</div>
@@ -1877,6 +1879,16 @@ function renderHotelTracker() {
   }).join('');
 
   const bookedCount = JP_HOTEL_TRACKER.filter(h => h.booked).length;
+  const pendingCount = JP_HOTEL_TRACKER.length - bookedCount;
+  const pendingHeading = document.getElementById('jht-pending-heading');
+  if (pendingHeading) {
+    pendingHeading.textContent = pendingCount === 0
+      ? '✅ All hotels booked!'
+      : bookedCount === 0
+        ? '⏳ Pending — none booked yet'
+        : `⏳ Pending — ${pendingCount} of ${JP_HOTEL_TRACKER.length} still to book`;
+    pendingHeading.style.color = pendingCount === 0 ? 'var(--ok)' : 'var(--rose-m)';
+  }
   const label = document.getElementById('jht-progress-label');
   if (label) {
     label.textContent = `${bookedCount} of ${JP_HOTEL_TRACKER.length} booked`;
