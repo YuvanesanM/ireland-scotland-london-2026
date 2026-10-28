@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://accounts.google.com">
+<link rel="preconnect" href="https://rtkshjedyaqwwmfcaufk.supabase.co" crossorigin>
+<title>ATLAS &middot; Family Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="atlas/engine.js" defer></script>
+<script src="atlas/atlas.js" defer></script>
+<style>
+:root{--flag-gradient:linear-gradient(90deg,#169b62 0 33%,#005eb8 33% 44%,#fff 44% 55%,#003078 55% 66%,#cf142b 66% 72%,#fff 72% 78%,#cf142b 78% 84%,#003078 84% 100%)}
+/* GOOGLE SIGN-IN GATE */
+#g-oauth{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);display:flex;align-items:center;justify-content:center;z-index:100000;transition:opacity .4s}
+.go-btn-wrap{display:flex;justify-content:center;min-height:44px;margin:1.5rem 0 .5rem}
+.go-err{color:#fca5a5;font-size:12px;min-height:18px;margin-top:8px}
+.go-note{font-size:11px;color:rgba(255,255,255,.45);margin-top:12px;line-height:1.6}
+.go-retry{margin-top:12px;font-size:12px;color:#93c5fd;background:none;border:none;cursor:pointer;text-decoration:underline;display:none}
+.g-box{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:2.5rem 2rem;width:calc(100% - 2rem);max-width:380px;text-align:center;box-sizing:border-box}
+.g-flag{height:4px;background:var(--flag-gradient);margin-bottom:2rem;border-radius:2px}
+.g-dest{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.g-badge{font-size:12px;border-radius:6px;padding:3px 10px}
+.g-badge.ie{background:rgba(22,155,98,.25);border:.5px solid rgba(22,155,98,.5);color:#6ee7b7}
+.g-badge.sc{background:rgba(0,48,120,.35);border:.5px solid rgba(100,149,237,.4);color:#93c5fd}
+.g-badge.uk{background:rgba(207,20,43,.2);border:.5px solid rgba(207,20,43,.4);color:#fca5a5}
+.g-lock{font-size:32px;margin-bottom:1rem}
+.g-title{font-family:Georgia,serif;font-size:22px;font-weight:300;color:white;margin-bottom:4px}
+.g-sub{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:1.5rem}
+.g-shield{font-size:11px;color:rgba(255,255,255,.25);margin-top:1rem}
+.hero-ctrls{position:absolute;top:14px;right:16px;z-index:5;display:flex;gap:8px}
+.switch-trip{font-size:11px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;backdrop-filter:blur(8px);transition:background .15s}
+.switch-trip:hover{background:rgba(255,255,255,.25)}
+.switch-trip.out{border-color:rgba(252,165,165,.5)}
+.switch-trip.out:hover{background:rgba(220,38,38,.35)}
+.g-badge.jp{background:rgba(188,0,45,.25);border:.5px solid rgba(188,0,45,.5);color:#fca5a5}
+.g-badge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
+.g-badge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
+.g-badge.kl{background:rgba(13,148,136,.28);border:.5px solid rgba(13,148,136,.5);color:#5eead4}
+.g-badge.mng{background:rgba(234,88,12,.22);border:.5px solid rgba(234,88,12,.45);color:#fdba74}
+.g-trip-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 6px}
+</style>
+<style id="dash-style" media="none">
+
+:root{
+  --ink:#18181b;--muted:#71717a;--faint:#f4f4f5;--border:#e4e4e7;--w:#fff;
+  --navy:#1e3a5f;--navy-l:#e8f0fb;--navy-m:#3b6cb7;
+  --forest:#1a4731;--forest-l:#dcf0e4;--forest-m:#2d8a55;
+  --amber:#92400e;--amber-l:#fef3c7;--amber-m:#d97706;
+  --rose:#9f1239;--rose-l:#fef2f5;--rose-m:#e11d48;
+  --teal-l:#ccf0f0;--teal-m:#0d9488;
+  --sky-l:#e0f2fe;--sky-m:#0284c7;
+  --violet:#4c1d95;--violet-l:#ede9fe;--violet-m:#7c3aed;
+  --orange:#7c2d12;--orange-l:#fff7ed;--orange-m:#ea580c;
+  --ok:#166534;--ok-l:#dcfce7;--ok-b:#16a34a;
+  --r:10px;--rs:7px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f0ede8;color:var(--ink);line-height:1.6;font-size:14px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.hero::before{content:'🍀';position:absolute;top:20px;right:60px;font-size:120px;opacity:.06;transform:rotate(15deg);line-height:1;pointer-events:none}
+.flag-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--flag-gradient)}
+.hero.jp{background:linear-gradient(135deg,#9f1239 0%,#7f1d1d 35%,#1e1b4b 70%,#312e81 100%)}
+.hero.jp::before{content:'🌸'}
+.flag-bar.jp{background:linear-gradient(90deg,#bc002d 0 15%,#fff 15% 85%,#bc002d 85% 100%)}
+.dbadge.jp{background:rgba(188,0,45,.25);border:.5px solid rgba(188,0,45,.5);color:#fca5a5}
+.dbadge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
+.dbadge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
+.hero.kl{background:linear-gradient(135deg,#0f766e 0%,#0c4a6e 40%,#1e3a5f 70%,#164e63 100%)}
+.hero.kl::before{content:'🌴'}
+.flag-bar.kl{background:linear-gradient(90deg,#0d9488 0 40%,#fbbf24 40% 60%,#0d9488 60% 100%)}
+.dbadge.kl{background:rgba(13,148,136,.28);border:.5px solid rgba(13,148,136,.5);color:#5eead4}
+.dbadge.mng{background:rgba(234,88,12,.22);border:.5px solid rgba(234,88,12,.45);color:#fdba74}
+.hi{max-width:1140px;margin:0 auto;position:relative;z-index:1}
+.ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-m);margin-bottom:10px}
+.dest-badges{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.dbadge{font-size:13px;border-radius:6px;padding:3px 10px}
+.dbadge.ie{background:rgba(22,155,98,.25);border:.5px solid rgba(22,155,98,.5);color:#6ee7b7}
+.dbadge.sc{background:rgba(0,48,120,.35);border:.5px solid rgba(100,149,237,.4);color:#93c5fd}
+.dbadge.uk{background:rgba(207,20,43,.2);border:.5px solid rgba(207,20,43,.4);color:#fca5a5}
+.dsep{color:rgba(255,255,255,.3);font-size:16px}
+.ht{font-family:'Instrument Serif',serif;font-size:clamp(24px,4vw,46px);font-weight:300;color:white;line-height:1.1;margin-bottom:6px}
+.ht em{color:var(--forest-m);font-style:italic}
+.hs{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:1.75rem;letter-spacing:.02em}
+.travelers{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.75rem}
+.tv{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 10px 5px 5px;transition:background .15s}
+.tv:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25)}
+.tv-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white;flex-shrink:0}
+.tv-n{font-size:11px;color:rgba(255,255,255,.85);font-weight:500}
+.tv-a{font-size:10px;color:rgba(255,255,255,.45)}
+.stats{display:flex;gap:6px;flex-wrap:wrap}
+.st{background:rgba(255,255,255,.07);border:.5px solid rgba(255,255,255,.12);border-radius:var(--rs);padding:8px 13px;text-align:center;min-width:68px}
+.st-n{font-size:19px;font-weight:500;color:white;line-height:1}
+.st-l{font-size:9px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.03em}
+.st.ac .st-n{color:#fb923c}
+.st.ac{border-color:var(--orange-m);background:rgba(234,88,12,.15)}
+.st.ok .st-n{color:#4ade80}
+.st.ok{border-color:var(--ok-b);background:rgba(22,163,74,.15)}
+
+/* LAYOUT */
+.main{max-width:1140px;margin:0 auto;padding:1.75rem 1.5rem 5rem}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.5rem}
+.tb{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;padding:6px 14px;border:.5px solid var(--border);border-radius:20px;cursor:pointer;background:var(--w);color:var(--muted);transition:all .15s;position:relative}
+.tb:hover{border-color:#a1a1aa;color:var(--ink)}
+.tb.active{background:var(--navy);color:white;border-color:var(--navy)}
+.badge{position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:var(--rose-m);color:white;font-size:8px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.sec{display:none}
+.sec.active{display:block}
+
+/* JOURNEY SPINE */
+.spine{overflow-x:auto;padding:8px 0 16px;margin-bottom:.5rem}
+.sr{display:flex;min-width:700px}
+.sr.wide{min-width:960px}
+.sp{flex:1;position:relative;text-align:center}
+.sp:not(:last-child)::after,.sp:not(:first-child)::before{content:'';position:absolute;top:11px;height:1.5px;background:var(--border);z-index:0}
+.sp:not(:last-child)::after{left:50%;right:-50%}
+.sp:not(:first-child)::before{left:0;right:50%}
+.dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--border);background:var(--w);margin:7px auto 5px;position:relative;z-index:1}
+.sp.ie .dot{background:var(--navy-l);border-color:var(--navy-m)}
+.sp.uk .dot{background:var(--violet-l);border-color:var(--violet-m)}
+.sp.sc .dot{background:var(--teal-l);border-color:var(--teal-m)}
+.sp.sl .dot{background:var(--orange-l);border-color:var(--orange-m);width:13px;height:13px;margin-top:5.5px}
+.sp.lo .dot{background:var(--faint);border-color:var(--muted)}
+.spn{font-size:10px;font-weight:600;color:var(--ink)}
+.spd{font-size:9px;color:var(--muted)}
+.sps{font-size:9px;color:var(--muted);font-style:italic}
+
+/* SECTION HEADINGS */
+.sh{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.75rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.shb{font-size:11px;text-transform:none;letter-spacing:0;font-weight:500;border-radius:7px;padding:2px 9px;display:flex;align-items:center;gap:5px;border:.5px solid}
+.shb.pi{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.shb.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.shb.warn{background:var(--rose-l);color:var(--rose);border-color:var(--rose-m)}
+.okdot{width:7px;height:7px;border-radius:50%;background:var(--ok-b);display:inline-block;flex-shrink:0}
+
+/* DAY CARDS */
+.day{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+.dn{min-width:48px;width:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;flex-direction:column;line-height:1.3;padding:6px 4px;text-align:center;gap:1px}
+.dn-d{font-size:9px;font-weight:500;opacity:.8}
+.dn-n{font-size:13px;font-weight:700;line-height:1}
+.dn-w{font-size:9px;font-weight:600;opacity:.85}
+.subh{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border)}
+.subh2{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.db{flex:1;background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:11px 14px}
+.db.slp{border-color:var(--orange-m);background:var(--orange-l)}
+.db.rest{border-color:var(--forest-m);background:var(--forest-l)}
+.dt{font-size:13px;font-weight:600;margin-bottom:1px;line-height:1.4}
+.dd{font-size:11px;color:var(--muted);margin-bottom:4px}
+.dc{font-size:12px;color:var(--muted);line-height:1.65}
+.hr{display:flex;align-items:flex-start;gap:6px;margin-top:8px;padding-top:8px;border-top:.5px solid var(--border);flex-wrap:wrap}
+.pip{font-size:10px;padding:1px 7px;border-radius:5px;font-weight:600;flex-shrink:0;border:.5px solid}
+.pip.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.pip.warn{background:var(--rose-l);color:var(--rose-m);border-color:var(--rose-m)}
+.hn{font-size:11px;font-weight:500}
+.hno{font-size:10px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.tag{font-size:10px;padding:2px 7px;border-radius:5px;border:.5px solid;display:inline-block}
+.t-bl{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.t-am{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+.t-gr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.t-vi{background:var(--violet-l);color:var(--violet);border-color:#c4b5fd}
+.t-sk{background:var(--sky-l);color:var(--sky-m);border-color:#7dd3fc}
+.t-ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+
+/* HOTEL GRID */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:10px;margin-bottom:1rem}
+.hc{background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px}
+.hc.ok{border-color:var(--ok-b);background:var(--ok-l)}
+.hc.warn{border-color:var(--rose-m);background:var(--rose-l)}
+.hc.free{border-color:var(--forest-m);background:var(--forest-l)}
+.hc-s{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.hc-s.ok{color:var(--ok)}
+.hc-s.warn{color:var(--rose-m)}
+.hc-city{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:3px}
+.hc-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:1px;line-height:1.3}
+.hc-dates{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--ink);background:var(--faint);border-radius:6px;padding:6px 9px;margin:5px 0 7px}
+.hc-dates b{font-weight:700}
+.hc-dates .arr{color:var(--forest-m)}
+.hc-dates .dep{color:var(--rose-m)}
+.hc-picks{background:var(--faint);border-radius:8px;padding:9px 11px;margin-top:8px}
+.hc-pick-h{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.hc-pick{font-size:11px;color:var(--ink);line-height:1.6;margin-bottom:7px}
+.hc-pick:last-child{margin-bottom:0}
+.hc-pick-tag{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:4px;background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);margin-left:4px}
+.hc-pick-tag.alt{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.hc-pick-tag.mid{background:var(--violet-l);color:var(--violet);border-color:#c4b5fd}
+.hc-pick-tag.lux{background:#fef3c7;color:#92400e;border-color:#fde68a}
+.hc-pick a{color:var(--navy-m);text-decoration:none;font-weight:600}
+.hc-pick a:hover{text-decoration:underline}
+.hc-addr{font-size:11px;color:var(--muted);margin-bottom:2px}
+.hc-sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+.hc-ref{font-size:10px;font-weight:600;background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);padding:2px 7px;border-radius:5px;display:inline-block;margin-bottom:7px}
+.perks{display:flex;flex-wrap:wrap;gap:3px}
+.pk{font-size:10px;padding:2px 6px;border-radius:5px;background:var(--faint);border:.5px solid var(--border);color:var(--muted)}
+.pk.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.pk.gr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.pk.am{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+
+/* EXPERIENCE GRID */
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:1rem}
+.ec{border-radius:var(--r);padding:14px;border:.5px solid var(--border)}
+.ec.vi{background:var(--violet-l);border-color:#c4b5fd}
+.ec.gr{background:var(--forest-l);border-color:var(--forest-m)}
+.ec.or{background:var(--orange-l);border-color:#fed7aa}
+.ec.gy{background:var(--faint);border-color:var(--border)}
+.ec.sk{background:var(--sky-l);border-color:#7dd3fc}
+.ec.bl{background:var(--navy-l);border-color:#b5d4f4}
+.ec-s{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.ec-n{font-family:'Instrument Serif',serif;font-size:28px;font-weight:300;line-height:1;margin-bottom:4px}
+.ec-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.ec-day{font-size:11px;color:var(--muted);margin-bottom:6px}
+.ec-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.ec-book{font-size:11px;font-weight:600}
+
+/* BOOKING LIST */
+.bklist{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.bk{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border-radius:var(--rs);border:.5px solid var(--border);background:var(--w)}
+.bk.ok{border-color:var(--ok-b);background:var(--ok-l)}
+.bk.urg{border-color:var(--rose-m);background:var(--rose-l)}
+.bk.am{border-color:var(--amber-m);background:var(--amber-l)}
+.bk.gr{border-color:var(--forest-m);background:var(--forest-l)}
+.bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.bt{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.bk.ok .bt{color:var(--ok)}
+.bk.ok .bd{color:var(--ok)}
+.bk.urg .bt,.bk.urg .bd{color:var(--rose)}
+.bd{font-size:11px;color:var(--muted);line-height:1.55}
+.btag{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:.5px solid}
+.btag.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.btag.urg{background:var(--rose-l);color:var(--rose-m);border-color:var(--rose-m)}
+.btag.am{background:var(--amber-l);color:var(--amber);border-color:var(--amber-m)}
+
+/* PRIORITY BOOKING TIMELINE */
+.pbt-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.pbt-item{display:flex;gap:12px;align-items:center;padding:11px 14px;border-radius:var(--r);border:.5px solid var(--border);background:var(--w)}
+.pbt-item.pbt-open{border-color:var(--ok-b);background:var(--ok-l)}
+.pbt-item.pbt-today{border-color:var(--rose-m);background:var(--rose-l)}
+.pbt-date{min-width:64px;text-align:center;font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-l);border-radius:8px;padding:6px 4px;flex-shrink:0;line-height:1.3}
+.pbt-main{flex:1;min-width:0}
+.pbt-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.pbt-why{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:2px}
+.pbt-when{font-size:10px;color:var(--muted);font-style:italic}
+.pbt-status{flex-shrink:0;text-align:right;font-size:11px;font-weight:600;color:var(--muted);min-width:96px}
+.pbt-item.pbt-today .pbt-status{color:var(--rose-m)}
+.pbt-item.pbt-open .pbt-status{color:var(--ok)}
+.pbt-link{display:block;font-size:10px;font-weight:500;color:var(--navy-m);text-decoration:none;margin-top:3px}
+.pbt-link:hover{text-decoration:underline}
+@media(max-width:600px){.pbt-item{flex-wrap:wrap}.pbt-status{width:100%;text-align:left;margin-top:4px;min-width:0}}
+
+/* PROGRESS BAR */
+.prog{height:6px;border-radius:3px;background:var(--border);margin-bottom:4px;overflow:hidden}
+.prog-f{height:100%;border-radius:3px}
+
+/* ALERTS */
+.alert{padding:10px 14px;border-radius:var(--rs);margin-bottom:10px;font-size:12px;line-height:1.6;border:.5px solid}
+.a-bl{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.a-gr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.a-am{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+.a-ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+
+/* KID GRID */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:8px;margin-bottom:1rem}
+.kc{background:var(--w);border:.5px solid var(--border);border-radius:var(--rs);padding:12px 14px}
+.kc-t{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.kc-b{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* FLIGHT CARDS */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:16px}
+.fc{background:var(--ok-l);border:1px solid var(--ok-b);border-radius:var(--r);padding:14px}
+.fc-s{font-size:10px;font-weight:700;color:var(--ok);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.fc-route{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.fc-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.fc-times{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:8px}
+.fc-time{font-size:18px}
+.fc-iata{font-size:10px;color:var(--muted);font-weight:400}
+.fc-arrow{color:var(--muted);font-size:11px;align-self:center}
+.fc-note{font-size:11px;color:var(--muted)}
+
+/* TABLES */
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:.75rem}
+th{text-align:left;padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:.5px solid var(--border)}
+td{padding:7px 10px;border-bottom:.5px solid var(--border);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+
+/* FOOTER */
+.footer{margin-top:3rem;padding:1.5rem;border-top:.5px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fb{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;padding:9px 18px;border-radius:20px;border:.5px solid var(--border);background:var(--w);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
+.fb:hover{background:var(--faint)}
+.fb.p{background:var(--navy);color:white;border-color:var(--navy)}
+.fb.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+
+/* STICKY TABS + PLANNING AIDS */
+.tabs{position:sticky;top:0;z-index:40;background:rgba(240,237,232,.93);backdrop-filter:blur(8px);padding:10px 0;margin:-10px 0 1.25rem}
+.day.weekend .dn{box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.14)}
+.day.weekend .dn-w{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2px}
+.day.today .db{border:1.5px solid var(--amber-m);box-shadow:0 0 0 4px rgba(217,119,6,.12)}
+.day.today .dt::before{content:'TODAY';font-size:9px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--amber-m);border-radius:4px;padding:1px 5px;margin-right:6px;vertical-align:1px}
+.day.flash .db{animation:dayFlash 1.6s ease-out}
+@keyframes dayFlash{0%{box-shadow:0 0 0 5px rgba(30,58,95,.45)}100%{box-shadow:0 0 0 0 rgba(30,58,95,0)}}
+#to-top{position:fixed;right:18px;bottom:18px;width:40px;height:40px;border-radius:50%;border:.5px solid var(--border);background:var(--w);color:var(--ink);font-size:16px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.15);opacity:0;pointer-events:none;transition:opacity .2s;z-index:45}
+#to-top.on{opacity:1;pointer-events:auto}
+/* CALENDAR VIEW */
+.itin-toggle{display:flex;gap:4px;margin:0 0 1rem;justify-content:flex-end}
+.itin-toggle button{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;padding:5px 12px;border:.5px solid var(--border);background:var(--w);color:var(--muted);cursor:pointer;border-radius:20px}
+.itin-toggle button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cal-wrap{display:none}
+.sec.cal-mode>*:not(.cal-wrap):not(.itin-toggle){display:none}
+.sec.cal-mode .cal-wrap{display:block}
+.cal-month{font-size:13px;font-weight:600;margin:.5rem 0 8px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-bottom:1.25rem}
+.cal-dow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding-bottom:2px}
+.cal-dow:nth-child(6),.cal-dow:nth-child(7){color:var(--rose-m)}
+.cal-cell{min-height:74px;border-radius:8px;border:.5px solid var(--border);background:var(--w);padding:5px 6px;font-size:10px;line-height:1.3;cursor:pointer;display:flex;flex-direction:column;gap:2px;overflow:hidden;transition:transform .12s,box-shadow .12s}
+.cal-cell:hover,.cal-cell:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12);outline:none}
+.cal-cell.empty{background:transparent;border-style:dashed;cursor:default;opacity:.45}
+.cal-cell.empty:hover{transform:none;box-shadow:none}
+.cal-cell.wknd .cal-d::after{content:'·';color:var(--rose-m);margin-left:2px}
+.cal-cell.today{outline:2px solid var(--amber-m);outline-offset:1px}
+.cal-d{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:11px;color:var(--ink)}
+.cal-d small{font-weight:600;font-size:9px;opacity:.75}
+.cal-t{color:var(--ink);opacity:.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:10px}
+@media(max-width:600px){.cal-cell{min-height:60px;padding:4px 4px}.cal-t{font-size:9px;-webkit-line-clamp:2}.cal-d{font-size:10px}.cal-grid{gap:3px}}
+/* MODERN DASHBOARD: readiness, badges, ticks, bullets, sticky leg headers */
+.ready{background:var(--w);border:.5px solid var(--border);border-radius:14px;padding:12px 14px 12px;margin:0 0 1.25rem;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.ready-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.ready-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.ready-sub{font-size:11px;color:var(--muted)}
+.ready-pct{font-family:'Instrument Serif',serif;font-size:26px;font-weight:500;color:var(--ink);line-height:1}
+.ready-bar{display:flex;gap:2px;height:8px;margin-bottom:10px}
+.ready-bar i{flex:1;border-radius:3px;background:var(--faint);border:.5px solid var(--border)}
+.ready-bar i.ok{background:var(--ok-b);border-color:var(--ok-b)}
+.ready-bar i.warn{background:var(--amber-m);border-color:var(--amber-m)}
+.ready-bar i.open{background:var(--rose-m);border-color:var(--rose-m)}
+.ready-chips{display:flex;gap:6px;flex-wrap:wrap}
+.ready-chip{text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:5px 10px;border-radius:20px;border:.5px solid var(--border);background:var(--faint);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.ready-chip:hover,.ready-chip:focus-visible{border-color:#a1a1aa;background:var(--w);outline:none}
+.ready-chip b{font-weight:700}
+.ready-chip em{font-style:normal;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--w);border:.5px solid var(--border);color:var(--muted)}
+.ready-chip em.warn{background:var(--amber-l);color:var(--amber);border-color:var(--amber-m)}
+.ready-chip em.open{background:var(--rose-l);color:var(--rose);border-color:var(--rose-m)}
+.ready-tick{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;background:var(--w);color:transparent}
+.ready-tick:hover{border-color:var(--ok-b)}
+.ready-tick.on{background:var(--ok-b);border-color:var(--ok-b);color:#fff}
+.badge.am{background:var(--amber-m)}
+.pbt-done{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:3px 9px;border-radius:12px;border:.5px solid var(--ok-b);background:var(--w);color:var(--ok);cursor:pointer;margin-top:6px;display:inline-block;transition:background .15s}
+.pbt-done:hover{background:var(--ok-l)}
+.pbt-done.on{background:var(--ok-l)}
+.dcl{list-style:none;margin:4px 0 0;padding:0;font-size:12px;color:var(--muted);line-height:1.55}
+.dcl li{position:relative;padding-left:13px;margin:3px 0}
+.dcl li::before{content:'';position:absolute;left:1px;top:.6em;width:5px;height:5px;border-radius:50%;background:#c4c0b8}
+.dcl li b{color:var(--ink);font-weight:600}
+.dc-more{display:none;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--navy-m);background:none;border:none;padding:4px 0 0;cursor:pointer}
+.sec.compact .dcl:not(.open) li:nth-child(n+4){display:none}
+.sec.compact .dc-more{display:inline-block}
+.sec.compact .dcl.open+.dc-more{display:inline-block}
+.sh{position:sticky;top:var(--tabs-h,48px);z-index:30;background:rgba(240,237,232,.96);backdrop-filter:blur(6px);padding-top:6px;margin-top:1.25rem}
+.sh>span:first-child{display:inline-flex;align-items:center;gap:6px}
+.db{border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:box-shadow .15s}
+.db:hover{box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.dn{border-radius:12px}
+.alert{border-radius:12px}
+@media(max-width:600px){.ready{padding:10px 12px}.ready-pct{font-size:22px}.ready-chip{font-size:10px;padding:4px 8px}}
+@media print{.hero{background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.footer,.tabs,#to-top,.itin-toggle,.dc-more{display:none}.sec{display:block!important}.sec.compact .dcl li{display:list-item!important}.sh{position:static}.sh{margin-top:1rem}}
+@media(max-width:600px){.hero{padding:3.6rem 1.25rem 2rem}.main{padding:1.5rem 1rem 3rem}}
+
+</style>
+<link rel="stylesheet" href="atlas/atlas.css">
+</head>
+<body>
+
+<!-- GOOGLE SIGN-IN GATE -->
+<div id="g-oauth">
+  <div class="g-box">
+    <div class="g-flag"></div>
+        <div class="g-wordmark">ATLAS</div>
+    <div class="g-title">Family travel, one trip at a time</div>
+    <p class="g-sub">Sign in with Google to continue</p>
+    <div class="go-btn-wrap" id="go-btn"></div>
+    <div class="go-err" id="go-err"></div>
+    <button class="go-retry" id="go-retry" onclick="location.reload()">Sign-in didn&rsquo;t load &mdash; tap to retry</button>
+    <p class="go-note">Access is limited to authorised family accounts.</p>
+    <div class="g-shield">&#128272; Google Sign-In &middot; booking references are never stored on this page</div>
+  </div>
+</div>
+
+<!-- ATLAS APP SHELL (rendered by atlas/atlas.js after sign-in) -->
+<div id="atlas" class="atlas" hidden>
+  <button type="button" class="ax-skip" onclick="var v=document.querySelector('.ax-view.on');if(v&&!document.getElementById('ax-main').hidden)v.focus()">Skip to content</button>
+  <aside class="ax-nav" aria-label="Main navigation">
+    <div class="ax-brand"><span class="ax-logo">ATLAS</span><span class="ax-tag">Family travel</span></div>
+    <nav class="ax-links">
+      <a href="#/overview" data-nav="overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+      <a href="#/trips" data-nav="trips"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Trips</a>
+      <a href="#/itinerary" data-nav="itinerary"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17h2M11 17h2"/></svg>Itinerary</a>
+      <a href="#/bookings" data-nav="bookings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Bookings</a>
+      <a href="#/documents" data-nav="documents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
+    </nav>
+    <div class="ax-nav-foot">
+      <div class="ax-quote">Explore the world, one trip at a time.</div>
+      <div class="ax-sync local" id="ax-sync" aria-live="polite"><i></i><span>This browser only</span></div>
+      <div class="ax-user"><span class="ax-avatar">·</span><span><b id="ax-user-name"></b><small id="ax-user-email"></small></span><button type="button" class="ax-logout" onclick="logout()">Log out</button></div>
+    </div>
+  </aside>
+
+  <main class="ax-main" id="ax-main">
+    <!-- OVERVIEW -->
+    <section class="ax-view" data-view="overview" id="ax-content" tabindex="-1">
+      <div class="ax-hero">
+        <div class="ax-globe-stage" id="ax-globe-stage">
+          <canvas id="ax-globe" aria-hidden="true"></canvas>
+          <div class="ax-tip" id="ax-tip" aria-hidden="true"></div>
+          <div class="ax-globe-fallback" aria-label="Trips"></div>
+          <div class="ax-globe-hint">Drag to spin · tap a destination to open it</div>
+        </div>
+        <div class="ax-hero-grid">
+          <div class="ax-hero-copy">
+            <div class="ax-mtop"><span class="ax-logo">ATLAS</span><button type="button" onclick="logout()" aria-label="Log out"><span class="ax-avatar">·</span><span id="ax-mname"></span> · Log out</button></div>
+            <div class="ax-eyebrow" id="ax-eyebrow">Welcome back</div>
+            <h1 class="ax-h1" id="ax-h1">Loading your trips…</h1>
+            <p class="ax-lede" id="ax-lede"></p>
+          </div>
+          <div class="ax-side">
+            <label class="ax-select"><span>Trip</span><select id="ax-dest" aria-label="Choose a trip to focus on"></select></label>
+            <aside class="ax-summary" id="ax-summary" aria-label="Trip summary"></aside>
+          </div>
+        </div>
+      </div>
+
+      <div class="ax-sheet"><div class="ax-sheet-in">
+        <section class="ax-sec ax-intel" aria-labelledby="ax-intel-h">
+          <div class="ax-sec-h">
+            <div><div class="ax-intel-kicker"><span aria-hidden="true">✦</span> Live analysis</div><h2 class="ax-h2" id="ax-intel-h">ATLAS Intelligence</h2><p class="ax-sub" id="ax-intel-sub">Analysing this trip…</p></div>
+            <div class="ax-intel-counts" id="ax-intel-counts" aria-label="Insight counts"></div>
+          </div>
+          <div class="ax-insights" id="ax-insights" aria-live="polite"><div class="ax-in sk"></div><div class="ax-in sk"></div><div class="ax-in sk"></div></div>
+          <div class="ax-intel-bar">
+            <div class="ax-ask-chips" id="ax-ask-chips" aria-label="Ask ATLAS"></div>
+            <button type="button" class="ax-btn ghost" id="ax-intel-toggle" aria-controls="ax-intel-panel" aria-expanded="false">View all insights</button>
+          </div>
+          <div class="ax-intel-panel" id="ax-intel-panel" hidden>
+            <div class="ax-tabs" id="ax-intel-tabs" role="tablist" aria-label="Intelligence views">
+              <button type="button" role="tab" data-itab="all">All insights</button>
+              <button type="button" role="tab" data-itab="calendar">Booking calendar</button>
+              <button type="button" role="tab" data-itab="reminders">Reminders</button>
+              <button type="button" role="tab" data-itab="ask">Ask ATLAS</button>
+            </div>
+            <div id="ax-intel-pane" role="tabpanel"></div>
+          </div>
+        </section>
+
+        <section class="ax-sec" aria-labelledby="ax-journey-h">
+          <div class="ax-sec-h"><div><h2 class="ax-h2" id="ax-journey-h">Journey</h2><p class="ax-sub">Where you sleep, how you get there and what’s planned — tap a stop to open those days.</p></div><a class="ax-link" id="ax-journey-link" href="#/itinerary">Full itinerary</a></div>
+          <div class="ax-journey" id="ax-journey"></div>
+        </section>
+
+        <section class="ax-sec" aria-labelledby="ax-days-h">
+          <div class="ax-sec-h"><div><h2 class="ax-h2" id="ax-days-h">Day by day</h2><p class="ax-sub" id="ax-days-sub"></p></div></div>
+          <div class="ax-days-wrap">
+            <div class="ax-days-nav"><button type="button" data-scroll="-1" aria-label="Scroll days left">←</button><button type="button" data-scroll="1" aria-label="Scroll days right">→</button></div>
+            <div class="ax-days" id="ax-days"></div>
+          </div>
+          <div class="ax-more-row ax-days-more"><button type="button" class="ax-btn ghost" id="ax-days-more" hidden>Show all days</button></div>
+        </section>
+
+        <section class="ax-sec" aria-labelledby="ax-lib-h">
+          <div class="ax-sec-h"><h2 class="ax-h2" id="ax-lib-h">Your trips</h2><a class="ax-link" href="#/trips">Trip library</a></div>
+          <div class="ax-tabs" id="ax-lib-tabs" role="tablist" aria-label="Trip library">
+            <button type="button" role="tab" data-tab="upcoming" aria-selected="true">Upcoming <span></span></button>
+            <button type="button" role="tab" data-tab="completed" aria-selected="false">Completed <span></span></button>
+            <button type="button" role="tab" data-tab="saved" aria-selected="false">Saved <span></span></button>
+          </div>
+          <div class="ax-lib" id="ax-lib-ov" role="tabpanel"></div>
+        </section>
+
+        <p class="ax-credits" id="ax-credits"></p>
+      </div></div>
+    </section>
+
+    <!-- TRIPS -->
+    <section class="ax-view ax-page" data-view="trips" tabindex="-1">
+      <div class="ax-page-h"><div class="ax-eyebrow">Trip library</div><h1 class="ax-h1">Every journey, in one place</h1><p class="ax-sub">Upcoming trips, your travel journal of completed ones, and saved plans.</p></div>
+      <div class="ax-page-in" id="ax-lib-all"></div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section class="ax-view ax-page" data-view="documents" tabindex="-1">
+      <div class="ax-page-h"><div class="ax-eyebrow">Documents · <span id="ax-docs-h"></span></div><h1 class="ax-h1">Everything you’ll need to show</h1><p class="ax-sub">Checks before you fly, every booking with its confirmation, and the family’s passports.</p>
+        <div class="ax-doc-trips" id="ax-doc-trips" aria-label="Choose trip"></div></div>
+      <div class="ax-page-in"><h2 class="ax-h2 ax-sec-t">Before you fly</h2><div class="ax-docs" id="ax-docs"></div>
+        <h2 class="ax-h2 ax-pp-h2">Travel wallet</h2>
+        <p class="ax-sub">Flights, hotels and tickets in one place — add the booking reference and attach the confirmation PDF or screenshot.</p>
+        <div class="ax-wallet" id="ax-wallet"></div>
+        <h2 class="ax-h2 ax-pp-h2">Passports</h2>
+        <p class="ax-sub">Each must run 6 months past the trip’s end. Tap a name for the full details.</p>
+        <div class="ax-pplist" id="ax-pp-list"></div>
+        <p class="ax-note">🔒 Passport details, booking references and confirmation files live only in ATLAS’s private database and file store — readable by the family’s Google accounts, never part of this page’s code.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="dash-root" style="display:none">
+  
+
+  <div class="hero">
+  <div class="flag-bar"></div>
+  <div class="hero-ctrls">
+    <button class="switch-trip" onclick="switchTrip()">⇄ Trips</button>
+    <button class="switch-trip out" onclick="logout()">⎋ Logout</button>
+  </div>
+  <div class="hi">
+    <div class="ey">Family trip · Confirmed itinerary · 2026</div>
+    <div class="dest-badges">
+      <span class="dbadge ie">🇮🇪 Ireland</span>
+      <span class="dsep">·</span>
+      <span class="dbadge sc">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</span>
+      <span class="dsep">·</span>
+      <span class="dbadge uk">🇬🇧 London</span>
+    </div>
+    <div class="ht">Ireland <em>&middot;</em> Scotland <em>&middot;</em> London</div>
+    <div class="hs">18 May – 1 June 2026 &nbsp;·&nbsp; 15 days &nbsp;·&nbsp; BA ref: 🔒</div>
+    <div class="travelers">
+      <div class="tv"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">🔒 Private</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">🔒 Private</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">🔒 Private</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">🔒 Private</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#d97706">I</div><div><div class="tv-n">Ilakyaa</div><div class="tv-a">Joins 21–25 May</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#be185d">N</div><div><div class="tv-n">Naveen</div><div class="tv-a">Joins 24–27 May</div></div></div>
+    </div>
+
+    <div class="stats">
+      <div class="st"><div class="st-n">15</div><div class="st-l">Total days</div></div>
+      <div class="st"><div class="st-n">6</div><div class="st-l">Ireland days</div></div>
+      <div class="st"><div class="st-n">2</div><div class="st-l">Belfast days</div></div>
+      <div class="st"><div class="st-n">1</div><div class="st-l">Edinburgh</div></div>
+      <div class="st ac"><div class="st-n">1</div><div class="st-l">Sleeper night</div></div>
+      <div class="st"><div class="st-n">5</div><div class="st-l">London days</div></div>
+      <div class="st ok"><div class="st-n">10</div><div class="st-l">Confirmed</div></div>
+      <div class="st"><div class="st-n">~1,200</div><div class="st-l">Driving km</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tb active" onclick="show('it',this)">All 15 days</button>
+    <button class="tb" onclick="show('ht',this)">Hotels</button>
+    <button class="tb" onclick="show('ex',this)">Experiences</button>
+    <button class="tb" onclick="show('bk',this)">Book now <span class="badge">1</span></button>
+    <button class="tb" onclick="show('ki',this)">Kid tips</button>
+    <button class="tb" onclick="show('fl',this)">Flights</button>
+    <button class="tb" onclick="show('ca',this)">🚗 Car</button>
+  </div>
+
+  <!-- ALL 15 DAYS -->
+  <div id="it" class="sec active" data-year="2026">
+    <div class="alert a-ok">✈️ All flights · All hotels · Caledonian Sleeper · HP Studio confirmed &nbsp;·&nbsp; Car hire is the only remaining item</div>
+    <div class="spine"><div class="sr">
+      <div class="sp ie"><div class="dot"></div><div class="spn">Dublin</div><div class="spd">18–20 May</div><div class="sps">✅ booked</div></div>
+      <div class="sp ie"><div class="dot"></div><div class="spn">Cork</div><div class="spd">20–22 May</div><div class="sps">✅ booked</div></div>
+      <div class="sp ie"><div class="dot"></div><div class="spn">Dingle</div><div class="spd">22–24 May</div><div class="sps">✅ booked</div></div>
+      <div class="sp uk"><div class="dot"></div><div class="spn">Belfast</div><div class="spd">24–26 May</div><div class="sps">✅ booked</div></div>
+      <div class="sp sc"><div class="dot"></div><div class="spn">Edinburgh</div><div class="spd">26–27 May</div><div class="sps">✅ booked</div></div>
+      <div class="sp sl"><div class="dot"></div><div class="spn">Sleeper</div><div class="spd">27 May night</div><div class="sps">✅ booked</div></div>
+      <div class="sp lo"><div class="dot"></div><div class="spn">London</div><div class="spd">28 May–1 Jun</div><div class="sps">at brother's</div></div>
+    </div></div>
+
+    <div class="sh"><span>🇮🇪 Dublin · 18–20 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Temple Bar · 🔒</span></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f"><span class="dn-d">18 May</span><span class="dn-n">D1</span><span class="dn-w">Mon</span></div><div class="db"><p class="dt">Arrival evening</p><p class="dd">18 May (Mon) · Arrive Dublin ~16:20</p><p class="dc">BA0832 lands T2 · Pick up rental car · Check in · Bean Hive Coffee · St Stephen's Green · Grafton Street</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Temple Bar · 51 Stephen St Lower</span><span class="hno"> · Quadruple · Breakfast incl · PIN: 1015</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f"><span class="dn-d">19 May</span><span class="dn-n">D2</span><span class="dn-w">Tue</span></div><div class="db"><p class="dt">Dublin full day</p><p class="dd">19 May (Tue)</p><p class="dc">Viking Splash Tour morning · Trinity College + Book of Kells · Ha'penny Bridge · Guinness Storehouse + Gravity Bar · Murphy's Ice Cream</p><div class="tags"><span class="tag t-bl">Book Viking Splash — vikingsplash.com · morning slot</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e8f0fb;color:#1e3a5f"><span class="dn-d">20 May</span><span class="dn-n">D3</span><span class="dn-w">Wed</span></div><div class="db"><p class="dt">Culture + drive south via Howth</p><p class="dd">20 May (Wed)</p><p class="dc">Dublin Castle · EPIC Museum · Temple Bar · Howth Cliff Walk + Lighthouse · K2 Alpacas · Drive to Kinsale</p><div class="tags"><span class="tag t-bl">Leave Howth by 3 pm · arrive Kinsale ~6 pm</span></div></div></div>
+
+    <div class="sh"><span>🇮🇪 Kinsale / Cork · 20–22 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Cork · 🔒</span></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span class="dn-d">21 May</span><span class="dn-n">D4</span><span class="dn-w">Thu</span></div><div class="db"><p class="dt">Cork city day · Ilakyaa arrives! 🎉</p><p class="dd">21 May (Thu)</p><p class="dc">Cork Historic Doughnut Tour · Cork City Gaol · St Anne's Church Shandon · English Market · Ilakyaa lands Cork Airport 09:25 (FR907 from Stansted) · staying at hotel 5 min from Premier Inn · join up for dinner</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Cork · 11 Morrison's Quay</span><span class="hno"> · Standard Quadruple · Breakfast incl · PIN: 3395 · Arrival ~12–13:00</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span class="dn-d">22 May</span><span class="dn-n">D5</span><span class="dn-w">Fri</span></div><div class="db"><p class="dt">Kinsale morning · drive to Dingle</p><p class="dd">22 May (Thu)</p><p class="dc">Deck of Cards Houses · Fairy Trails · Charles Fort · Scilly Walk · Saint Francis Provisions lunch · Drive Kinsale → Dingle ~2.5 hrs</p><div class="tags"><span class="tag t-bl">Leave by 2 pm · arrive Dingle ~5 pm</span></div></div></div>
+
+    <div class="sh"><span>🇮🇪 Dingle Peninsula · 22–24 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> The Plough B&amp;B · Confirmed 🔒</span></div>
+    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e"><span class="dn-d">22 May</span><span class="dn-n">D6</span><span class="dn-w">Fri</span></div><div class="db"><p class="dt">Dingle arrival &amp; town</p><p class="dd">22 May (Fri) evening</p><p class="dc">Murphy's Ice Cream · Dingle Oceanworld Aquarium · Gallarus Oratory</p><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">The Plough B&amp;B · Ventry, Dingle</span><span class="hno"> · Triple Room with Sea View · Breakfast incl · PIN: 🔒</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef3c7;color:#92400e"><span class="dn-d">23 May</span><span class="dn-n">D7</span><span class="dn-w">Sat</span></div><div class="db"><p class="dt">Slea Head Drive</p><p class="dd">23 May (Sat)</p><p class="dc">Early start 9 am · Slea Head Drive · Dunmore Head · Lios Stone Circle &amp; Animal Feeding · Conor Pass · Kids Club at hotel evening</p><div class="tags"><span class="tag t-gr">Tara loves animal feeding · Kids Club half-term</span></div></div></div>
+
+    <div class="sh"><span>🇬🇧 Belfast · 24–26 May · 2 nights</span><span class="shb pi"><span class="okdot"></span> Premier Inn Belfast Titanic · 🔒</span></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span class="dn-d">24 May</span><span class="dn-n">D8</span><span class="dn-w">Sun</span></div><div class="db"><p class="dt">Cliffs of Moher · Bunratty · Belfast + Titanic · Naveen arrives! 🎉</p><p class="dd">24 May (Sun)</p><p class="dc">Drive Dingle → Cliffs of Moher scenic stop · Moher Hill Farm (lambs in May!) · Bunratty Castle &amp; Folk Park · Arrive Belfast · Naveen arrives Belfast independently · Titanic Belfast (evening visit — 2 min walk from hotel!)</p><div class="tags"><span class="tag t-bl">Start 8:30 am · ~4.5 hrs with stops</span><span class="tag t-am">Pack car snacks</span><span class="tag t-am">Pre-book Titanic timed entry · titanicbelfast.com</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Premier Inn Belfast Titanic Quarter · 2A Queens Road</span><span class="hno"> · Family Quadruple · R360: 🔒 · Paid 🔒</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span class="dn-d">25 May</span><span class="dn-n">D9</span><span class="dn-w">Mon</span></div><div class="db"><p class="dt">Causeway Coast — Giant's Causeway + Carrick-a-Rede</p><p class="dd">25 May (Mon)</p><p class="dc">The Milkman (breakfast) · Giant's Causeway — UNESCO hexagonal basalt columns · Coastal walk · Carrick-a-Rede Rope Bridge (check Tara's heights comfort) · back to Belfast evening · Ilakyaa departs BFS→LGW EZY832 20:55 👋</p><div class="tags"><span class="tag t-bl">Full day coastal loop · ~200 km · allow full day</span><span class="tag t-am">Pre-book Giant's Causeway · nationaltrust.org.uk</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span class="dn-d">26 May</span><span class="dn-n">D10</span><span class="dn-w">Tue</span></div><div class="db"><p class="dt">Aunt Sandra's · fly to Edinburgh · Dynamic Earth · Chocolatarium · Department of Magic</p><p class="dd">26 May (Tue)</p><p class="dc">Aunt Sandra's Candy Factory (morning) · Return car at Belfast City Airport · EZY326 to Edinburgh · Naveen on same flight ✈️ · Arrive 12:50 · Check in Novotel · Optional if not tired: Dynamic Earth — Big Bang → Ice Ages → 360° ShowDome (closes 17:30) · Chocolatarium — make your own chocolate bar · ~90 min · Royal Mile · Dinner: Department of Magic Potions Tavern — brew your own smoking potions, Butterbeer, wizarding decor · 75 min timed slot · 9 Blair Street (just off Royal Mile)</p><div class="tags"><span class="tag t-bl">Bag drop closes 10:55 — arrive airport by 09:30 at latest</span><span class="tag t-ok">✅ EZY326 · 11:55 BFS → EDI 12:50 · Seats 🔒</span><span class="tag t-gr">Optional · dynamicearth.co.uk · ~£15 child · skip if tired</span><span class="tag t-am">Pre-book: chocolatarium.co.uk · ~£20/person · 90 min</span><span class="tag t-vi">Pre-book: departmentofmagic.com · 75 min · sessions from 14:00 · book evening slot</span></div></div></div>
+
+    <div class="sh"><span>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Edinburgh · 26–27 May · 1 night</span><span class="shb pi"><span class="okdot"></span> Novotel Edinburgh Centre · QFVLGXVN</span></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f"><span class="dn-d">27 May</span><span class="dn-n">D11</span><span class="dn-w">Wed</span></div><div class="db"><p class="dt">Full Edinburgh day — Harry Potter trail</p><p class="dd">27 May (Wed)</p><p class="dc">Edinburgh Castle · Royal Mile · Victoria Street (Diagon Alley!) · Greyfriars Kirk + Bobby · Elephant House Café 10 am · Camera Obscura · Holyrood Park · Grassmarket dinner · collect bags · board sleeper 23:40 · Naveen departs Edinburgh → Bristol 👋</p><div class="tags"><span class="tag t-vi">Full HP trail in one day</span><span class="tag t-ok">✅ Board Caledonian Sleeper 23:40 — full evening in Edinburgh!</span><span class="tag t-gr">Naveen departs Edinburgh to Bristol — farewell dinner at Grassmarket!</span></div><div class="hr"><span class="pip ok">✓ Booked</span><span class="hn">Novotel Edinburgh Centre · 80 Lauriston Place</span><span class="hno"> · Classic Family Room · Paid 🔒 · Non-refundable · Check-out noon</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🌙 Caledonian Sleeper · Edinburgh → London Euston · Night 27–28 May</span><span class="shb ok"><span class="okdot"></span> Confirmed · 🔒</span></div>
+    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12"><span class="dn-d">27 May</span><span class="dn-n">D12</span><span class="dn-w">Wed</span></div><div class="db slp"><p class="dt" style="color:var(--orange)">Caledonian Sleeper overnight</p><p class="dd" style="color:#7c2d12">Departs 23:40 Edinburgh · arrives London Euston ~07:00 · Coach D Rooms 4 &amp; 5</p><p class="dc" style="color:#7c2d12">Club Family 2 Rooms · Room 5 (Yuvan &amp; Ramyaa) + Room 4 (Sana &amp; Tara) · en-suite shower · Club Car lounge · wake up arriving London · Paid 🔒</p><div class="tags"><span class="tag t-ok">✅ Ref: 🔒</span></div></div></div>
+
+    <div class="sh"><span>🇬🇧 London · 28 May – 1 Jun · 5 days</span><span class="shb ok">Brother's place · E18 2HJ · Free!</span></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a"><span class="dn-d">28 May</span><span class="dn-n">D13</span><span class="dn-w">Thu</span></div><div class="db"><p class="dt">Covent Garden · Paddington Experience</p><p class="dd">28 May (Thu) · arrive Euston ~07:00</p><p class="dc">Euston → Central line to E18 · Covent Garden Piazza · Neal's Yard · Mr. Frogg's cocktail bar · Seven Dials Market (lunch) · Paddington Bear Experience, County Hall · BrewDog Waterloo · Fortitude Bakehouse</p><div class="tags"><span class="tag t-am">Pre-book: Paddington Experience · paddingtonbearexperience.com</span><span class="tag t-vi">Mr. Frogg's · Seven Dials · no booking needed</span></div><div class="hr"><span style="font-size:13px">🏠</span><span class="hn">Brother's place · E18 2HJ, High View Road, South Woodford</span><span class="hno"> · Central line · both girls travel free · Heathrow direct 55 min</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a"><span class="dn-d">29 May</span><span class="dn-n">D14</span><span class="dn-w">Fri</span></div><div class="db"><p class="dt">Tower of London</p><p class="dd">29 May (Fri)</p><p class="dc">South Woodford → Tower Hill · Tower of London (Crown Jewels + Beefeater tour) · Tower Bridge walk (free) · Lunch at The Vault 1894 or St Katharine Docks · Borough Market · Circolo Popolare (Fitzrovia — evening, if energy allows)</p><div class="tags"><span class="tag t-am">Pre-book: Tower of London · hrp.org.uk · timed Crown Jewels entry</span><span class="tag t-gr">Borough Market · free to browse</span><span class="tag t-vi">Circolo Popolare · book ahead · great Italian</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a"><span class="dn-d">30 May</span><span class="dn-n">D15</span><span class="dn-w">Sat</span></div><div class="db"><p class="dt">Harry Potter Studio Tour · Watford</p><p class="dd">30 May (Sat)</p><p class="dc">Morning: Smiggle shopping at Westfield Stratford City (5 min from South Woodford) · South Woodford → Watford Junction (~55 min) · Arrive by 16:10 · Warner Bros. Studio Tour 16:30 (adults) / 17:30 (children) — Great Hall · Platform 9¾ · Diagon Alley · Forbidden Forest · Digital Photo &amp; Video Package</p><div class="tags"><span class="tag t-ok">✅ Ref 🔒 · Adults 16:30 · Children 17:30 · arrive 16:10 · show e-ticket for shuttle at Watford Jn</span><span class="tag t-bl">Smiggle · Westfield Stratford · morning</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#f4f4f5;color:#71717a"><span class="dn-d">31 May</span><span class="dn-n">D16</span><span class="dn-w">Sun</span></div><div class="db"><p class="dt">Natural History Museum · South Kensington</p><p class="dd">31 May (Sun)</p><p class="dc">South Woodford → South Kensington · Natural History Museum (free — dinosaurs, Blue Whale, Earth galleries) · Lunch at Brother Marcus South Kensington</p><div class="tags"><span class="tag t-gr">Natural History Museum · nhm.ac.uk · free entry · no booking needed</span><span class="tag t-am">Brother Marcus · 236 Cromwell Road · popular brunch spot</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span class="dn-d">1 Jun</span><span class="dn-n">D17</span><span class="dn-w">Mon</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Rest day · fly home</p><p class="dd" style="color:var(--forest-m)">1 Jun (Mon) — departure</p><p class="dc" style="color:var(--forest)">Slow morning · pack · South Woodford → Heathrow T5 · Central line direct ~55 min · BA0035 departs 12:40 · arrives Chennai 03:30 +1</p></div></div>
+  </div>
+
+  <!-- HOTELS -->
+  <div id="ht" class="sec">
+    <div class="alert a-ok">All hotels + Caledonian Sleeper confirmed · London at brother's place</div>
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--ok)">7 of 7 confirmed</span></div>
+      <div class="prog"><div class="prog-f" style="width:100%;background:var(--ok-b)"></div></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">All accommodation confirmed ✅</div>
+    </div>
+    <div class="hgrid">
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Dublin · 18–20 May · 2 nights</div>
+        <div class="hc-name">Premier Inn Dublin City Centre (Temple Bar)</div>
+        <div class="hc-addr">51 Stephen Street Lower, D02 N7Y3</div>
+        <div class="hc-sub">Quadruple Room · Breakfast included</div>
+        <div class="hc-ref">Conf: 🔒 · PIN: 🔒</div>
+        <div class="perks"><span class="pk ok">Breakfast incl</span><span class="pk">Grafton St 2 min</span><span class="pk">Temple Bar doorstep</span><span class="pk">Free cancel until 16 May</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Cork · 20–22 May · 2 nights</div>
+        <div class="hc-name">Premier Inn Cork City Centre</div>
+        <div class="hc-addr">11 Morrison's Quay, T12 PF78 Cork</div>
+        <div class="hc-sub">Standard Quadruple · Breakfast included</div>
+        <div class="hc-ref">Conf: 🔒 · PIN: 🔒</div>
+        <div class="perks"><span class="pk ok">Breakfast incl</span><span class="pk">River Lee waterfront</span><span class="pk am">No parking: Q-Park ~€45/night</span><span class="pk">Free cancel until 18 May</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Dingle · 22–24 May · 2 nights</div>
+        <div class="hc-name">The Plough B&amp;B</div>
+        <div class="hc-addr">Ventry, Dingle, Kerry, Ireland</div>
+        <div class="hc-sub">Triple Room with Sea View · Breakfast included</div>
+        <div class="hc-ref">Conf: 🔒 · PIN: 🔒</div>
+        <div class="perks"><span class="pk ok">Breakfast incl</span><span class="pk">Sea view</span><span class="pk">Free parking</span><span class="pk">Free WiFi</span><span class="pk">Free cancel until 7 May</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Belfast · 24–26 May · 2 nights</div>
+        <div class="hc-name">Premier Inn Belfast Titanic Quarter</div>
+        <div class="hc-addr">2A Queens Road, BT3 9DT</div>
+        <div class="hc-sub">Family Quadruple · Non-smoking</div>
+        <div class="hc-ref">R360: 🔒</div>
+        <div class="perks"><span class="pk ok">Paid 🔒 + 🔒 pts</span><span class="pk gr">2 min to Titanic Belfast!</span><span class="pk">Water views</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Edinburgh · 26–27 May · 1 night</div>
+        <div class="hc-name">Novotel Edinburgh Centre ★★★★</div>
+        <div class="hc-addr">80 Lauriston Place, EH3 9DE</div>
+        <div class="hc-sub">Classic Family Room · 2 adults + 2 children</div>
+        <div class="hc-ref">Ref: 🔒 · Paid 🔒</div>
+        <div class="perks"><span class="pk ok">Non-refundable · fully paid</span><span class="pk">Check-in 15:00</span><span class="pk">Check-out 12:00</span><span class="pk am">No parking (£22/night)</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">On the train · Night 27–28 May</div>
+        <div class="hc-name">Caledonian Sleeper · Club Family 2 Rooms</div>
+        <div class="hc-addr">Departs Edinburgh 23:40 · Euston ~07:00</div>
+        <div class="hc-sub">Coach D Room 5 (Yuvan &amp; Ramyaa) · Room 4 (Sana &amp; Tara)</div>
+        <div class="hc-ref">Ref: 🔒 · NRS: 🔒</div>
+        <div class="perks"><span class="pk ok">Paid 🔒</span><span class="pk">2 rooms · Coach D</span><span class="pk gr">En-suite shower</span><span class="pk gr">Club Car lounge</span></div>
+      </div>
+      <div class="hc free">
+        <div class="hc-s ok">✓ Arranged — 5 nights FREE</div>
+        <div class="hc-city" style="color:var(--forest)">London · 28 May – 1 Jun · 5 nights</div>
+        <div class="hc-name" style="color:var(--forest)">Brother's place · E18 2HJ</div>
+        <div class="hc-addr" style="color:var(--forest-m)">High View Road, South Woodford</div>
+        <div class="hc-sub" style="color:var(--forest-m)">Central line · Heathrow direct 55 min</div>
+        <div class="perks"><span class="pk gr">Both girls tube free</span><span class="pk gr">Heathrow direct</span></div>
+      </div>
+    </div>
+    <div class="alert a-am">Cork parking: no on-site parking at Premier Inn. Q-Park City Hall ~7 min walk at ~€45/24 hrs. Over 2 nights ≈ €90 (~₹9,500).</div>
+    <div class="subh">👥 Guests — Ilakyaa &amp; Naveen</div>
+    <div class="hgrid">
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Arranged</div>
+        <div class="hc-city">Cork · 21 May · 1 night · Ilakyaa</div>
+        <div class="hc-name">Cork hotel (5 min from Premier Inn)</div>
+        <div class="hc-addr">Near Morrison's Quay, Cork</div>
+        <div class="hc-sub">Arrives FR907 from Stansted 09:25 · joins family for dinner</div>
+        <div class="perks"><span class="pk">5 min walk to Premier Inn</span><span class="pk gr">Joins 21 May evening</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Arranged</div>
+        <div class="hc-city">Dingle · 22–24 May · 2 nights · Ilakyaa</div>
+        <div class="hc-name">The Plough B&amp;B, Ventry</div>
+        <div class="hc-addr">Same as family</div>
+        <div class="hc-sub">Triple Room with Sea View</div>
+        <div class="perks"><span class="pk gr">Same property as family</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Arranged</div>
+        <div class="hc-city">Belfast · 24–26 May · Ilakyaa + Naveen</div>
+        <div class="hc-name">Premier Inn Belfast Titanic Quarter</div>
+        <div class="hc-addr">Same hotel as family · 2A Queens Road</div>
+        <div class="hc-sub">Ilakyaa departs BFS→LGW 25 May 20:55 · Naveen continues to Edinburgh</div>
+        <div class="perks"><span class="pk gr">Same hotel as family</span><span class="pk">Ilakyaa out 25 May</span><span class="pk">Naveen out 26 May</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCES -->
+  <div id="ex" class="sec">
+    <div class="alert a-bl">HP Studio ✅ confirmed · HP trail spans 3 countries: Edinburgh → Watford · 6 more experiences to book in good time</div>
+    <div class="egrid">
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">01</div><div class="ec-name">Guinness Storehouse + Gravity Bar</div><div class="ec-day">Day 2 · 19 May · Dublin</div><div class="ec-desc">Ireland's most visited attraction · 7 floors of Guinness history · Gravity Bar panoramic views over Dublin · book ahead for May</div><div class="ec-book" style="color:var(--orange)">guinness-storehouse.com · pre-book timed entry · skip the queue</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--forest)">02</div><div class="ec-name">Viking Splash Tour</div><div class="ec-day">Day 2 · 19 May · Dublin</div><div class="ec-desc">Amphibious DUKW vehicle · Viking helmets · splashes into Grand Canal · ~75 min · book morning slot</div><div class="ec-book" style="color:var(--forest)">vikingsplash.com · morning slot</div></div>
+      <div class="ec bl"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--navy)">03</div><div class="ec-name">Titanic Belfast</div><div class="ec-day">Day 8 · 24 May (evening) · Belfast</div><div class="ec-desc">World's largest Titanic experience · 2 min walk from Premier Inn · interactive galleries · shipyard ride</div><div class="ec-book" style="color:var(--navy)">titanicbelfast.com · pre-book timed entry</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--forest)">04</div><div class="ec-name">Giant's Causeway</div><div class="ec-day">Day 9 · 25 May · County Antrim</div><div class="ec-desc">UNESCO World Heritage Site · 40,000 hexagonal basalt columns · Coastal path · Carrick-a-Rede Rope Bridge nearby · stunning for Sana &amp; Tara</div><div class="ec-book" style="color:var(--forest)">nationaltrust.org.uk · pre-book timed entry · coastal path is free</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--violet)">05</div><div class="ec-name">Elephant House Café</div><div class="ec-day">Day 11 · 27 May · Edinburgh</div><div class="ec-desc">JK Rowling's writing desk · Writers' Room · George Heriot's School view · HP trail start</div><div class="ec-book" style="color:var(--violet)">elephanthouse.biz · book table for 4 · opens 10 am</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">06</div><div class="ec-name">The Chocolatarium</div><div class="ec-day">Day 10 · 26 May evening · Edinburgh Royal Mile</div><div class="ec-desc">Make your own chocolate bar · taste exotic chocolates from around the world · ~90 min · won #1 Best Food Experience UK · perfect for Sana &amp; Tara · ages 5+</div><div class="ec-book" style="color:var(--orange)">chocolatarium.co.uk · pre-book · ~£20/person</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--violet)">07</div><div class="ec-name">Department of Magic — Potions Tavern</div><div class="ec-day">Day 10 · 26 May evening · 9 Blair Street, Edinburgh</div><div class="ec-desc">Brew your own smoking magical potions · Butterbeer alcoholic &amp; non-alcoholic · wizarding robes provided · immersive HP-inspired decor · 75 min timed slot · #1 rated bar in Edinburgh · just off Royal Mile</div><div class="ec-book" style="color:var(--violet)">departmentofmagic.com · pre-book timed slot · sessions from 14:00 · likely to sell out</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">08</div><div class="ec-name">Paddington Bear Experience</div><div class="ec-day">Day 13 · 28 May · County Hall, London</div><div class="ec-desc">Multi-room immersive · live actors · full-size train carriage · ~70 min</div><div class="ec-book" style="color:var(--orange)">paddingtonbearexperience.com · timed entry</div></div>
+      <div class="ec bl"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--navy)">09</div><div class="ec-name">Tower of London</div><div class="ec-day">Day 14 · 29 May · Tower Hill, London</div><div class="ec-desc">Crown Jewels · Beefeater tour · White Tower · medieval armour · Tower Bridge walk (free) afterwards · kids love the ravens</div><div class="ec-book" style="color:var(--navy)">hrp.org.uk · pre-book timed Crown Jewels entry</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--ok)">✅ Confirmed · Ref 🔒</div><div class="ec-n" style="color:var(--violet)">10</div><div class="ec-name">Harry Potter Studio Tour</div><div class="ec-day">Day 15 · 30 May · Watford · 16:30 entry (adults) / 17:30 (children)</div><div class="ec-desc">Great Hall · Platform 9¾ · Diagon Alley · Forbidden Forest · 2 × Adult Family + 1 × Adult + 2 × Child Family · Digital Photo &amp; Video Package · Arrive by 16:10</div><div class="ec-book" style="color:var(--ok)">Arrive by 16:10 · Show e-ticket at Watford Junction for shuttle · Non-refundable</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--ok)">✅ Free — no booking</div><div class="ec-n" style="color:var(--forest)">11</div><div class="ec-name">Natural History Museum</div><div class="ec-day">Day 16 · 31 May · South Kensington, London</div><div class="ec-desc">Free entry · dinosaur skeletons · 25m Blue Whale · Earth galleries · volcano simulation · Sana &amp; Tara will love it · allow 2–3 hrs</div><div class="ec-book" style="color:var(--forest)">nhm.ac.uk · free entry · no pre-booking required</div></div>
+    </div>
+  </div>
+
+  <!-- BOOK NOW -->
+  <div id="bk" class="sec">
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Booking status</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+        <div style="background:var(--ok-l);border:.5px solid var(--ok-b);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--ok)">10</div><div style="font-size:10px;color:var(--ok)">Confirmed</div></div>
+        <div style="background:var(--rose-l);border:.5px solid var(--rose-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--rose-m)">1</div><div style="font-size:10px;color:var(--rose-m)">Still needed</div></div>
+        <div style="background:var(--amber-l);border:.5px solid var(--amber-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--amber)">6+</div><div style="font-size:10px;color:var(--amber)">Experiences</div></div>
+      </div>
+    </div>
+
+    <div class="subh2" style="color:var(--rose-m);margin-bottom:8px">🚨 Book today</div>
+    <div class="bklist">
+      <div class="bk am"><div class="bdot" style="background:var(--amber-m)"></div><div><div class="bt">Car hire — Dublin Airport → Belfast City Airport <span class="btag am">Book now</span></div><div class="bd">18–26 May · 8 days · diesel estate/MPV · full CDW + no-excess insurance · rentalcars.com or autoeurope</div></div></div>
+    </div>
+
+    <div class="subh2" style="color:var(--forest-m);margin-bottom:8px">📅 Book in good time</div>
+    <div class="bklist">
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Viking Splash Tour, Dublin</div><div class="bd">19 May · vikingsplash.com · morning slot · 4 tickets</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Titanic Belfast — timed entry</div><div class="bd">24 May (evening) · titanicbelfast.com · 2 min walk from Premier Inn · book timed entry in advance</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Elephant House Café, Edinburgh</div><div class="bd">27 May · elephanthouse.biz · book a table for 4 · opens 10 am</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Paddington Bear Experience</div><div class="bd">28 May · paddingtonbearexperience.com · County Hall · timed entry · pre-book</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Tower of London</div><div class="bd">29 May · hrp.org.uk · timed Crown Jewels entry · Beefeater tour</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Circolo Popolare (if going)</div><div class="bd">Evening 29 May · Rathbone Place, Fitzrovia · book a table in advance — very popular</div></div></div>
+    </div>
+
+    <div class="subh2" style="color:var(--ok);margin-bottom:8px">✅ Already confirmed</div>
+    <div class="bklist">
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">British Airways — all 4 passengers <span class="btag ok">CONFIRMED</span></div><div class="bd">Ref: 🔒 · BA0036 Chennai→LHR 18 May 05:35 · BA0832 LHR→Dublin 14:50 · BA0035 LHR→Chennai 1 Jun 12:40 · Paid 🔒</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">easyJet EZY326 BFS→EDI <span class="btag ok">CONFIRMED</span></div><div class="bd">26 May 11:55 → 12:50 · Ref: 🔒 · Paid 🔒 · Seats 🔒 · Bag drop closes 10:55</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Harry Potter Studio Tour <span class="btag ok">CONFIRMED</span></div><div class="bd">30 May · Ref: 🔒 · Adults 16:30 · Children 17:30 · 2×Adult Family + 1×Adult + 2×Child Family + Digital Photo &amp; Video Package · Non-refundable</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Dublin Temple Bar <span class="btag ok">CONFIRMED</span></div><div class="bd">18–20 May · Conf: 🔒 · PIN: 🔒 · Breakfast incl · Free cancel until 16 May</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Cork City Centre <span class="btag ok">CONFIRMED</span></div><div class="bd">20–22 May · Conf: 🔒 · PIN: 🔒 · Breakfast incl · Free cancel until 18 May</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Premier Inn Belfast Titanic Quarter <span class="btag ok">CONFIRMED</span></div><div class="bd">24–26 May · R360: 🔒 · Family Quadruple · Paid 🔒 + 🔒 reward points</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Novotel Edinburgh Centre ★★★★ <span class="btag ok">CONFIRMED</span></div><div class="bd">26–27 May · Ref: 🔒 · Classic Family Room · NON-REFUNDABLE · Paid 🔒 · Check-in 15:00</div></div></div>
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Caledonian Sleeper — Club Family 2 Rooms <span class="btag ok">CONFIRMED</span></div><div class="bd">27 May 23:40 EDB→EUS · Ref: 🔒 · NRS: 🔒 · Coach D Rooms 4 &amp; 5 · Paid 🔒 · Order: 🔒</div></div></div>
+    </div>
+  </div>
+
+  <!-- KID TIPS -->
+  <div id="ki" class="sec">
+    <div class="alert a-gr">Sana (9) and Tara (6) are the perfect ages for this trip. Here's what to watch for and what they'll love most.</div>
+    <div class="kgrid">
+      <div class="kc"><div class="kc-t">Freebies &amp; savings</div><div class="kc-b">Both girls travel free on London tube · Premier Inn Dublin: kids eat free at breakfast · NHM free · Tower Bridge free</div></div>
+      <div class="kc"><div class="kc-t">Animal highlights</div><div class="kc-b">K2 Alpacas, Howth (Day 3) · Dingle Oceanworld (Day 6) · Lios Stone Circle animal feeding (Day 7) · Moher Hill Farm lambs in May (Day 8) · Greyfriars Bobby, Edinburgh (Day 11)</div></div>
+      <div class="kc"><div class="kc-t">Harry Potter trail — 3 countries</div><div class="kc-b">Victoria Street + Greyfriars tombstones, Edinburgh → Elephant House writing desk → Warner Bros. Studio, Watford · Sana (9) will love this thread across the whole trip</div></div>
+      <div class="kc"><div class="kc-t">Car journey rule</div><div class="kc-b">Max 2–3 hrs per leg. One exception: Day 8 (Dingle → Belfast via Cliffs ~4.5 hrs). Start 8:30 am, three fun stops, pack snacks, iPad downloaded.</div></div>
+      <div class="kc"><div class="kc-t">Carrick-a-Rede rope bridge</div><div class="kc-b">30m above sea and sways. Check Tara is comfortable with heights before committing. Giant's Causeway coastal walk is equally stunning and completely free. Now planned for Day 9 (25 May) — full day on the Causeway Coast.</div></div>
+      <div class="kc"><div class="kc-t">May weather in Ireland</div><div class="kc-b">12–16°C, changeable. Waterproofs for all four. Layers essential. Cliffs of Moher can be very windy. Murphy's Ice Cream mandatory regardless of temperature!</div></div>
+      <div class="kc"><div class="kc-t">Caledonian Sleeper adventure</div><div class="kc-b">23:40 departure — full Edinburgh evening first! · Sana &amp; Tara in own cabin bunk beds · wake up arriving London · this will be a trip highlight</div></div>
+      <div class="kc"><div class="kc-t">HP Studio — key reminders</div><div class="kc-b">Adults 16:30 · Children 17:30 · arrive by 16:10 · show e-ticket for shuttle at Watford Junction · Digital Photo &amp; Video Package included!</div></div>
+      <div class="kc"><div class="kc-t">Novotel Edinburgh</div><div class="kc-b">4-star, 80 Lauriston Place · paid €377, non-refundable · check-in 15:00, check-out noon · full Edinburgh day plan unchanged — just board sleeper 23:40</div></div>
+    </div>
+  </div>
+
+  <!-- FLIGHTS -->
+  <div id="fl" class="sec">
+    <div class="alert a-ok">All 4 flights confirmed · BA ref: 🔒 · easyJet ref: 🔒</div>
+    <div class="fgrid">
+      <div class="fc">
+        <div class="fc-s">✅ BA0036 — World Traveller</div>
+        <div class="fc-route">Chennai → London Heathrow</div>
+        <div class="fc-sub">18 May 2026 · Meal included</div>
+        <div class="fc-times">
+          <div><div class="fc-time">05:35</div><div class="fc-iata">MAA T2</div></div>
+          <div class="fc-arrow">──────→</div>
+          <div style="text-align:right"><div class="fc-time">12:10</div><div class="fc-iata">LHR T5</div></div>
+        </div>
+        <div class="fc-note">1×23kg hold per person · 2h40 layover at T5 (same terminal for connection)</div>
+      </div>
+      <div class="fc">
+        <div class="fc-s">✅ BA0832 — Euro Traveller</div>
+        <div class="fc-route">London Heathrow → Dublin</div>
+        <div class="fc-sub">18 May 2026 · Buy on board</div>
+        <div class="fc-times">
+          <div><div class="fc-time">14:50</div><div class="fc-iata">LHR T5</div></div>
+          <div class="fc-arrow">──────→</div>
+          <div style="text-align:right"><div class="fc-time">16:20</div><div class="fc-iata">DUB T2</div></div>
+        </div>
+        <div class="fc-note">Connection from BA0036 · same terminal T5 · no transfer needed</div>
+      </div>
+      <div class="fc">
+        <div class="fc-s">✅ EZY326 — easyJet · Ref: 🔒</div>
+        <div class="fc-route">Belfast Intl → Edinburgh</div>
+        <div class="fc-sub">26 May 2026 · Paid 🔒</div>
+        <div class="fc-times">
+          <div><div class="fc-time">11:55</div><div class="fc-iata">BFS</div></div>
+          <div class="fc-arrow">──────→</div>
+          <div style="text-align:right"><div class="fc-time">12:50</div><div class="fc-iata">EDI</div></div>
+        </div>
+        <div class="fc-note">Seats 🔒 · Bag drop closes 10:55</div>
+      </div>
+      <div class="fc">
+        <div class="fc-s">✅ BA0035 — World Traveller</div>
+        <div class="fc-route">London Heathrow → Chennai</div>
+        <div class="fc-sub">1 Jun 2026 · Meal included</div>
+        <div class="fc-times">
+          <div><div class="fc-time">12:40</div><div class="fc-iata">LHR T5</div></div>
+          <div class="fc-arrow">──────→</div>
+          <div style="text-align:right"><div class="fc-time">03:30+1</div><div class="fc-iata">MAA T2</div></div>
+        </div>
+        <div class="fc-note">1×23kg hold per person</div>
+      </div>
+    </div>
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Passengers &amp; ticket numbers · BA booking 🔒</div>
+      <table>
+        <thead><tr><th>Passenger</th><th>Ticket number</th><th>Hold baggage</th></tr></thead>
+        <tbody>
+          <tr><td>Yuvan (Mr Yuvanesan Muthukumaresan)</td><td>🔒</td><td>1×23kg per flight</td></tr>
+          <tr><td>Ramyaa (Mrs Ramyaa Yuvanesan)</td><td>🔒</td><td>1×23kg per flight</td></tr>
+          <tr><td>Sana (Miss Sana Yuvanesan)</td><td>🔒</td><td>1×23kg + 2 free child items</td></tr>
+          <tr><td>Tara (Miss Tara Yuvanesan)</td><td>🔒</td><td>1×23kg + 2 free child items</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert a-am">Each child can also check 2 extra items free (pushchair, car seat, travel cot). LHR connection is 2h40 at Terminal 5 — no terminal change needed.</div>
+  </div>
+
+  <!-- CAR -->
+  <div id="ca" class="sec">
+    <div class="alert a-bl">🚗 Car hire: Dublin Airport (18 May) → Belfast City Airport (26 May) · 8 days · No car in Edinburgh or London · Still to book!</div>
+
+    <!-- Summary cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:1.25rem">
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--navy)">~1,200</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Total km</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--forest)">8</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Hire days</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--amber)">~80L</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Est. fuel</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--rose-m)">3</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Refuel stops</div>
+      </div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--violet)">~€140</div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Fuel cost</div>
+      </div>
+      <div style="background:var(--ok-l);border:.5px solid var(--ok-b);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:600;color:var(--ok)">Left</div>
+        <div style="font-size:10px;color:var(--ok);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Drive side</div>
+      </div>
+    </div>
+
+    <!-- Day by day breakdown -->
+    <div class="subh">Day-by-day driving</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>Route</th>
+          <th style="text-align:right">km</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 1</td><td>18 May</td><td>Dublin Airport → Premier Inn Temple Bar</td><td style="text-align:right;font-weight:600;color:var(--navy)">12</td><td>Straight into city · 20 min</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 2</td><td>19 May</td><td>Parked in Dublin city</td><td style="text-align:right;color:var(--muted)">0</td><td>Walk everywhere · park at hotel</td></tr>
+        <tr style="background:var(--amber-l)"><td style="font-weight:600;color:var(--ink)">Day 3</td><td>20 May</td><td>Dublin → Howth → Kinsale</td><td style="text-align:right;font-weight:600;color:var(--navy)">326</td><td>⛽ Refuel before Kinsale · longest day</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 4</td><td>21 May</td><td>Kinsale → Cork city → parked</td><td style="text-align:right;font-weight:600;color:var(--navy)">25</td><td>Q-Park City Hall ~€45/24hrs · no hotel parking</td></tr>
+        <tr style="background:var(--amber-l)"><td style="font-weight:600;color:var(--ink)">Day 5</td><td>22 May</td><td>Kinsale → Dingle (Ventry)</td><td style="text-align:right;font-weight:600;color:var(--navy)">165</td><td>⛽ Refuel at Tralee or Dingle · arrive ~17:00</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 6</td><td>22 May</td><td>Local Dingle town</td><td style="text-align:right;font-weight:600;color:var(--navy)">10</td><td>Oceanworld, Gallarus, Kingdom Falconry</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 7</td><td>23 May</td><td>Slea Head Drive loop from Ventry</td><td style="text-align:right;font-weight:600;color:var(--navy)">55</td><td>Dún Chaoin · Dunmore Head · Conor Pass loop</td></tr>
+        <tr style="background:var(--amber-l)"><td style="font-weight:600;color:var(--ink)">Day 8</td><td>24 May</td><td>Dingle → Cliffs of Moher → Bunratty → Belfast</td><td style="text-align:right;font-weight:600;color:var(--navy)">395</td><td>⛽ Refuel after Bunratty · start 8:30 am · longest drive</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 9</td><td>25 May</td><td>The Milkman breakfast · Belfast → Giant's Causeway → Carrick-a-Rede → Belfast</td><td style="text-align:right;font-weight:600;color:var(--navy)">200</td><td>Full day coastal loop · stunning drive</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">Day 10</td><td>26 May</td><td>Aunt Sandra's Candy Factory · Belfast → Belfast City Airport</td><td style="text-align:right;font-weight:600;color:var(--navy)">8</td><td>Drop car · check in for EZY326 · bag drop closes 10:55</td></tr>
+        <tr style="background:var(--faint);font-weight:600"><td colspan="3" style="color:var(--ink);font-weight:700">Total</td><td style="text-align:right;color:var(--navy);font-weight:700">~1,196 km</td><td style="color:var(--muted)">≈ 1,200 km</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Fuel plan -->
+    <div class="subh">⛽ Fuel plan</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem">
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--ink);margin-bottom:8px">Fuel assumptions (diesel estate)</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.9">
+          Consumption: ~6.5L/100km<br>
+          Total fuel: ~80 litres<br>
+          Irish diesel price: ~€1.75/L<br>
+          Estimated total cost: <strong style="color:var(--ink)">~€140 (~₹14,800)</strong>
+        </div>
+      </div>
+      <div style="background:var(--amber-l);border:.5px solid #fde68a;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:8px">⛽ Recommended refuel stops</div>
+        <div style="font-size:12px;color:var(--amber);line-height:1.9">
+          <strong>Stop 1:</strong> Before/after Kinsale (Day 3) · 326 km leg<br>
+          <strong>Stop 2:</strong> Tralee or Dingle town (Day 5) · top up<br>
+          <strong>Stop 3:</strong> After Bunratty heading north (Day 8) · 395 km leg
+        </div>
+      </div>
+      <div style="background:var(--navy-l);border:.5px solid #b5d4f4;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px">🚗 Car hire checklist</div>
+        <div style="font-size:12px;color:var(--navy);line-height:1.9">
+          Pick up: Dublin Airport · 18 May<br>
+          Drop off: Belfast City Airport · 26 May<br>
+          Type: Diesel estate or MPV (family of 4 + luggage)<br>
+          Insurance: Full CDW + no-excess cover<br>
+          Cross-border: Ireland → Northern Ireland ✓ (confirm with hire co)<br>
+          Book via: rentalcars.com or autoeurope
+        </div>
+      </div>
+      <div style="background:var(--forest-l);border:.5px solid var(--forest-m);border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:8px">🇮🇪 Driving in Ireland tips</div>
+        <div style="font-size:12px;color:var(--forest);line-height:1.9">
+          Drive on the <strong>LEFT</strong><br>
+          Speed limits in km/h (not mph)<br>
+          Motorway max: 120 km/h · Regional roads: 80 km/h<br>
+          Tolls on M50 (Dublin) — pay online same day<br>
+          N/R roads can be very narrow — take it slow<br>
+          Free parking widely available outside cities
+        </div>
+      </div>
+    </div>
+
+    <!-- Parking notes -->
+    <div class="subh">🅿️ Parking notes by city</div>
+    <div class="bklist">
+      <div class="bk"><div class="bdot" style="background:var(--navy-m)"></div><div><div class="bt">Dublin — Premier Inn Temple Bar</div><div class="bd">No hotel parking · nearest: Q-Park Drury Street (~5 min walk) · ~€25–30/24hrs · or Setanta Centre car park · consider parking at Howth and taking DART into city on Day 2</div></div></div>
+      <div class="bk am"><div class="bdot" style="background:var(--amber-m)"></div><div><div class="bt">Cork — Premier Inn Cork City Centre</div><div class="bd">No hotel parking · Q-Park City Hall ~7 min walk · ~€45/24hrs · over 2 nights ≈ €90 · factor this into budget</div></div></div>
+      <div class="bk"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Dingle — The Plough B&amp;B, Ventry</div><div class="bd">Free private parking on site ✅ · no reservation needed · easiest parking of the whole trip</div></div></div>
+      <div class="bk"><div class="bdot" style="background:var(--violet-m)"></div><div><div class="bt">Belfast — Premier Inn Titanic Quarter</div><div class="bd">On-site parking available · check with hotel on arrival · Titanic Belfast is 2 min walk so no moving the car needed for Day 8 evening</div></div></div>
+    </div>
+
+    <div class="alert a-am">⚠️ Important: Confirm cross-border Ireland → Northern Ireland cover with your hire company when booking. Most major companies allow it but it must be explicitly confirmed — some require an extra fee or a specific policy.</div>
+  </div>
+
+
+  <div class="footer">
+    <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
+    <a class="fb" href="https://www.rentalcars.com" target="_blank" rel="noopener noreferrer">🚗 Book Car Hire</a>
+    <a class="fb ok" href="https://www.britishairways.com/travel/managebooking" target="_blank" rel="noopener noreferrer">✅ Manage BA 🔒</a>
+    <a class="fb ok" href="https://www.easyjet.com/en/manage-my-booking" target="_blank" rel="noopener noreferrer">✅ Manage easyJet 🔒</a>
+  </div>
+  </div>
+</div>
+
+<!-- ===================== JAPAN DASHBOARD ===================== -->
+<div id="dashboard-japan" class="dash-root" style="display:none">
+  <div class="hero jp">
+  <div class="flag-bar jp"></div>
+  <div class="hero-ctrls">
+    <button class="switch-trip" onclick="switchTrip()">⇄ Trips</button>
+    <button class="switch-trip out" onclick="logout()">⎋ Logout</button>
+  </div>
+  <div class="hi">
+    <div class="ey" style="color:#fca5a5">Family trip · Flights booked · Winter 2027</div>
+    <div class="dest-badges">
+      <span class="dbadge jp3">🏯 Osaka</span>
+      <span class="dsep">·</span>
+      <span class="dbadge jp2">⛩️ Kyoto</span>
+      <span class="dsep">·</span>
+      <span class="dbadge jp">🗼 Tokyo</span>
+    </div>
+    <div class="ht">Osaka <em>&middot;</em> Kyoto <em>&middot;</em> Tokyo</div>
+    <div class="hs">6 – 21 January 2027 &nbsp;·&nbsp; 16 days &nbsp;·&nbsp; Flights booked — Thai Airways out, Air India home</div>
+    <div class="travelers">
+      <div class="tv"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">🔒 Private</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">🔒 Private</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">🔒 Private</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">🔒 Private</div></div></div>
+    </div>
+    <div class="stats">
+      <div class="st"><div class="st-n">16</div><div class="st-l">Total days</div></div>
+      <div class="st"><div class="st-n">4</div><div class="st-l">Osaka nights</div></div>
+      <div class="st"><div class="st-n">3</div><div class="st-l">Kyoto nights</div></div>
+      <div class="st"><div class="st-n">8</div><div class="st-l">Tokyo nights</div></div>
+      <div class="st ac"><div class="st-n">4</div><div class="st-l">Day trips</div></div>
+      <div class="st"><div class="st-n">1</div><div class="st-l">Disneyland</div></div>
+      <div class="st ok"><div class="st-n">2</div><div class="st-l">Flights booked</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="ready" id="jp-ready">
+    <div class="ready-head"><div><div class="ready-title">Trip readiness</div><div class="ready-sub">—</div></div><div class="ready-pct">—</div></div>
+    <div class="ready-bar"></div>
+    <div class="ready-chips"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tb active" onclick="show('jit',this)">All 16 days</button>
+    <button class="tb" onclick="show('jht',this)">Hotels</button>
+    <button class="tb" onclick="show('jex',this)">Experiences</button>
+    <button class="tb" onclick="show('jbk',this)">Book now</button>
+    <button class="tb" onclick="show('jki',this)">Kid tips</button>
+    <button class="tb" onclick="show('jfl',this)">Flights</button>
+    <button class="tb" onclick="show('jtr',this)">🚄 Trains</button>
+  </div>
+
+  <!-- ALL 16 DAYS -->
+  <div id="jit" class="sec active" data-year="2027">
+    <div class="alert a-ok">✅ Flights booked — Thai Airways into Osaka (6 Jan) &amp; Air India home from Tokyo (21 Jan). See the Book Now tab for the priority booking timeline — Gion Corner, teamLab Planets, Tokyo Disneyland, Shibuya Sky and more each open on a different date. 🎂 Tara's birthday falls on Day 6 (11 Jan) in Kyoto — kimono rental booked to mark the day!</div>
+    <div class="spine"><div class="sr wide">
+      <div class="sp ie"><div class="dot"></div><div class="spn">Arrive Osaka</div><div class="spd">6 Jan</div><div class="sps">KIX 15:45</div></div>
+      <div class="sp uk"><div class="dot"></div><div class="spn">Osaka</div><div class="spd">6–10 Jan</div><div class="sps">4 nights</div></div>
+      <div class="sp ie"><div class="dot"></div><div class="spn">Himeji</div><div class="spd">7 Jan</div><div class="sps">day trip</div></div>
+      <div class="sp sl"><div class="dot"></div><div class="spn">Nara</div><div class="spd">10 Jan</div><div class="sps">to Kyoto</div></div>
+      <div class="sp sc"><div class="dot"></div><div class="spn">Kyoto</div><div class="spd">10–13 Jan</div><div class="sps">3 nights</div></div>
+      <div class="sp sl"><div class="dot"></div><div class="spn">Yokohama</div><div class="spd">13 Jan</div><div class="sps">to Tokyo</div></div>
+      <div class="sp uk"><div class="dot"></div><div class="spn">Tokyo</div><div class="spd">13–21 Jan</div><div class="sps">8 nights</div></div>
+      <div class="sp ie"><div class="dot"></div><div class="spn">Kamakura</div><div class="spd">14 Jan</div><div class="sps">day trip</div></div>
+      <div class="sp ie"><div class="dot"></div><div class="spn">Mt Fuji</div><div class="spd">17 Jan</div><div class="sps">day trip</div></div>
+      <div class="sp lo"><div class="dot"></div><div class="spn">Fly home</div><div class="spd">21 Jan</div><div class="sps">HND 10:30</div></div>
+    </div></div>
+
+    <div class="sh"><span>✈️ Travel &amp; arrival · 6 Jan</span><span class="shb ok"><span class="okdot"></span> Flights booked</span></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span class="dn-d">6 Jan</span><span class="dn-n">D1</span><span class="dn-w">Wed</span></div><div class="db"><p class="dt">Fly Chennai → Osaka · arrive Kansai 15:45 · Dotonbori evening</p><p class="dd">Depart Chennai 6 Jan (Wed) 01:00 → land Kansai (KIX) 15:45 · Thai Airways via Bangkok</p><p class="dc">Reach Chennai airport by ~22:00 on 5 Jan for the 01:00 departure · TG 338 to Bangkok, short layover, TG 672 to Osaka · land Kansai (KIX) mid-afternoon · immigration + Nankai Rapi:t or limousine bus to Namba (~1.5–2h) · expect hotel check-in around 5:30–6pm · pick up pocket WiFi / activate eSIM · collect ICOCA IC cards · evening in Dotonbori — the Glico running-man sign, lantern-lit Hozenji Yokocho · dinner at Gyumon (yakiniku) or Torikizoku (casual skewers) · save the Tombori River Cruise for tomorrow if everyone's flagging tonight</p><div class="tags"><span class="tag t-vi">Konbini dinner backup if the girls fade early</span><span class="tag t-am">Pre-order pocket WiFi for airport pickup</span><span class="tag t-bl">Warm layers in hand luggage — it's winter</span></div></div></div>
+
+    <div class="sh"><span>🏯 Osaka · 6–10 Jan · 4 nights</span><span class="shb ok"><span class="okdot"></span> Namba Oriental Hotel booked</span></div>
+    <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span class="dn-d">7 Jan</span><span class="dn-n">D2</span><span class="dn-w">Thu</span></div><div class="db"><p class="dt">Himeji Castle day trip 🏯 — Japan's finest original castle</p><p class="dd">7 Jan (Thu) · ~30 min from Shin-Osaka by Shinkansen, or ~1h by JR Special Rapid from Osaka Station · round trip</p><p class="dc">Morning: Himeji Castle — Japan's finest original castle, allow 2.5h; the keep's steep single-file staircases are far calmer on a weekday than at the weekend · Koko-en, the adjoining Edo-style garden · lunch near the castle (Himeji oden is the local speciality) · back to Osaka by mid-afternoon · evening: the Tombori River Cruise (~20 min) if you skipped it last night, then dinner in Dotonbori</p><div class="tags"><span class="tag t-gr">Weekday visit — avoids the weekend staircase crush</span><span class="tag t-bl">JR Special Rapid needs no reservation — IC cards work</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span class="dn-d">8 Jan</span><span class="dn-n">D3</span><span class="dn-w">Fri</span></div><div class="db"><p class="dt">Namba &amp; Shinsaibashi → Shinsekai &amp; Tennoji</p><p class="dd">8 Jan (Fri)</p><p class="dc">Morning: Kuromon Market for breakfast/street-food grazing · wander Namba, Namba Yasaka Shrine's giant lion-head stage · Rikuro's Namba for the famous jiggly cheesecake · Bear Paw Cafe pancakes · Bic Camera &amp; MEGA Don Quijote for electronics/snacks, the Pringles Store for novelty flavours · afternoon: Tsutenkaku Tower (observation deck + slide) in Shinsekai · kushikatsu street food at Shinsekai Market · Tenshiba park for a kid-energy break · the Tombori River Cruise (~20 min) if it hasn't happened yet</p><div class="tags"><span class="tag t-vi">Rikuro's cheesecake — worth the queue</span><span class="tag t-gr">Tsutenkaku slide is a quick kid win</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#e0f2fe;color:#0284c7"><span class="dn-d">9 Jan</span><span class="dn-n">D4</span><span class="dn-w">Sat</span></div><div class="db"><p class="dt">Osaka Castle · Nakanoshima · Minoh Falls · Umeda Sky</p><p class="dd">9 Jan (Sat)</p><p class="dc">Morning: Osaka Castle &amp; grounds (allow 2–3h, museum inside) · Nakanoshima Children's Book Forest — Tadao Ando's striking book-lined building, lovely for kids · optional detour to Castella no Aka-chan (baby-castella specialty shop, Joto Ward near Kyobashi) · afternoon: North Osaka — Minoh Falls (easy forest walk to a waterfall) &amp; Katsuoji (temple covered in daruma dolls) · evening: Umeda Sky Building for sunset views from the floating garden observatory</p><div class="tags"><span class="tag t-gr">Nakanoshima Book Forest — a hidden gem for kids</span><span class="tag t-bl">Minoh Falls is an easy stroller-friendly walk</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🦌 Nara → Kyoto · 10 Jan</span><span class="shb ok"><span class="okdot"></span> ~40 min + ~45 min by Kintetsu/JR</span></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span class="dn-d">10 Jan</span><span class="dn-n">D5</span><span class="dn-w">Sun</span></div><div class="db"><p class="dt">Nara day trip 🦌 → transfer to Kyoto</p><p class="dd">10 Jan (Sun) · check out Osaka this morning, check into Kyoto this evening · Namba → Nara ~40 min, Nara → Kyoto ~45 min</p><p class="dc">Check out, then Kintetsu from Namba to Kintetsu-Nara (~40 min) · drop the bags in the station coin lockers (or send them ahead to the Kyoto hotel by takkyubin the day before) — the deer nibble anything they can reach · Nara Park — 1,000+ free-roaming deer that bow for crackers (shika senbei), a guaranteed family favourite · Todai-ji's Great Buddha next door · Nakatanidou for the famous rapid-fire mochi-pounding show · mid-afternoon Kintetsu/JR from Nara to Kyoto (~45 min, no backtracking through Osaka) · check into the Kyoto hotel · settle in with an evening stroll along Pontocho Alley, then dinner at one of its many riverside restaurants · Iyoshi Cola for a craft cola nightcap</p><div class="tags"><span class="tag t-gr">Deer that bow — unforgettable for Sana &amp; Tara</span><span class="tag t-am">Coin lockers at Kintetsu-Nara — keep bags away from the deer</span><span class="tag t-am">Buy deer crackers from park vendors only</span><span class="tag t-bl">Nara sits between Osaka and Kyoto — no Shinkansen needed today</span></div></div></div>
+
+    <div class="sh"><span>⛩️ Kyoto · 10–13 Jan · 3 nights</span><span class="shb ok"><span class="okdot"></span> Minn Gion Sanjo booked</span></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span class="dn-d">11 Jan</span><span class="dn-n">D6</span><span class="dn-w">Mon</span></div><div class="db slp" style="background:#fdf2f8;border-color:#f0abfc"><p class="dt" style="color:#a21caf">🎂 Tara's Birthday! · Fushimi Inari · kimono day in Gion</p><p class="dd" style="color:#a21caf">11 Jan (Mon)</p><p class="dc" style="color:#86198f">Go early (8am) to Fushimi Inari Taisha — do the lower loop with the kids, the full summit is 2–3h · Gion/Higashiyama: Ninenzaka's historic stone-paved slope, with a kids' kimono rental to mark Tara's birthday in style · snack stops along Sannenzaka — Ochanokosaisai's viral chilli-powder treat, Miffy's Oyatsu-do, Komatsuya Honke's stamped pancake roll · Gion Corner for a daytime/early-evening geisha-arts show (book ahead) · Northern/Eastern Kyoto: the rabbit-themed Okazaki Shrine · WIFE &amp; HUSBAND for picnic-basket coffee · BUTTER Hoboku Rakunojo's butter sandwiches for lunch · Vineria Il Passaggio for a parents' wine-time nightcap</p><div class="tags"><span class="tag t-vi">🎂 Kimono rental booked for Tara's birthday</span><span class="tag t-am">⚠️ Book Gion Corner ahead</span><span class="tag t-bl">Bring a small birthday treat for the hotel room tonight</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#ede9fe;color:#4c1d95"><span class="dn-d">12 Jan</span><span class="dn-n">D7</span><span class="dn-w">Tue</span></div><div class="db"><p class="dt">Arashiyama bamboo &amp; monkeys → Downtown Kyoto</p><p class="dd">12 Jan (Tue)</p><p class="dc">Arashiyama Bamboo Forest — best early morning, fewer crowds · Okochi Sanso Garden (entry includes tea + views) · Iwatayama Monkey Park — a short uphill hike to wild monkeys + a city view · Adashino Nenbutsuji, a quieter stone-Buddha temple · back into town: late lunch at Nishiki Market · Kimono Tea Ceremony at MAIKOYA if booked · browse Teramachi-dori's covered arcade, Kyoto BAL, TODAY'S SPECIAL Kyoto (homeware), (THIS IS)SHIZEN's flower-shaped ice cream near Nishiki, Seria 100-yen store</p><div class="tags"><span class="tag t-gr">Arrive the bamboo grove before 9am</span><span class="tag t-vi">Book MAIKOYA ahead if doing the tea ceremony</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🚄 Kyoto → Yokohama → Tokyo · 13 Jan</span><span class="shb ok"><span class="okdot"></span> ~2h + 30min</span></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">13 Jan</span><span class="dn-n">D8</span><span class="dn-w">Wed</span></div><div class="db"><p class="dt">Transfer to Tokyo — via Yokohama's Cup Noodles Museum</p><p class="dd">13 Jan (Wed)</p><p class="dc">Forward big bags by takkyubin the day before if you'd rather travel light · morning Shinkansen Kyoto → Yokohama (~2h, via Shin-Yokohama) · Cup Noodles Museum — make your own cup noodle, a big hit with kids · UNIQLO PARK — playground + store combo · KitKat Chocolatory for Japan-exclusive flavours · short hop Yokohama → Tokyo (~30 min) · check into the Tokyo hotel by evening</p><div class="tags"><span class="tag t-vi">Cup Noodles Museum — book the make-your-own slot if you can</span><span class="tag t-bl">A fun, low-key transfer day for tired legs</span></div></div></div>
+
+    <div class="sh"><span>🗼 Tokyo · 13–21 Jan · 8 nights</span><span class="shb warn"><span class="okdot"></span> Gracery Shinjuku booked — check occupancy</span></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">14 Jan</span><span class="dn-n">D9</span><span class="dn-w">Thu</span></div><div class="db"><p class="dt">Kamakura day trip 🦞 — Great Buddha &amp; the seaside</p><p class="dd">14 Jan (Thu) · ~1h from Tokyo/Shinagawa by JR, round trip</p><p class="dc">Kotoku-in's Great Buddha · Hase-dera, a temple with an ocean-view garden · snack along Komachi-dori shopping street · lunch at Tomoya Kamakura Komachi · Miffy Oyatsudou Kamakura for a cafe stop · the iconic Kamakurakokomae Station seaside railway-crossing photo spot · sunset walk at Shichirigahama Beach · Houkokuji's bamboo grove temple · Hatoya Kamakura for the famous hato (pigeon-shaped) sabure biscuits to take home · back to the Tokyo hotel that night</p><div class="tags"><span class="tag t-bl">A full day out — pack layers, it's a coastal breeze</span><span class="tag t-vi">Photo stop at the railway crossing is quick but iconic</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">15 Jan</span><span class="dn-n">D10</span><span class="dn-w">Fri</span></div><div class="db"><p class="dt">Asakusa · Tokyo Skytree · Ueno</p><p class="dd">15 Jan (Fri)</p><p class="dc">Start at Senso-ji, Asakusa's iconic temple and the heart of the district · Sanrio Gift Gate Asakusa · Kappabashi Kitchen Supply Town's novelty food-replica shops (fun for kids) · Benitsuru Pancake (be ready to queue — it's viral) or Imo Pippi's sweet-potato treats · lunch at Shan Restaurant · a mini-pig cafe stop at pignic cafe if the girls are keen · one stop away: Tokyo Skytree observation deck &amp; Sumida Aquarium inside Skytree Town · Ueno: Ameyoko Market's street stalls · Gyukatsu Motomura for lunch/a snack — fried beef cutlet you cook yourself on a tabletop grill</p><div class="tags"><span class="tag t-gr">Weekday — Nakamise-dori is far calmer than on a Sunday</span><span class="tag t-am">Benitsuru Pancake has long queues — go early or skip if pressed</span><span class="tag t-bl">Sumida Aquarium is an easy Skytree add-on</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">16 Jan</span><span class="dn-n">D11</span><span class="dn-w">Sat</span></div><div class="db"><p class="dt">Tokyo Station &amp; Marunouchi → Ginza</p><p class="dd">16 Jan (Sat)</p><p class="dc">Tokyo Station's red-brick Marunouchi facade · Tokyo Character Street, an underground arcade of anime/character merch · Daimaru Tokyo's depachika food hall · a walk around the Imperial Palace's exterior grounds · optional: DAWN Avatar Robot Cafe in Nihonbashi · dinner option: Ninja Tokyo, a ninja-themed restaurant in Otemachi (book ahead) · afternoon in Ginza: Itoya's stationery flagship, Uniqlo &amp; MUJI flagships, Age.3, PUDDING LAB, Centre The Bakery's famous shokupan toast, ART AQUARIUM MUSEUM's illuminated aquarium art, the Disney Flagship Store Tokyo · evening options: Ginza Lion Beer Hall, or THE SUMO LIVE RESTAURANT HIRAKUZA for dinner + a sumo show (book ahead) · swap Tsukiji Outer Market for a Ginza depachika breakfast if the morning gets squeezed</p><div class="tags"><span class="tag t-am">⚠️ Book Ninja Tokyo or the sumo dinner show ahead</span><span class="tag t-vi">ART AQUARIUM MUSEUM is a striking evening stop</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">17 Jan</span><span class="dn-n">D12</span><span class="dn-w">Sun</span></div><div class="db"><p class="dt">Mt Fuji &amp; Kawaguchiko day trip 🗻</p><p class="dd">17 Jan (Sun) · ~2h direct highway bus from Shinjuku, long day, round trip</p><p class="dc">An early start — direct highway bus from Shinjuku to Kawaguchiko · the famous Mt Fuji-view LAWSON convenience store at Kawaguchiko Station for a quick photo &amp; snack · Chureito Pagoda for the classic Fuji + pagoda view (~400 steps) · Oishi Park, an easy lakeside flower park for the kids · Mt Fuji Panoramic Ropeway — take the best clear-weather morning slot if the schedule allows · Oshino Hakkai, a historic spring-water village with Fuji views, easy walking · Lake Yamanaka to finish · back to the Tokyo hotel that night</p><div class="tags"><span class="tag t-am">Weather-dependent — check the Fuji visibility forecast before you go</span><span class="tag t-bl">A long day — pace naps on the bus</span><span class="tag t-am">Sunday-evening return traffic on the Chuo Expressway runs slow — book the earlier bus back</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">18 Jan</span><span class="dn-n">D13</span><span class="dn-w">Mon</span></div><div class="db"><p class="dt">Shibuya · Harajuku · Shinjuku</p><p class="dd">18 Jan (Mon)</p><p class="dc">Hachiko Statue photo stop right outside Shibuya Station · quiet morning at Meiji Jingu's forest shrine · Takeshita Street's crepe stalls · Kiddy Land, a toy flagship that's a highlight for the kids, plus Sanrio Cute Cube &amp; DAISO Harajuku · cafe stops to pick from: Nanaya Aoyama's strong matcha soft-serve, Moff Animal Cafe, mipig cafe, ANAKUMA CAFE, or Kumachan Onsen's teddy-shaped soup bowls · lunch at Le Souffle (Yoyogi) · book a timed sunset slot at Shibuya Sky · Shinjuku: free views from Tokyo Metropolitan Government Building's observation deck · a wander through Omoide Yokocho · Hekkelun Cafe's viral pudding, Naruto Taiyaki Honpo's fish-shaped confectionery · Tokyo Toy Museum · push on to Kichijoji + Shiro-Hige's Cream Puff Factory for Totoro-shaped cream puffs if there's time left</p><div class="tags"><span class="tag t-am">⚠️ Book Shibuya Sky's timed slot ahead</span><span class="tag t-vi">Kiddy Land — set a souvenir budget beforehand</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">19 Jan</span><span class="dn-n">D14</span><span class="dn-w">Tue</span></div><div class="db"><p class="dt">teamLab Planets · Tokyo Tower · Odaiba</p><p class="dd">19 Jan (Tue)</p><p class="dc">teamLab Planets TOYOSU — immersive art, barefoot through water &amp; light rooms, allow 2h (book ahead, sells out) · Miraikan science museum's hands-on robots · UNKO MUSEUM TOKYO — a novelty stop the kids find hilarious · Minato: Tokyo Tower &amp; the adjacent Zojo-ji Temple · Atago Jinja, the highest &amp; first shrine in Tokyo, and Hie Shrine · a cafe stop at Comme'N Tokyo (Azabudai Hills) — look for the kids-only "Comme'N KIDS" spin-off in the same mall · quick ramen at Ichiran, Shimbashi · book a Sushi Making Tokyo class slot if you want to prioritise it</p><div class="tags"><span class="tag t-am">⚠️ Pre-book teamLab Planets — sells out</span><span class="tag t-vi">UNKO MUSEUM is silly, kid-approved fun</span><span class="tag t-sk">Maxell Aqua Park Shinagawa is the rainy-day backup</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#fef2f5;color:#9f1239"><span class="dn-d">20 Jan</span><span class="dn-n">D15</span><span class="dn-w">Wed</span></div><div class="db slp"><p class="dt" style="color:var(--orange)">Tokyo Disneyland 🏰</p><p class="dd" style="color:#7c2d12">20 Jan (Wed) — full day</p><p class="dc" style="color:#7c2d12">Full dedicated day at Tokyo Disneyland — arrive at rope-drop and use the app for standby-pass/priority timings · classic Disney rides and the parade are the best fit for a 6-year-old · winter décor + evening show · matching ears for Sana &amp; Tara · try to wrap up at a reasonable hour tonight — tomorrow's departure is an early one, so no time for a late night</p><div class="tags"><span class="tag t-am">Buy dated tickets online in advance</span><span class="tag t-vi">Download the official Tokyo Disney Resort app</span><span class="tag t-bl">Early flight tomorrow — plan a realistic finish time</span></div></div></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span class="dn-d">21 Jan</span><span class="dn-n">D16</span><span class="dn-w">Thu</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Fly home from Tokyo · pack the night before!</p><p class="dd" style="color:var(--forest-m)">21 Jan (Thu) — depart Haneda (HND) 10:30</p><p class="dc" style="color:var(--forest)">An early start — no time for sightseeing this morning, so have bags packed &amp; ready the night before · leave the hotel by ~6–6:30am for the 10:30am international departure · AI 357 Tokyo Haneda → Delhi (10:30 → 17:30) · connect in Delhi (same terminal, T3) · AI 2895 Delhi → Chennai (21:30 → 00:30, arrives 22 Jan)</p><div class="tags"><span class="tag t-ok">✅ Booked: Air India · via Delhi · see Flights tab</span><span class="tag t-bl">Pack tonight — leave the hotel by 6–6:30am</span></div></div></div>
+  </div>
+
+  <!-- HOTELS -->
+  <div id="jht" class="sec">
+    <div class="alert a-ok">✅ All three hotels are booked — Osaka (Namba Oriental), Kyoto (Minn Gion Sanjo) and Tokyo (Hotel Gracery Shinjuku). Tokyo still needs an occupancy check (booked as 2 adults / 0 children). Each card keeps its alternative picks in case plans change.</div>
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px"><span>Accommodation progress</span><span style="color:var(--amber)" id="jht-progress-label">0 of 3 booked</span></div>
+      <div class="prog"><div class="prog-f" style="width:4%;background:var(--amber-m)"></div></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">All 3 hotels booked — but double-check the Tokyo occupancy (2 adults / 0 children listed) before travel</div>
+    </div>
+    <div class="subh2" style="color:var(--rose-m);margin-bottom:4px" id="jht-pending-heading">⏳ Loading…</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">No fixed release dates for hotels — these are our own recommended book-by targets, based on how fast family/quad rooms in Japan typically go.</div>
+    <div class="pbt-list" id="jp-hotel-tracker">
+      <div style="font-size:12px;color:var(--muted);padding:12px">Loading…</div>
+    </div>
+    <div class="hgrid">
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Osaka · 4 nights</div>
+        <div class="hc-name">Namba Oriental Hotel ★★★★</div>
+        <div class="hc-dates"><span class="arr">→ Check-in <b>6 Jan (Wed)</b>, 15:00</span><span class="dep">← Check-out <b>10 Jan (Sun)</b>, 11:00</span></div>
+        <div class="hc-addr">2-8-17 Sennichi-Mae, Chuo, Osaka — 3 min walk to Namba Station, ~5 min to Dotonbori</div>
+        <div class="hc-sub">Quality Deluxe Triple, Non-Smoking, with Welcome Lounge &amp; Laundry Lounge access · 3 twin beds · 2 adults, 2 children</div>
+        <div class="hc-ref">Booking 🔒 · Voucher 🔒</div>
+        <div class="perks"><span class="pk ok">Paid ₹97,043</span><span class="pk ok">Breakfast included</span><span class="pk">Welcome Lounge access</span><span class="pk">Laundry Lounge</span><span class="pk am">City tax due locally at check-in</span></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">Non-refundable. Booked via Axis Bank Travel Edge (31 Jul 2026) · local phone +81-570-051153.</div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Kyoto · 3 nights</div>
+        <div class="hc-name">Minn Gion Sanjo</div>
+        <div class="hc-dates"><span class="arr">→ Check-in <b>10 Jan (Sun)</b>, after 15:00</span><span class="dep">← Check-out <b>13 Jan (Wed)</b>, before 11:00</span></div>
+        <div class="hc-addr">18 Sanchōme, Higashiyama Ward, Kyoto — Gion/Sanjo area</div>
+        <div class="hc-sub">Deluxe Suite Room (4 beds) with private sauna experience, 17:30~ · 2 single beds + 2 sofa beds · 2 adults, 2 children (6 &amp; 9) · no meals included</div>
+        <div class="hc-ref">Booking 🔒 · PIN 🔒</div>
+        <div class="perks"><span class="pk ok">Paid ₹43,576.99</span><span class="pk">Private sauna</span><span class="pk gr">Walkable to Gion/Higashiyama</span><span class="pk am">Accommodation tax due on arrival</span></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">Free cancellation ended 29 Jul 2026 — non-refundable from here. Local contact: +81-50-3642-5546.</div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Tokyo · 8 nights</div>
+        <div class="hc-name">Hotel Gracery Shinjuku</div>
+        <div class="hc-dates"><span class="arr">→ Check-in <b>13 Jan (Wed)</b></span><span class="dep">← Check-out <b>21 Jan (Thu)</b></span></div>
+        <div class="hc-addr">1-19-1 Kabukicho, Shinjuku, Tokyo — the hotel with the giant Godzilla head, right by Shinjuku Station</div>
+        <div class="hc-sub">Deluxe Twin Room, non-smoking, large bed · Early Booking Saver (17% off)</div>
+        <div class="hc-ref">Booking 🔒 · Agoda, Visa ending 🔒</div>
+        <div class="perks"><span class="pk am">Booked for 2 adults, 0 children</span><span class="pk">Coffee &amp; tea</span><span class="pk">Free WiFi</span><span class="pk">Express check-in</span></div>
+        <div style="font-size:10px;color:#9f1239;background:var(--rose-l);border:.5px solid var(--rose-m);border-radius:6px;padding:7px 9px;margin-top:6px">⚠️ This booking shows <b>2 adults, 0 children, 0 extra beds</b> — unlike the Osaka &amp; Kyoto bookings, this one doesn't list the girls. Double-check with Agoda/the hotel before travel: Japanese hotels register &amp; photocopy ID for every guest at check-in, so an unlisted occupant can cause problems at the front desk.</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">JPY 274,656 total — INR amount charged 10 Jan 2027 (Agoda "future price"). Free cancellation until <b>12 Jan 2027</b>, after which 1 night is charged; no-show charges 100%. No breakfast included. Property contact: +81-3-6833-1111.</div>
+      </div>
+    </div>
+    <div class="alert a-am">⏰ Tokyo checkout is 21 Jan for a ~10:30am Haneda flight — confirm with the hotel in advance whether early/express checkout is available, since standard staffed check-out is usually from ~10–11am.</div>
+    <div class="alert a-bl">💡 Tip: Japanese hotels often cap rooms at 2–3 guests. Search specifically for "family rooms" or book apart-hotels (e.g. serviced apartments) for a family of four — they include kitchenettes &amp; laundry, great with kids.</div>
+  </div>
+
+  <!-- EXPERIENCES -->
+  <div id="jex" class="sec">
+    <div class="alert a-bl">Kid-magnet experiences for Sana (9) &amp; Tara (6/7 🎂). Several of these — Gion Corner, teamLab, Disneyland, Shibuya Sky — have hard release dates; see the Book Now tab's priority timeline.</div>
+    <div class="egrid">
+      <div class="ec sk"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--sky-m)">01</div><div class="ec-name">Himeji Castle</div><div class="ec-day">Day 2 · 7 Jan · Himeji</div><div class="ec-desc">Japan's finest original castle · allow 2.5h · adjoining Koko-en garden</div><div class="ec-book" style="color:var(--sky-m)">No booking · weekday visit keeps the keep's stairs calm</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--rose-m)">⚠️ Tricky to fit — see note</div><div class="ec-n" style="color:var(--orange)">02</div><div class="ec-name">Kichi Kichi Omurice</div><div class="ec-day">Kyoto — no fixed day</div><div class="ec-desc">The famous theatrical omurice chef — genuinely worth it, but hard to schedule around this trip's early Kyoto mornings</div><div class="ec-book" style="color:var(--rose-m)">Same-day, in-person queue only from ~8am (system changed 2024) — only works if an adult can skip part of a morning to queue centrally; treat as opportunistic, not a fixed booking</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--forest)">03</div><div class="ec-name">Fushimi Inari Shrine</div><div class="ec-day">Day 6 · 11 Jan · Kyoto</div><div class="ec-desc">Thousands of vivid red torii gates winding up the hill · free · open 24h</div><div class="ec-book" style="color:var(--forest)">Free · no booking · go early (8am)</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:#a21caf">🎂 Tara's birthday</div><div class="ec-n" style="color:var(--violet)">04</div><div class="ec-name">Kids' Kimono Rental, Ninenzaka</div><div class="ec-day">Day 6 · 11 Jan · Kyoto</div><div class="ec-desc">Dress Sana &amp; Tara in kimono for photos on Ninenzaka's historic slope — marking Tara's birthday</div><div class="ec-book" style="color:var(--violet)">Book a morning rental slot near Gion</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Book ahead</div><div class="ec-n" style="color:var(--violet)">05</div><div class="ec-name">Gion Corner</div><div class="ec-day">Day 6 · 11 Jan · Kyoto</div><div class="ec-desc">Daytime/early-evening geisha-arts show — dance, tea ceremony, music</div><div class="ec-book" style="color:var(--violet)">Book ahead — set showtimes</div></div>
+      <div class="ec gr"><div class="ec-s" style="color:var(--amber)">◷ Tickets at gate</div><div class="ec-n" style="color:var(--forest)">06</div><div class="ec-name">Arashiyama Monkey Park</div><div class="ec-day">Day 7 · 12 Jan · Kyoto</div><div class="ec-desc">Hike up to wild Japanese macaques + panoramic Kyoto view</div><div class="ec-book" style="color:var(--forest)">Pay at entrance · wear comfy shoes</div></div>
+      <div class="ec sk"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--sky-m)">07</div><div class="ec-name">Cup Noodles Museum</div><div class="ec-day">Day 8 · 13 Jan · Yokohama</div><div class="ec-desc">Make-your-own cup noodle workshop — a big hit with kids, on the transfer day</div><div class="ec-book" style="color:var(--sky-m)">Book the make-your-own slot if you can</div></div>
+      <div class="ec bl"><div class="ec-s" style="color:var(--ok)">✅ Walk-up</div><div class="ec-n" style="color:var(--navy)">08</div><div class="ec-name">Kamakura — Great Buddha &amp; seaside</div><div class="ec-day">Day 9 · 14 Jan · Kamakura</div><div class="ec-desc">Kotoku-in's Great Buddha, Hase-dera, the iconic railway-crossing photo spot, sunset beach walk</div><div class="ec-book" style="color:var(--navy)">No booking · full day, round trip from Tokyo</div></div>
+      <div class="ec sk"><div class="ec-s" style="color:var(--amber)">◷ Weather-dependent</div><div class="ec-n" style="color:var(--sky-m)">09</div><div class="ec-name">Mt Fuji &amp; Kawaguchiko</div><div class="ec-day">Day 12 · 17 Jan · Kawaguchiko</div><div class="ec-desc">Chureito Pagoda, Fuji Panoramic Ropeway, Oshino Hakkai, Lake Yamanaka</div><div class="ec-book" style="color:var(--sky-m)">Check the clear-weather forecast first</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Book ahead</div><div class="ec-n" style="color:var(--orange)">10</div><div class="ec-name">Ninja Tokyo / Sumo dinner show</div><div class="ec-day">Day 11 · 16 Jan · Ginza/Otemachi</div><div class="ec-desc">Ninja-themed dining, or THE SUMO LIVE RESTAURANT HIRAKUZA — dinner + a live sumo show</div><div class="ec-book" style="color:var(--orange)">Book ahead — pick one for the evening</div></div>
+      <div class="ec bl"><div class="ec-s" style="color:var(--amber)">⚠️ Book timed slot</div><div class="ec-n" style="color:var(--navy)">11</div><div class="ec-name">Shibuya Sky + Scramble</div><div class="ec-day">Day 13 · 18 Jan · Tokyo</div><div class="ec-desc">Open-air rooftop deck above the world's busiest crossing · crisp winter sunset views</div><div class="ec-book" style="color:var(--navy)">Timed tickets online for sunset slots</div></div>
+      <div class="ec vi"><div class="ec-s" style="color:var(--amber)">⚠️ Sells out</div><div class="ec-n" style="color:var(--violet)">12</div><div class="ec-name">teamLab Planets TOYOSU</div><div class="ec-day">Day 14 · 19 Jan · Odaiba</div><div class="ec-desc">Barefoot through water &amp; mirrored light rooms · immersive digital art</div><div class="ec-book" style="color:var(--violet)">teamlab.art · pre-book timed entry · quick-dry socks</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">◷ Book a slot</div><div class="ec-n" style="color:var(--orange)">13</div><div class="ec-name">Sushi Making Tokyo</div><div class="ec-day">Day 14 · 19 Jan · Tokyo</div><div class="ec-desc">Hands-on sushi-making class — a fun, memorable family activity</div><div class="ec-book" style="color:var(--orange)">Book a class slot if prioritising this</div></div>
+      <div class="ec or"><div class="ec-s" style="color:var(--amber)">⚠️ Still to book</div><div class="ec-n" style="color:var(--orange)">14</div><div class="ec-name">Tokyo Disneyland</div><div class="ec-day">Day 15 · 20 Jan · Tokyo</div><div class="ec-desc">Classic castle park · perfect ages · winter décor, parade &amp; show</div><div class="ec-book" style="color:var(--orange)">tokyodisneyresort.jp · dated tickets online</div></div>
+    </div>
+  </div>
+
+  <!-- BOOK NOW -->
+  <div id="jbk" class="sec">
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Booking status</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+        <div style="background:var(--ok-l);border:.5px solid var(--ok-b);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--ok)">✓</div><div style="font-size:10px;color:var(--ok)">Flights booked</div></div>
+        <div style="background:var(--navy-l);border:.5px solid #b5d4f4;border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--navy)">10</div><div style="font-size:10px;color:var(--navy)">Windows tracked</div></div>
+        <div style="background:var(--rose-l);border:.5px solid var(--rose-m);border-radius:var(--rs);padding:10px"><div style="font-size:22px;font-weight:600;color:var(--rose-m)">1</div><div style="font-size:10px;color:var(--rose-m)">Can't pre-book</div></div>
+      </div>
+    </div>
+
+    <div class="subh2" style="color:var(--ok);margin-bottom:8px">✅ Done</div>
+    <div class="bklist">
+      <div class="bk ok"><div class="bdot" style="background:var(--ok-b)"></div><div><div class="bt">Flights Chennai ⇄ Japan <span class="btag ok">Booked</span></div><div class="bd">Open-jaw, into Osaka &amp; out of Tokyo: <b>Out</b> Thai Airways TG 338/672, MAA 6 Jan 01:00 → BKK → KIX 15:45 · <b>Home</b> Air India AI 357/2895, HND 21 Jan 10:30 → DEL → MAA 22 Jan 00:30 · all 4 travellers · see Flights tab</div></div></div>
+    </div>
+
+    <div class="subh2" style="color:var(--navy);margin-bottom:4px">🎯 Priority booking timeline</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Researched Jul 2026, sorted by when each booking window actually opens — 🔒 = a fixed release rule, 💡 = our recommended buffer for a flexible window. Tap ▶ links to go straight to the booking site.</div>
+    <div class="pbt-list" id="jp-booking-timeline">
+      <div style="font-size:12px;color:var(--muted);padding:12px">Loading timeline…</div>
+    </div>
+
+    <div class="alert a-am">⚠️ <b>Kichi Kichi Omurice</b> changed its system in 2024 — no advance reservations exist any more, it's same-day, in-person queue only from ~8am. Every full Kyoto day already has an early-morning start elsewhere (Fushimi Inari, Arashiyama), so fitting this in means one adult skipping part of a morning to queue centrally. Treat it as an opportunistic extra, not a fixed plan — Kyoto has plenty of other great dinner spots as a backup.</div>
+    <div class="alert a-bl">📄 <b>Japan visa (India):</b> apply <b>by ~1 Dec 2026</b> for a comfortable buffer — official VFS Global processing is 4–7 working days, but realistic end-to-end (appointment + document prep + return) runs 2–3 weeks. A new eVisa option is expected to launch Sep 2026 and may simplify this — worth checking closer to the time. Confirm each passport has 6+ months' validity beyond 21 Jan 2027.</div>
+
+    <div class="subh2" style="color:var(--forest-m);margin-bottom:8px">📅 No fixed date — just get to it</div>
+    <div class="bklist">
+      <div class="bk am"><div class="bdot" style="background:var(--amber-m)"></div><div><div class="bt">All 3 hotels booked <span class="btag am">Tokyo needs review</span></div><div class="bd">Osaka (Namba Oriental), Kyoto (Minn Gion Sanjo) &amp; Tokyo (Hotel Gracery Shinjuku) all booked · Tokyo shows 2 adults/0 children — confirm the girls are covered before travel · see Hotels tab</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Kimono Tea Ceremony, MAIKOYA</div><div class="bd">12 Jan, Kyoto · book ahead if doing this</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Sushi Making Tokyo class</div><div class="bd">19 Jan · book a class slot if prioritising this</div></div></div>
+      <div class="bk gr"><div class="bdot" style="background:var(--forest-m)"></div><div><div class="bt">Pocket WiFi / eSIM + IC cards</div><div class="bd">Pre-order pocket WiFi for airport pickup, or buy eSIMs · set up ICOCA/Suica in Apple/Google Wallet</div></div></div>
+    </div>
+    <div style="font-size:10px;color:var(--muted);margin-top:4px">Booking windows researched Jul 2026 from official sites &amp; current traveller reports — policies can change, so double-check the live site closer to your date.</div>
+  </div>
+
+  <!-- KID TIPS -->
+  <div id="jki" class="sec">
+    <div class="alert a-gr">Japan is wonderfully kid-friendly — clean, safe, punctual, and full of small delights. Here's what makes it easy &amp; fun with Sana (9) and Tara (6).</div>
+    <div class="kgrid">
+      <div class="kc"><div class="kc-t">Konbini magic</div><div class="kc-b">7-Eleven, Lawson &amp; FamilyMart are everywhere · cheap tasty meals, onigiri, fried chicken, melon pan, puddings · great for picky eaters &amp; quick breakfasts</div></div>
+      <div class="kc"><div class="kc-t">IC cards for everyone</div><div class="kc-b">Get a Suica (Tokyo) / ICOCA (Kansai) each — tap on/off trains, buses &amp; vending machines · kids' versions exist · or add Suica to phone wallets</div></div>
+      <div class="kc"><div class="kc-t">Gachapon &amp; vending</div><div class="kc-b">Capsule-toy machines everywhere · give each girl a small daily coin budget · drink vending machines on every corner (hot &amp; cold)</div></div>
+      <div class="kc"><div class="kc-t">Train etiquette</div><div class="kc-b">Quiet voices, no eating on local trains, line up on platform marks · rush hour (8–9 am) is packed — avoid with kids · trains are spotless &amp; on time</div></div>
+      <div class="kc"><div class="kc-t">Luggage forwarding (takkyubin)</div><div class="kc-b">Send big suitcases hotel-to-hotel (e.g. Kyoto → Tokyo) for ~¥2,000/bag · travel light on the Shinkansen with just a day bag · arrives next day</div></div>
+      <div class="kc"><div class="kc-t">January weather ❄️</div><div class="kc-b">Cold &amp; mostly dry, ~2–10°C · crisp blue skies, occasional light snow (esp. Kyoto) · pack thermals, gloves, hats, warm coats + comfy waterproof shoes · hand-warmers (kairo) from any konbini are a kid win</div></div>
+      <div class="kc"><div class="kc-t">Shoes off indoors</div><div class="kc-b">Remove shoes at temples, some restaurants &amp; ryokan · easy slip-on shoes save time · clean socks all round</div></div>
+      <div class="kc"><div class="kc-t">Food for kids</div><div class="kc-b">Loads of wins: ramen, udon, gyoza, tempura, katsu, sushi conveyor belts, crepes, taiyaki · note: ask about veg/halal needs in advance — flag dietary requirements at booking</div></div>
+      <div class="kc"><div class="kc-t">Toilets &amp; amenities</div><div class="kc-b">High-tech heated toilets (a novelty for kids!) · clean public toilets everywhere · baby/kid facilities in malls &amp; stations</div></div>
+      <div class="kc"><div class="kc-t">Purikura &amp; arcades</div><div class="kc-b">Photo-sticker booths &amp; game arcades (claw machines!) in every entertainment district · a fun rainy-afternoon backup</div></div>
+      <div class="kc"><div class="kc-t">Theme-park strategy</div><div class="kc-b">Arrive at opening, use ride-pass apps (Disney) / Express Pass (USJ), big rides first, breaks in the afternoon · bring a portable charger</div></div>
+      <div class="kc"><div class="kc-t">Stay connected</div><div class="kc-b">Pocket WiFi or eSIM keeps maps + translation handy · Google Maps is excellent for trains · Google Translate camera for menus</div></div>
+    </div>
+  </div>
+
+  <!-- FLIGHTS -->
+  <div id="jfl" class="sec">
+    <div class="alert a-ok">✅ Flights booked — an open-jaw: <b>into Osaka (Kansai)</b> on Thai Airways and <b>home from Tokyo (Haneda)</b> on Air India, so no backtracking. Both are redemption / award tickets for all four travellers. Booking references are kept off this public page — see your email e-tickets for the full PNRs.</div>
+    <div class="fgrid">
+      <div class="fc">
+        <div class="fc-s">✅ Booked — Outbound · Thai Airways</div>
+        <div class="fc-route">Chennai → Osaka</div>
+        <div class="fc-sub">6 Jan 2027 · 1 stop (Bangkok) · 13h 15m total · booking ref in the Travel wallet 🔒</div>
+        <div class="fc-times">
+          <div><div class="fc-time">01:00</div><div class="fc-iata">MAA · 6 Jan</div></div>
+          <div class="fc-arrow">──3h25m──→</div>
+          <div style="text-align:right"><div class="fc-time">05:55</div><div class="fc-iata">BKK · 6 Jan</div></div>
+        </div>
+        <div class="fc-note" style="margin-bottom:8px">TG 338 · Airbus A330-300 · Chennai → Bangkok Suvarnabhumi</div>
+        <div class="fc-note" style="background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);border-radius:6px;padding:5px 9px;margin-bottom:8px">✓ 2h 20m layover at Bangkok (BKK) — comfortable connection, stay airside</div>
+        <div class="fc-times">
+          <div><div class="fc-time">08:15</div><div class="fc-iata">BKK · 6 Jan</div></div>
+          <div class="fc-arrow">──5h30m──→</div>
+          <div style="text-align:right"><div class="fc-time">15:45</div><div class="fc-iata">KIX · 6 Jan</div></div>
+        </div>
+        <div class="fc-note">TG 672 · Boeing 777-300ER · Bangkok → Osaka Kansai · 1 checked bag / person</div>
+      </div>
+      <div class="fc">
+        <div class="fc-s">✅ Booked — Return · Air India</div>
+        <div class="fc-route">Tokyo → Chennai</div>
+        <div class="fc-sub">21 Jan 2027 · 1 stop (Delhi) · booking ref in the Travel wallet 🔒</div>
+        <div class="fc-times">
+          <div><div class="fc-time">10:30</div><div class="fc-iata">HND · 21 Jan</div></div>
+          <div class="fc-arrow">──10h30m──→</div>
+          <div style="text-align:right"><div class="fc-time">17:30</div><div class="fc-iata">DEL · 21 Jan</div></div>
+        </div>
+        <div class="fc-note" style="margin-bottom:8px">AI 357 · Tokyo Haneda → Delhi (Terminal 3)</div>
+        <div class="fc-note" style="background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);border-radius:6px;padding:5px 9px;margin-bottom:8px">✓ 4h 00m layover at Delhi (DEL) — same terminal (T3); recheck / immigration time built in</div>
+        <div class="fc-times">
+          <div><div class="fc-time">21:30</div><div class="fc-iata">DEL · 21 Jan</div></div>
+          <div class="fc-arrow">──3h00m──→</div>
+          <div style="text-align:right"><div class="fc-time">00:30</div><div class="fc-iata">MAA · 22 Jan</div></div>
+        </div>
+        <div class="fc-note">AI 2895 · Delhi → Chennai · lands 00:30 on 22 Jan · 2 checked bags / person</div>
+      </div>
+    </div>
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Passengers &amp; e-ticket numbers · references and e-tickets are in the Travel wallet 🔒</div>
+      <table>
+        <thead><tr><th>Passenger</th><th>Outbound · Thai (TG)</th><th>Return · Air India (AI)</th></tr></thead>
+        <tbody>
+          <tr><td>Yuvan (Mr Yuvanesan Muthukumaresan)</td><td>•••••5922</td><td>•••••2548</td></tr>
+          <tr><td>Ramyaa (Mrs Ramyaa Yuvanesan)</td><td>•••••5923</td><td>—</td></tr>
+          <tr><td>Sana (Miss Sana Yuvanesan)</td><td>•••••5924</td><td>—</td></tr>
+          <tr><td>Tara (Miss Tara Yuvanesan)</td><td>•••••5925</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:10px;color:var(--muted);margin-top:8px">Numbers are masked in the public page · full values appear after login once the encrypted refs blob is added. Baggage: Thai 1 checked bag/person; Air India 2 checked bags/person.</div>
+    </div>
+    <div class="alert a-am">🛫 Getaway day: the Tokyo → Delhi leg leaves Haneda at 10:30, so plan a ~06:45 hotel checkout and arrive HND by ~07:30 (Air India closes international check-in 60 min before, but allow buffer with four travellers).</div>
+    <div class="alert a-am">📄 Reminder: India passports — Japan requires a visa. Apply by ~1 Dec 2026 for a comfortable buffer (see the exact timeline in the Book Now tab). Check each passport has 6+ months validity beyond 21 Jan 2027.</div>
+  </div>
+
+  <!-- TRAINS -->
+  <div id="jtr" class="sec">
+    <div class="alert a-ok">🚄 Japan runs on trains — fast, spotless, punctual. With this route (Osaka → Nara → Kyoto → Yokohama → Tokyo, plus Himeji, Kamakura &amp; Fuji day trips) a full Japan Rail Pass usually is NOT worth it; point-to-point tickets + IC cards are cheaper. Quick maths below.</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:1.25rem">
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--forest)">~30m</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Shin-Osaka↔Himeji</div></div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--amber)">~1.5h</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Osaka→Nara→Kyoto</div></div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--navy)">~2.5h</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Kyoto→Yokohama→Tokyo</div></div>
+      <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;text-align:center"><div style="font-size:26px;font-weight:600;color:var(--violet)">285</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">km/h top speed</div></div>
+    </div>
+
+    <div class="subh">Key journeys</div>
+    <table>
+      <thead><tr><th>When</th><th>Route</th><th>Train</th><th>Time</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:var(--ink)">6 Jan</td><td>Kansai Airport → Osaka (Namba)</td><td>Nankai Rapi:t / JR Haruka</td><td>~40–75m</td><td>On arrival · or airport limousine bus</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">7 Jan</td><td>Osaka ↔ Himeji</td><td>Sanyo Shinkansen from Shin-Osaka, or JR Special Rapid from Osaka Station</td><td>~30m / ~1h each way</td><td>Day trip · Shinkansen seats optional, Special Rapid needs no reservation</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">10 Jan</td><td>Osaka (Namba) → Nara → Kyoto</td><td>Kintetsu Nara line, then Kintetsu / JR to Kyoto</td><td>~40m + ~45m</td><td>Transfer day — coin lockers at Nara station · IC card fine, no reservation</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">13 Jan</td><td>Kyoto → Yokohama → Tokyo</td><td>Tokaido Shinkansen (via Shin-Yokohama) + local</td><td>~2h + 30m</td><td>Reserve Shinkansen seats</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">14 Jan</td><td>Tokyo/Shinagawa ↔ Kamakura</td><td>JR Yokosuka line</td><td>~1h each way</td><td>Day trip · IC card fine, no reservation</td></tr>
+        <tr><td style="font-weight:600;color:var(--ink)">17 Jan</td><td>Shinjuku ↔ Kawaguchiko</td><td>Direct highway bus</td><td>~2h each way</td><td>Day trip · book seats ahead · Sunday-evening return runs slow</td></tr>
+      </tbody>
+    </table>
+
+    <div class="subh">Passes &amp; cards</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem">
+      <div style="background:var(--navy-l);border:.5px solid #b5d4f4;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px">🎫 IC cards (Suica / ICOCA)</div>
+        <div style="font-size:12px;color:var(--navy);line-height:1.9">Get one each · tap on/off all city trains, subways &amp; buses · top up at machines · also buys drinks &amp; konbini snacks · add to phone wallet where possible</div>
+      </div>
+      <div style="background:var(--forest-l);border:.5px solid var(--forest-m);border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:8px">💴 JR Pass — probably skip</div>
+        <div style="font-size:12px;color:var(--forest);line-height:1.9">After the 2023 price rise, a 7-day JR Pass rarely pays off for just Tokyo–Kyoto–Osaka · buy the single Shinkansen ticket instead · note the Nozomi isn't covered by the pass anyway</div>
+      </div>
+      <div style="background:var(--amber-l);border:.5px solid #fde68a;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:8px">🧳 Travel light on the bullet train</div>
+        <div style="font-size:12px;color:var(--amber);line-height:1.9">Oversized bags need a reserved space behind the back row · easier: forward big suitcases Kyoto→Tokyo by takkyubin the day before &amp; ride with day bags</div>
+      </div>
+      <div style="background:var(--violet-l);border:.5px solid #c4b5fd;border-radius:var(--r);padding:14px">
+        <div style="font-size:12px;font-weight:600;color:var(--violet);margin-bottom:8px">📱 Navigation</div>
+        <div style="font-size:12px;color:var(--violet);line-height:1.9">Google Maps is excellent for Japanese trains — platforms, exits, live times · screenshot routes offline · station numbering (e.g. JY03) helps kids follow along</div>
+      </div>
+    </div>
+    <div class="alert a-bl">🚸 Kids: under 6 generally ride free on laps; ages 6–11 are usually half fare. Tara (6) &amp; Sana (9) qualify for child fares — buy child IC cards or child tickets.</div>
+  </div>
+
+  <div class="footer">
+    <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
+    <button class="fb" onclick="switchTrip()">⇄ Switch to Ireland trip</button>
+    <a class="fb" href="https://www.google.com/flights" target="_blank" rel="noopener noreferrer">✈️ Search Flights</a>
+    <a class="fb" href="https://www.japan-guide.com" target="_blank" rel="noopener noreferrer">🗾 Japan Guide</a>
+  </div>
+  </div>
+</div>
+
+<!-- ===================== BEKAL / MANGALURU DASHBOARD ===================== -->
+<div id="dashboard-bekal" class="dash-root" style="display:none">
+  <div class="hero kl">
+  <div class="flag-bar kl"></div>
+  <div class="hero-ctrls">
+    <button class="switch-trip" onclick="switchTrip()">⇄ Trips</button>
+    <button class="switch-trip out" onclick="logout()">⎋ Logout</button>
+  </div>
+  <div class="hi">
+    <div class="ey" style="color:#5eead4">Family trip · Confirmed &amp; booked · September 2026</div>
+    <div class="dest-badges">
+      <span class="dbadge kl">🌴 Bekal</span>
+      <span class="dsep">·</span>
+      <span class="dbadge mng">⛵ Mangaluru</span>
+    </div>
+    <div class="ht">Bekal <em>&middot;</em> Mangaluru</div>
+    <div class="hs">11 – 14 September 2026 &nbsp;·&nbsp; 4 days &nbsp;·&nbsp; Flights &amp; hotels booked</div>
+    <div class="travelers">
+      <div class="tv"><div class="tv-av" style="background:#3b6cb7">Y</div><div><div class="tv-n">Yuvan</div><div class="tv-a">Adult</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#0d9488">R</div><div><div class="tv-n">Ramyaa</div><div class="tv-a">Adult</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#7c3aed">S</div><div><div class="tv-n">Sana</div><div class="tv-a">Child</div></div></div>
+      <div class="tv"><div class="tv-av" style="background:#e11d48">T</div><div><div class="tv-n">Tara</div><div class="tv-a">Child</div></div></div>
+    </div>
+    <div class="stats">
+      <div class="st"><div class="st-n">4</div><div class="st-l">Total days</div></div>
+      <div class="st"><div class="st-n">2</div><div class="st-l">Bekal nights</div></div>
+      <div class="st"><div class="st-n">1</div><div class="st-l">Mangaluru night</div></div>
+      <div class="st ok"><div class="st-n">2</div><div class="st-l">Flights booked</div></div>
+      <div class="st ok"><div class="st-n">2</div><div class="st-l">Hotels booked</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tb active" onclick="show('kit',this)">All 4 days</button>
+    <button class="tb" onclick="show('kht',this)">Hotels</button>
+    <button class="tb" onclick="show('kfl',this)">Flights</button>
+    <button class="tb" onclick="show('kki',this)">Kid tips</button>
+  </div>
+
+  <!-- ALL 4 DAYS -->
+  <div id="kit" class="sec active" data-year="2026">
+    <div class="alert a-ok">✅ Fully booked — flights, Taj Bekal Resort &amp; Spa, and Vivanta Mangalore are all confirmed. A short, relaxed beach &amp; backwater getaway.</div>
+    <div class="spine"><div class="sr">
+      <div class="sp ie"><div class="dot"></div><div class="spn">Fly out</div><div class="spd">11 Sep</div><div class="sps">MAA→IXE 05:40</div></div>
+      <div class="sp uk"><div class="dot"></div><div class="spn">Bekal</div><div class="spd">11–13 Sep</div><div class="sps">2 nights</div></div>
+      <div class="sp sc"><div class="dot"></div><div class="spn">Mangaluru</div><div class="spd">13–14 Sep</div><div class="sps">1 night</div></div>
+      <div class="sp lo"><div class="dot"></div><div class="spn">Fly home</div><div class="spd">14 Sep</div><div class="sps">IXE→MAA 07:55</div></div>
+    </div></div>
+
+    <div class="sh"><span>✈️ Travel · 11 Sep</span><span class="shb ok"><span class="okdot"></span> Flights booked</span></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f"><span class="dn-d">11 Sep</span><span class="dn-n">D1</span><span class="dn-w">Fri</span></div><div class="db"><p class="dt">Fly Chennai → Mangaluru · transfer to Bekal</p><p class="dd">Depart Chennai (MAA) 05:40 → land Mangaluru (IXE) 07:25 · IndiGo 6E 7346</p><p class="dc">Early departure — reach Chennai airport (Terminal 4) by ~04:00 for the 05:40 flight · IndiGo 6E 7346 (ATR), 1h 45m · land Mangaluru (IXE) 07:25 · road transfer Mangaluru → Bekal (~1.5–2h along the coast) · check in to Taj Bekal Resort &amp; Spa, Deluxe Villa Courtyard View · settle in — private courtyard, resort grounds, beach &amp; backwater views · relaxed first evening, all meals included from check-in</p><div class="tags"><span class="tag t-am">Very early flight — pack the night before</span><span class="tag t-ok">All-meals-inclusive package starts today</span></div></div></div>
+
+    <div class="sh"><span>🌴 Bekal · 11–13 Sep · 2 nights</span><span class="shb ok"><span class="okdot"></span> Taj Bekal Resort &amp; Spa</span></div>
+    <div class="day"><div class="dn" style="background:#ccf0f0;color:#0d4f4f"><span class="dn-d">12 Sep</span><span class="dn-n">D2</span><span class="dn-w">Sat</span></div><div class="db"><p class="dt">Full day at Taj Bekal Resort &amp; Spa</p><p class="dd">12 Sep (Sat)</p><p class="dc">A full resort day — beach time on the Bekal coastline, the resort pool, spa treatments for the adults, kids' activities · explore the backwater-facing grounds and courtyard villas · all meals included (breakfast, lunch, dinner) as part of the Limited Period Escapes package · an early-evening walk along the beach as the light turns gold</p><div class="tags"><span class="tag t-ok">All-meals-inclusive — no need to plan meals</span><span class="tag t-vi">Book a spa slot early if you want one</span></div></div></div>
+
+    <div class="sh" style="border-color:var(--ok-b)"><span style="color:var(--forest)">🚗 Bekal → Mangaluru · 13 Sep</span><span class="shb ok"><span class="okdot"></span> ~1.5–2h by road</span></div>
+    <div class="day"><div class="dn" style="background:#fff7ed;color:#7c2d12"><span class="dn-d">13 Sep</span><span class="dn-n">D3</span><span class="dn-w">Sun</span></div><div class="db"><p class="dt">Bekal Fort → transfer to Mangaluru</p><p class="dd">13 Sep (Sun) · check out Bekal this morning, check into Mangaluru this evening</p><p class="dc">Morning: Bekal Fort — Kerala's largest fort, a short drive from the resort, with sweeping Arabian Sea views from the ramparts (a great photo stop with the kids) · check out of Taj Bekal · road transfer Bekal → Mangaluru (~1.5–2h) · check in to Vivanta Mangalore Oldport Road (formerly Taj Manjarun), Premium Room River View, by the afternoon · relaxed evening — river views from the room, or a stroll near Old Port Road</p><div class="tags"><span class="tag t-gr">Bekal Fort is open till evening</span><span class="tag t-bl">Bags travel with you — no forwarding needed</span></div></div></div>
+
+    <div class="sh"><span>⛵ Mangaluru · 13–14 Sep · 1 night</span><span class="shb ok"><span class="okdot"></span> Vivanta Mangalore Oldport Road</span></div>
+    <div class="day"><div class="dn" style="background:#dcf0e4;color:#1a4731"><span class="dn-d">14 Sep</span><span class="dn-n">D4</span><span class="dn-w">Mon</span></div><div class="db rest"><p class="dt" style="color:var(--forest)">Fly home from Mangaluru · early flight</p><p class="dd" style="color:var(--forest-m)">14 Sep (Mon) — depart Mangaluru (IXE) 07:55</p><p class="dc" style="color:var(--forest)">An early start — check out of the Vivanta well before the standard checkout time, so pack the night before · IndiGo 6E 7345 (ATR) Mangaluru → Chennai, 07:55 → 09:40 (1h 45m) · lands Chennai Terminal 1 · home by mid-morning</p><div class="tags"><span class="tag t-ok">✅ Booked: IndiGo · both flights confirmed</span><span class="tag t-bl">Leave the hotel by ~6am for the 07:55 flight</span></div></div></div>
+  </div>
+
+  <!-- HOTELS -->
+  <div id="kht" class="sec">
+    <div class="alert a-ok">✅ Both hotels confirmed — Taj Bekal Resort &amp; Spa (2 nights) and Vivanta Mangalore Oldport Road (1 night).</div>
+    <div class="hgrid">
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Bekal, Kerala · 11–13 Sep · 2 nights</div>
+        <div class="hc-name">Taj Bekal Resort &amp; Spa</div>
+        <div class="hc-addr">Kerala · +91 46723 02000</div>
+        <div class="hc-sub">Deluxe Villa Courtyard View · Limited Period Escapes — all meals inclusive · 2 Adults, 2 Children</div>
+        <div class="hc-ref">Booking 🔒 · Itinerary 🔒</div>
+        <div class="perks"><span class="pk ok">All meals included</span><span class="pk">Villa with courtyard</span><span class="pk am">₹61,977 total</span></div>
+      </div>
+      <div class="hc ok">
+        <div class="hc-s ok">✓ Confirmed</div>
+        <div class="hc-city">Mangaluru · 13–14 Sep · 1 night</div>
+        <div class="hc-name">Vivanta Mangalore Oldport Road</div>
+        <div class="hc-addr">Old Port Road, near Mangaluru City Bus Stand · formerly Taj Manjarun</div>
+        <div class="hc-sub">Premium Room River View · 2 Adults, 2 Children · booked via MakeMyTrip</div>
+        <div class="hc-ref">R360 ID: 🔒</div>
+        <div class="perks"><span class="pk ok">River view</span><span class="pk">Wi-Fi for 4 devices</span><span class="pk am">₹13,619 total (₹9,533 pts + ₹4,086 cash)</span></div>
+      </div>
+    </div>
+    <div class="alert a-bl">💡 Taj Bekal check-in is standard 2pm on 11 Sep · Vivanta Mangalore check-out is 12pm on 14 Sep, but the 07:55 flight means leaving well before then.</div>
+  </div>
+
+  <!-- FLIGHTS -->
+  <div id="kfl" class="sec">
+    <div class="alert a-ok">✅ Both flights booked with IndiGo — direct Chennai ⇄ Mangaluru, all 4 travellers confirmed on the same booking each way.</div>
+    <div class="fgrid">
+      <div class="fc">
+        <div class="fc-s">✅ Booked — Outbound · IndiGo</div>
+        <div class="fc-route">Chennai → Mangaluru</div>
+        <div class="fc-sub">11 Sep 2026 · Direct · 1h 45m · PNR 🔒</div>
+        <div class="fc-times">
+          <div><div class="fc-time">05:40</div><div class="fc-iata">MAA · T4</div></div>
+          <div class="fc-arrow">──1h45m──→</div>
+          <div style="text-align:right"><div class="fc-time">07:25</div><div class="fc-iata">IXE</div></div>
+        </div>
+        <div class="fc-note">6E 7346 · ATR turboprop · check-in/bag drop closes 04:40</div>
+      </div>
+      <div class="fc">
+        <div class="fc-s">✅ Booked — Return · IndiGo</div>
+        <div class="fc-route">Mangaluru → Chennai</div>
+        <div class="fc-sub">14 Sep 2026 · Direct · 1h 45m · PNR 🔒</div>
+        <div class="fc-times">
+          <div><div class="fc-time">07:55</div><div class="fc-iata">IXE</div></div>
+          <div class="fc-arrow">──1h45m──→</div>
+          <div style="text-align:right"><div class="fc-time">09:40</div><div class="fc-iata">MAA · T1</div></div>
+        </div>
+        <div class="fc-note">6E 7345 · ATR turboprop · check-in/bag drop closes 06:55</div>
+      </div>
+    </div>
+    <div style="background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px">Seats — booked on both flights</div>
+      <table>
+        <thead><tr><th>Passenger</th><th>Outbound seat</th><th>Return seat</th></tr></thead>
+        <tbody>
+          <tr><td>Yuvan</td><td>16F (Window)</td><td>16F (Window)</td></tr>
+          <tr><td>Ramyaa</td><td>16D (Aisle)</td><td>16D (Aisle)</td></tr>
+          <tr><td>Sana</td><td>16C (Aisle)</td><td>16C (Aisle)</td></tr>
+          <tr><td>Tara</td><td>16A (Window)</td><td>16A (Window)</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:10px;color:var(--muted);margin-top:8px">Same row (16) both ways — window/aisle seats for the girls to swap.</div>
+    </div>
+    <div class="alert a-am">🧳 Baggage: 15kg check-in + 7kg cabin per person (domestic). ATR aircraft — smaller overhead bins, keep hand luggage compact.</div>
+  </div>
+
+  <!-- KID TIPS -->
+  <div id="kki" class="sec">
+    <div class="alert a-gr">A short, easy family getaway — beach, backwaters and two very early flights. Here's what makes it smooth with Sana (9) and Tara (6).</div>
+    <div class="kgrid">
+      <div class="kc"><div class="kc-t">Very early flights both ways</div><div class="kc-b">05:40 out, 07:55 back — let the kids sleep in the car to the airport, and plan an early bedtime the night before each flight</div></div>
+      <div class="kc"><div class="kc-t">Sun protection</div><div class="kc-b">Kerala coast sun is strong even in September · sunscreen, hats, and swimwear with UV protection for the beach &amp; pool</div></div>
+      <div class="kc"><div class="kc-t">All-meals-inclusive at Bekal</div><div class="kc-b">Breakfast, lunch &amp; dinner included at the resort — no need to plan meals or carry snacks for those 2 days</div></div>
+      <div class="kc"><div class="kc-t">Evening insect repellent</div><div class="kc-b">Backwater-adjacent properties can have mosquitoes near dusk — pack a kid-safe repellent for evenings outdoors</div></div>
+      <div class="kc"><div class="kc-t">Road transfer comfort</div><div class="kc-b">Bekal ↔ Mangaluru is ~1.5–2h by road — pack snacks, water and a tablet/books for the girls</div></div>
+      <div class="kc"><div class="kc-t">Pack the night before</div><div class="kc-b">Both flights are early morning — have bags packed and ready so departure mornings stay stress-free</div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button class="fb p" onclick="window.print()">Print / Save as PDF</button>
+    <button class="fb" onclick="switchTrip()">⇄ Switch trips</button>
+    <a class="fb ok" href="https://www.tajhotels.com/en-in/taj/taj-bekal-resort-and-spa-kerala/" target="_blank" rel="noopener noreferrer">✅ Manage Taj Bekal</a>
+    <a class="fb ok" href="https://www.goindigo.in/web-check-in.html" target="_blank" rel="noopener noreferrer">✅ IndiGo Web Check-in</a>
+  </div>
+  </div>
+</div>
+
+<button id="to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>
+
+<script>
+const TRIP_DASHBOARDS = { ireland: 'dashboard', japan: 'dashboard-japan', kerala: 'dashboard-bekal' };
+
+// Navigation goes through the ATLAS router (atlas/atlas.js) so every view has
+// a URL: #/overview, #/trips, #/documents, #/trip/<id>[/<tab>[/<day>]].
+function selectTrip(which) { Atlas.go('#/trip/' + which); }
+function switchTrip() { Atlas.go('#/overview'); }
+
+function logout() {
+  // Clear the session and reload so the sign-in gate is shown fresh.
+  sessionStorage.clear();
+  try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch(e) {}
+  location.reload();
+}
+
+// ---- Google Sign-In gate (access control for authorised family accounts) ----
+const G_CLIENT_ID = '717827758789-99ugj40a6j2rr4r7db26shn0hivq0vv0.apps.googleusercontent.com';
+const G_ALLOW = ['mailyuvanesh@gmail.com', 'ramyaayuvan@gmail.com'];
+
+function decodeJwt(t) {
+  try { return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))); }
+  catch(e) { return null; }
+}
+
+function handleGoogleCredential(resp) {
+  const err = document.getElementById('go-err');
+  const p = resp && resp.credential ? decodeJwt(resp.credential) : null;
+  if (!p) { err.textContent = 'Sign-in failed. Please try again.'; return; }
+  const now = Math.floor(Date.now() / 1000);
+  const issOK = p.iss === 'accounts.google.com' || p.iss === 'https://accounts.google.com';
+  if (p.aud !== G_CLIENT_ID || !issOK || (p.exp && p.exp < now)) {
+    err.textContent = 'Sign-in could not be verified. Please try again.'; return;
+  }
+  const email = (p.email || '').trim().toLowerCase();
+  if (!p.email_verified || G_ALLOW.indexOf(email) === -1) {
+    err.textContent = '“' + (p.email || 'This account') + '” isn’t authorised for this trip.';
+    try { google.accounts.id.disableAutoSelect(); } catch(e) {}
+    return;
+  }
+  sessionStorage.setItem('google_ok', email);
+  proceedAfterGoogle();
+  // Exchange the same Google ID token for an ATLAS (Supabase) session so ticks
+  // sync across the family's devices. Falls back to local data if unavailable.
+  if (window.Atlas) Atlas.connect(resp.credential);
+}
+
+// Google sign-in is the only gate. On success go straight to ATLAS. Booking references are never embedded in this page (🔒 marks
+// where one exists) — look them up in the original confirmations.
+function proceedAfterGoogle() {
+  const o = document.getElementById('g-oauth');
+  o.style.opacity = '0';
+  setTimeout(() => { o.style.display = 'none'; }, 400);
+  enterDashboards();
+}
+
+function enterDashboards() {
+  document.getElementById('dash-style').removeAttribute('media');
+  renderBookingTimeline();
+  renderHotelTracker();
+  decorateDays();
+  bulletizeDays();
+  initCompactToggles();
+  renderReadiness();
+  renderTabBadges();
+  initToTop();
+  Atlas.start();
+}
+
+// Japan booking-priority timeline — researched Jul 2026. `date` is when the
+// booking window actually opens: 'fixed' = a confirmed release rule from the
+// vendor (exact date/time), 'reco' = our own recommended buffer for an item
+// with no hard advance-booking rule. Sorted and live-countdown-rendered by
+// renderBookingTimeline() below. Add booked:true to an item once it's done.
+const JP_BOOKING_WINDOWS = [
+  { date:'2026-10-11', type:'fixed', icon:'🎭', item:'Gion Corner tickets', when:'for the 11 Jan geisha-arts show', why:'Official online booking opens 3 months ahead of the show date.', url:'https://www.kyoto-gioncorner.com/global/en.html' },
+  { date:'2026-10-19', type:'fixed', icon:'💧', item:'teamLab Planets TOYOSU', when:'for the 19 Jan visit', why:'3rd-party sites (Klook etc.) open bookings ~3 months ahead; the official teamlab.art site follows about a month later.', url:'https://www.teamlab.art/e/planets/' },
+  { date:'2026-11-22', type:'fixed', icon:'🏰', item:'Tokyo Disneyland dated ticket', when:'for the 20 Jan visit', why:'Releases exactly 60 days ahead, on sale 2:00pm Japan time — set an alarm, popular dates can sell out same day.', url:'https://www.tokyodisneyresort.jp/en/ticket/' },
+  { date:'2026-12-07', type:'fixed', icon:'🚄', item:'Shinkansen seats — Osaka ↔ Himeji day trip', when:'for the 7 Jan day trip (optional — the JR Special Rapid needs no reservation)', why:'Standard JR reservation window opens exactly 1 month before travel (Smart EX may allow booking online earlier).', url:'https://smart-ex.jp/en/lp/app/' },
+  { date:'2026-12-13', type:'fixed', icon:'🚄', item:'Shinkansen seats — Kyoto→Yokohama→Tokyo', when:'for 13 Jan travel', why:'Same 1-month rule as above.', url:'https://smart-ex.jp/en/lp/app/' },
+  { date:'2026-12-17', type:'fixed', icon:'🚌', item:'Kawaguchiko highway bus (Shinjuku)', when:'for the 17 Jan day trip', why:'Online reservation opens exactly 1 month ahead of travel.', url:'https://highway-buses.jp/course/kawaguchiko.php' },
+  { date:'2026-12-21', type:'reco', icon:'🎎', item:"Kids' kimono rental, Ninenzaka 🎂", when:"for 11 Jan — Tara's birthday", why:'No fixed system window, but ~3 weeks ahead is a safe buffer for size &amp; time-slot availability on a date that can’t move.', url:'' },
+  { date:'2026-12-28', type:'reco', icon:'🍜', item:'Cup Noodles Museum — My Cup Noodle Factory', when:'for the 13 Jan visit', why:'No fixed advance window, but numbered workshop tickets are capacity-limited and sell out same day — reserve online a few weeks ahead to be safe.', url:'https://www.cupnoodles-museum.jp/en/yokohama/' },
+  { date:'2027-01-04', type:'fixed', icon:'🌇', item:'Shibuya Sky', when:'for the 18 Jan sunset slot', why:'⚠️ Opens only 2 weeks ahead, midnight Japan time — the tightest window of the whole trip.', url:'https://www.shibuya-scramble-square.com/sky/' },
+  { date:'2027-01-09', type:'reco', icon:'🥷', item:'Ninja Tokyo or Sumo dinner show', when:'for the 16 Jan evening', why:'Recommended at least 1 week ahead — weekend dinner slots fill fast, and a credit card is required to hold the booking.', url:'https://ninja-tokyo.jp/en/' }
+];
+
+function renderBookingTimeline() {
+  const el = document.getElementById('jp-booking-timeline');
+  if (!el) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const items = JP_BOOKING_WINDOWS
+    .map(b => ({ ...b, openDate: new Date(b.date) }))
+    .sort((a, b) => a.openDate - b.openDate);
+
+  el.innerHTML = items.map(b => {
+    const diffDays = Math.round((b.openDate - today) / 86400000);
+    let cls, status;
+    const ticked = !b.booked && isDone(b);
+    if (b.booked || ticked) {
+      cls = 'pbt-open';
+      status = '✅ Booked';
+    } else if (diffDays > 0) {
+      cls = '';
+      status = `Opens in ${diffDays} day${diffDays === 1 ? '' : 's'}`;
+    } else if (diffDays === 0) {
+      cls = 'pbt-today';
+      status = '🔴 Opens today!';
+    } else {
+      cls = 'pbt-open';
+      status = '✅ Window is open';
+    }
+    const dateLabel = b.openDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    const ruleTag = b.type === 'fixed' ? '🔒' : '💡';
+    const link = b.url ? `<a class="pbt-link" href="${b.url}" target="_blank" rel="noopener noreferrer">Official site →</a>` : '';
+    const tick = b.booked ? '' : `<button type="button" class="pbt-done${ticked ? ' on' : ''}" onclick="setDone('${windowKey(b)}', ${ticked ? 'false' : 'true'})">${ticked ? '↩ Undo' : '✓ Mark booked'}</button>`;
+    return `<div class="pbt-item ${cls}">
+      <div class="pbt-date">${ruleTag}<br>${dateLabel}</div>
+      <div class="pbt-main">
+        <div class="pbt-title">${b.icon} ${b.item}</div>
+        <div class="pbt-why">${b.why}</div>
+        <div class="pbt-when">${b.when}</div>
+        ${link} ${tick}
+      </div>
+      <div class="pbt-status">${status}</div>
+    </div>`;
+  }).join('');
+}
+
+// Japan hotel booking tracker. No fixed release rule like the tickets above,
+// so "recommendBy" is our own target date (family/quad rooms in Japan are the
+// scarce resource). booked:true once reserved; warning:true flags a booking
+// that still needs a manual check before travel.
+const JP_HOTEL_TRACKER = [
+  { city: 'Osaka (Namba — Namba Oriental Hotel)', nights: '6–10 Jan · 4 nights', recommendBy: '2026-09-15', icon: '🏯', booked: true, note: 'Booked — Namba Oriental Hotel, Quality Deluxe Triple. Non-refundable.' },
+  { city: 'Tokyo (Shinjuku — Hotel Gracery Shinjuku)', nights: '13–21 Jan · 8 nights', recommendBy: '2026-10-01', icon: '🗼', booked: true, warning: true, freeCancelUntil: '2027-01-12', note: '⚠️ Booked, but for 2 adults / 0 children — confirm the girls are covered before travel. Free cancellation until 12 Jan 2027.' },
+  { city: 'Kyoto (Gion/Sanjo — Minn Gion Sanjo)', nights: '10–13 Jan · 3 nights', recommendBy: '2026-10-15', icon: '⛩️', booked: true, note: 'Booked — Minn Gion Sanjo, Deluxe Suite Room, private sauna. Non-refundable from 29 Jul 2026.' }
+];
+
+function renderHotelTracker() {
+  const el = document.getElementById('jp-hotel-tracker');
+  if (!el) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const items = JP_HOTEL_TRACKER
+    .map(h => ({ ...h, byDate: new Date(h.recommendBy) }))
+    .sort((a, b) => a.byDate - b.byDate);
+
+  el.innerHTML = items.map(h => {
+    let cls, status, dateBadge, tick = '';
+    if (hotelNeedsReview(h)) {
+      cls = 'pbt-today';
+      status = '⚠️ Needs review';
+      dateBadge = '⚠️<br>Review';
+      tick = `<button type="button" class="pbt-done" onclick="setDone('${hotelKey(h)}', true)">✓ Occupancy confirmed with hotel</button>`;
+    } else if (h.booked && h.warning) {
+      cls = 'pbt-open';
+      status = '✅ Booked · confirmed';
+      dateBadge = '✅<br>Booked';
+      tick = `<button type="button" class="pbt-done on" onclick="setDone('${hotelKey(h)}', false)">↩ Undo confirmation</button>`;
+    } else if (h.booked) {
+      cls = 'pbt-open';
+      status = '✅ Booked';
+      dateBadge = '✅<br>Booked';
+    } else {
+      const diffDays = Math.round((h.byDate - today) / 86400000);
+      const dateLabel = h.byDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      dateBadge = `💡<br>${dateLabel}`;
+      if (diffDays > 0) {
+        cls = '';
+        status = `${diffDays} day${diffDays === 1 ? '' : 's'} left to book by`;
+      } else {
+        cls = 'pbt-today';
+        status = '⚠️ Past our target — book ASAP';
+      }
+    }
+    return `<div class="pbt-item ${cls}">
+      <div class="pbt-date">${dateBadge}</div>
+      <div class="pbt-main">
+        <div class="pbt-title">${h.icon} ${h.city}</div>
+        <div class="pbt-why">${h.note}</div>
+        <div class="pbt-when">${h.nights}</div>
+        ${tick}
+      </div>
+      <div class="pbt-status">${status}</div>
+    </div>`;
+  }).join('');
+
+  const bookedCount = JP_HOTEL_TRACKER.filter(h => h.booked).length;
+  const warningCount = JP_HOTEL_TRACKER.filter(hotelNeedsReview).length;
+  const pendingCount = JP_HOTEL_TRACKER.length - bookedCount;
+  const pendingHeading = document.getElementById('jht-pending-heading');
+  if (pendingHeading) {
+    pendingHeading.textContent = pendingCount === 0
+      ? (warningCount === 0 ? '✅ All hotels booked!' : `✅ All hotels booked — ${warningCount} need${warningCount === 1 ? 's' : ''} review`)
+      : bookedCount === 0
+        ? '⏳ Pending — none booked yet'
+        : `⏳ Pending — ${pendingCount} of ${JP_HOTEL_TRACKER.length} still to book`;
+    pendingHeading.style.color = pendingCount === 0 ? (warningCount === 0 ? 'var(--ok)' : 'var(--amber)') : 'var(--rose-m)';
+  }
+  const label = document.getElementById('jht-progress-label');
+  if (label) {
+    label.textContent = `${bookedCount} of ${JP_HOTEL_TRACKER.length} booked`;
+    label.style.color = bookedCount === JP_HOTEL_TRACKER.length ? 'var(--ok)' : 'var(--amber)';
+  }
+  const bar = document.querySelector('#jht .prog-f');
+  if (bar) {
+    const pct = Math.max(4, Math.round((bookedCount / JP_HOTEL_TRACKER.length) * 100));
+    bar.style.width = pct + '%';
+    bar.style.background = bookedCount === JP_HOTEL_TRACKER.length ? 'var(--ok-b)' : 'var(--amber-m)';
+  }
+}
+
+let _gTries = 0;
+function initGoogle() {
+  if (!(window.google && google.accounts && google.accounts.id)) {
+    if (++_gTries > 40) { document.getElementById('go-retry').style.display = 'inline-block'; return; }
+    return setTimeout(initGoogle, 150);
+  }
+  google.accounts.id.initialize({
+    client_id: G_CLIENT_ID,
+    callback: handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: false
+  });
+  google.accounts.id.renderButton(document.getElementById('go-btn'), {
+    theme: 'filled_blue', size: 'large', shape: 'pill', text: 'signin_with', width: 260
+  });
+  try { google.accounts.id.prompt(); } catch(e) {}
+}
+
+// On page load — Google sign-in is the only gate.
+window.addEventListener('DOMContentLoaded', () => {
+  const gEmail = sessionStorage.getItem('google_ok');
+  const googleOK = gEmail && G_ALLOW.indexOf(gEmail) !== -1;
+  if (googleOK) {
+    // Already verified this session → go straight in
+    document.getElementById('g-oauth').style.display = 'none';
+    enterDashboards();
+    return;
+  }
+  initGoogle();
+});
+
+// ---- Small DOM helper ----
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+function ymd(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+// ---- Itineraries: weekend/today marks + calendar-grid view ----
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function dayCardDate(card, year) {
+  const d = card.querySelector('.dn-d');
+  const m = d && d.textContent.trim().match(/^(\d{1,2})\s+([A-Za-z]{3})/);
+  if (!m) return null;
+  const mi = MONTHS.indexOf(m[2]);
+  return mi < 0 ? null : new Date(year, mi, +m[1]);
+}
+
+let _daysDecorated = false;
+function decorateDays() {
+  if (_daysDecorated) return;
+  _daysDecorated = true;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  document.querySelectorAll('.sec[data-year]').forEach(sec => {
+    const year = +sec.getAttribute('data-year');
+    sec.querySelectorAll('.day').forEach(card => {
+      const dt = dayCardDate(card, year);
+      if (!dt) return;
+      const wd = dt.getDay();
+      if (wd === 0 || wd === 6) card.classList.add('weekend');
+      if (dt.getTime() === today.getTime()) card.classList.add('today');
+    });
+    buildCalendar(sec, year, today);
+  });
+}
+
+function buildCalendar(sec, year, today) {
+  const cards = [];
+  sec.querySelectorAll('.day').forEach(c => { const dt = dayCardDate(c, year); if (dt) cards.push({ c, dt }); });
+  if (cards.length < 2) return;
+  const byKey = {};
+  cards.forEach(x => { const k = ymd(x.dt); if (!byKey[k]) byKey[k] = x; });
+  const dates = cards.map(x => x.dt).sort((a, b) => a - b);
+  const first = dates[0], last = dates[dates.length - 1];
+
+  const toggle = el('div', 'itin-toggle');
+  const bList = el('button', 'on', '📋 List'), bCal = el('button', '', '📅 Calendar');
+  bList.type = bCal.type = 'button';
+  const setMode = cal => { sec.classList.toggle('cal-mode', cal); bCal.classList.toggle('on', cal); bList.classList.toggle('on', !cal); };
+  bList.onclick = () => setMode(false);
+  bCal.onclick = () => setMode(true);
+  toggle.appendChild(bList); toggle.appendChild(bCal);
+
+  const wrap = el('div', 'cal-wrap');
+  let cur = new Date(first.getFullYear(), first.getMonth(), 1);
+  while (cur <= last) {
+    const y = cur.getFullYear(), m = cur.getMonth();
+    wrap.appendChild(el('div', 'cal-month', cur.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })));
+    const grid = el('div', 'cal-grid');
+    ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].forEach(d => grid.appendChild(el('div', 'cal-dow', d)));
+    const mStart = first > new Date(y, m, 1) ? first : new Date(y, m, 1);
+    const mEnd = last < new Date(y, m + 1, 0) ? last : new Date(y, m + 1, 0);
+    const gStart = new Date(mStart); gStart.setDate(gStart.getDate() - ((mStart.getDay() + 6) % 7));
+    const gEnd = new Date(mEnd); gEnd.setDate(gEnd.getDate() + (6 - ((mEnd.getDay() + 6) % 7)));
+    for (let d = new Date(gStart); d <= gEnd; d.setDate(d.getDate() + 1)) {
+      const x = byKey[ymd(d)], wk = d.getDay() === 0 || d.getDay() === 6;
+      const cell = el('div', 'cal-cell' + (wk ? ' wknd' : '') + (d.getTime() === today.getTime() ? ' today' : '') + (x ? '' : ' empty'));
+      const head = el('div', 'cal-d', String(d.getDate()));
+      cell.appendChild(head);
+      if (x) {
+        const dn = x.c.querySelector('.dn'), dt = x.c.querySelector('.dt'), dnn = x.c.querySelector('.dn-n');
+        if (dn) { cell.style.background = dn.style.background || ''; cell.style.borderLeft = '3px solid ' + (dn.style.color || 'var(--border)'); head.style.color = dn.style.color || ''; }
+        if (dnn) head.appendChild(el('small', '', dnn.textContent));
+        cell.appendChild(el('div', 'cal-t', dt ? dt.textContent : ''));
+        cell.tabIndex = 0;
+        cell.setAttribute('role', 'button');
+        const open = () => {
+          setMode(false);
+          x.c.classList.remove('flash'); void x.c.offsetWidth; x.c.classList.add('flash');
+          x.c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        };
+        cell.onclick = open;
+        cell.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
+      }
+      grid.appendChild(cell);
+    }
+    wrap.appendChild(grid);
+    cur = new Date(y, m + 1, 1);
+  }
+  sec.insertBefore(wrap, sec.firstChild);
+  sec.insertBefore(toggle, sec.firstChild);
+}
+
+// ---- Done / needs-review state ----
+// Lives in the ATLAS store: the Supabase `atlas.booking_items` table when the
+// family member is connected, per-browser ticks otherwise. Static flags in the
+// data above (booked / warning) are the fallback defaults.
+function setDone(id, on) {
+  if (/^h:/.test(id)) Atlas.store.set(id, 'needs_review', !on);
+  else Atlas.store.set(id, 'done', on);
+}
+function slug(s) { return String(s).toLowerCase().replace(/<[^>]*>/g, '').replace(/&amp;/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function windowKey(b) { return 'w:' + slug(b.item); }
+function hotelKey(h) { return 'h:' + slug(h.city.split(' (')[0]); }
+function isDone(b) { return window.Atlas ? Atlas.store.isDone(windowKey(b), b.booked) : !!b.booked; }
+function hotelNeedsReview(h) { return !!h.booked && (window.Atlas ? Atlas.store.needsReview(hotelKey(h), !!h.warning) : !!h.warning); }
+
+function showTab(root, sec) {
+  if (!root) return;
+  const btns = root.querySelectorAll('.tb');
+  for (let i = 0; i < btns.length; i++) {
+    if ((btns[i].getAttribute('onclick') || '').indexOf("'" + sec + "'") !== -1) { show(sec, btns[i]); break; }
+  }
+}
+function jumpTab(sec) {
+  showTab(document.getElementById('dashboard-japan'), sec);
+  const tabs = document.querySelector('#dashboard-japan .tabs');
+  if (tabs) window.scrollTo({ top: tabs.getBoundingClientRect().top + window.scrollY - 4, behavior: 'smooth' });
+}
+
+function refreshJapanStatus() { Atlas.refresh(); }
+
+// ---- Trip readiness strip (same model as the ATLAS overview) ----
+function renderReadiness() {
+  const box = document.getElementById('jp-ready');
+  if (!box || !window.Atlas) return;
+  const r = Atlas.readiness('japan');
+  if (!r) return;
+  const bar = box.querySelector('.ready-bar'); bar.innerHTML = '';
+  r.cats.forEach(c => {
+    for (let k = 0; k < c.total; k++) {
+      const seg = document.createElement('i');
+      seg.className = k < c.done ? 'ok' : (c.state === 'attention' && k === c.done ? (c.key === 'hotel' ? 'warn' : 'open') : '');
+      seg.title = c.label;
+      bar.appendChild(seg);
+    }
+  });
+  box.querySelector('.ready-pct').textContent = r.pct + '%';
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const days = Math.round((new Date(2027, 0, 6) - today) / 86400000);
+  box.querySelector('.ready-sub').textContent = `${r.done} of ${r.total} items done` + (days > 0 ? ` · ${days} days to go` : '');
+  const chips = box.querySelector('.ready-chips'); chips.innerHTML = '';
+  const where = { flight: '#/trip/japan/jfl', hotel: '#/trip/japan/jht', ticket: '#/trip/japan/jbk', document: '#/documents' };
+  r.cats.forEach(c => {
+    const a = el('a', 'ready-chip');
+    a.href = where[c.key];
+    a.appendChild(el('span', '', ({ flight: '✈️', hotel: '🏨', ticket: '🎟️', document: '📄' })[c.key] + ' ' + c.label));
+    a.appendChild(el('b', '', c.done + '/' + c.total));
+    if (c.state === 'attention' || c.state === 'progress') a.appendChild(el('em', c.state === 'attention' ? (c.key === 'hotel' ? 'warn' : 'open') : 'note', c.text));
+    chips.appendChild(a);
+  });
+}
+
+// ---- Live tab badges ----
+function renderTabBadges() {
+  const root = document.getElementById('dashboard-japan');
+  if (!root) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const set = (sec, txt, cls) => {
+    const btns = root.querySelectorAll('.tb');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) if ((btns[i].getAttribute('onclick') || '').indexOf("'" + sec + "'") !== -1) { btn = btns[i]; break; }
+    if (!btn) return;
+    let b = btn.querySelector('.badge');
+    if (!txt) { if (b) b.remove(); return; }
+    if (!b) { b = el('span', 'badge'); btn.appendChild(b); }
+    b.textContent = txt; b.className = 'badge ' + (cls || '');
+  };
+  const open = JP_BOOKING_WINDOWS.filter(b => !isDone(b) && new Date(b.date) <= today).length;
+  set('jbk', open ? String(open) : '', '');
+  set('jht', JP_HOTEL_TRACKER.some(hotelNeedsReview) ? '!' : '', 'am');
+}
+
+// ---- Scannable day cards: "a · b · c" paragraphs → bullet lists ----
+function bulletizeDays() {
+  document.querySelectorAll('.day .dc').forEach(p => {
+    const parts = p.innerHTML.split(' · ');
+    if (parts.length < 3) return;
+    const ul = el('ul', 'dcl');
+    const st = p.getAttribute('style'); if (st) ul.setAttribute('style', st);
+    parts.forEach(t => {
+      const li = document.createElement('li');
+      li.innerHTML = t.trim().replace(/^((?:[Ee]arly |[Ll]ate |[Mm]id-)?(?:[Mm]orning|[Aa]fternoon|[Ee]vening|[Nn]ight|[Ll]unch|[Dd]inner|[Bb]reakfast)(?: options?)?):\s*/, '<b>$1</b> · ');
+      ul.appendChild(li);
+    });
+    p.replaceWith(ul);
+    if (parts.length > 3) {
+      const more = el('button', 'dc-more', '+' + (parts.length - 3) + ' more');
+      more.type = 'button';
+      more.onclick = () => { const o = ul.classList.toggle('open'); more.textContent = o ? 'Show less' : '+' + (parts.length - 3) + ' more'; };
+      ul.after(more);
+    }
+  });
+}
+
+// ---- Compact / full detail toggle (remembered per browser) ----
+function initCompactToggles() {
+  let compact = false;
+  try { compact = localStorage.getItem('itin_compact') === '1'; } catch (e) {}
+  document.querySelectorAll('.sec[data-year]').forEach(sec => {
+    const bar = sec.querySelector('.itin-toggle');
+    if (!bar) return;
+    const b = el('button', compact ? 'on' : '', '🔎 Compact'); b.type = 'button';
+    b.title = 'Show only the first 3 lines of each day';
+    sec.classList.toggle('compact', compact);
+    b.onclick = () => {
+      const on = !sec.classList.contains('compact');
+      document.querySelectorAll('.sec[data-year]').forEach(s => s.classList.toggle('compact', on));
+      document.querySelectorAll('.itin-toggle button[title^="Show only"]').forEach(x => x.classList.toggle('on', on));
+      try { localStorage.setItem('itin_compact', on ? '1' : '0'); } catch (e) {}
+    };
+    bar.insertBefore(b, bar.firstChild);
+  });
+}
+
+// ---- Sticky leg headers need to know how tall the (wrapping) tab bar is ----
+function syncTabsH() {
+  const tabs = Array.prototype.find.call(document.querySelectorAll('.dash-root .tabs'), t => t.offsetParent !== null);
+  document.documentElement.style.setProperty('--tabs-h', (tabs ? tabs.offsetHeight : 48) + 'px');
+}
+window.addEventListener('resize', syncTabsH, { passive: true });
+
+// ---- Back-to-top (dashboards only; the picker is its own scroll box) ----
+let _toTopInit = false;
+function initToTop() {
+  const b = document.getElementById('to-top');
+  if (!b || _toTopInit) return;
+  _toTopInit = true;
+  b.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.addEventListener('scroll', () => b.classList.toggle('on', window.scrollY > 500), { passive: true });
+}
+
+function show(id,btn){
+  const root = btn.closest('.dash-root') || document;
+  root.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  root.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if (window.Atlas) Atlas.onTab(id, btn);
+}
+</script>
+</body>
+</html>
