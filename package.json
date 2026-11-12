@@ -1,0 +1,9 @@
+{
+  "name": "atlas-family-travel",
+  "private": true,
+  "description": "ATLAS — family travel dashboard (static site on GitHub Pages; data in Supabase).",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node --check atlas/engine.js && node --check atlas/atlas.js"
+  }
+}

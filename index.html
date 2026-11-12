@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://accounts.google.com">
+<link rel="preconnect" href="https://rtkshjedyaqwwmfcaufk.supabase.co" crossorigin>
+<title>ATLAS &middot; Family Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="atlas/engine.js" defer></script>
+<script src="atlas/atlas.js" defer></script>
+<style>
+:root{--flag-gradient:linear-gradient(90deg,#169b62 0 33%,#005eb8 33% 44%,#fff 44% 55%,#003078 55% 66%,#cf142b 66% 72%,#fff 72% 78%,#cf142b 78% 84%,#003078 84% 100%)}
+/* GOOGLE SIGN-IN GATE */
+#g-oauth{position:fixed;inset:0;background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);display:flex;align-items:center;justify-content:center;z-index:100000;transition:opacity .4s}
+.go-btn-wrap{display:flex;justify-content:center;min-height:44px;margin:1.5rem 0 .5rem}
+.go-err{color:#fca5a5;font-size:12px;min-height:18px;margin-top:8px}
+.go-note{font-size:11px;color:rgba(255,255,255,.45);margin-top:12px;line-height:1.6}
+.go-retry{margin-top:12px;font-size:12px;color:#93c5fd;background:none;border:none;cursor:pointer;text-decoration:underline;display:none}
+.g-box{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:2.5rem 2rem;width:calc(100% - 2rem);max-width:380px;text-align:center;box-sizing:border-box}
+.g-flag{height:4px;background:var(--flag-gradient);margin-bottom:2rem;border-radius:2px}
+.g-dest{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.g-badge{font-size:12px;border-radius:6px;padding:3px 10px}
+.g-badge.ie{background:rgba(22,155,98,.25);border:.5px solid rgba(22,155,98,.5);color:#6ee7b7}
+.g-badge.sc{background:rgba(0,48,120,.35);border:.5px solid rgba(100,149,237,.4);color:#93c5fd}
+.g-badge.uk{background:rgba(207,20,43,.2);border:.5px solid rgba(207,20,43,.4);color:#fca5a5}
+.g-lock{font-size:32px;margin-bottom:1rem}
+.g-title{font-family:Georgia,serif;font-size:22px;font-weight:300;color:white;margin-bottom:4px}
+.g-sub{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:1.5rem}
+.g-shield{font-size:11px;color:rgba(255,255,255,.25);margin-top:1rem}
+.hero-ctrls{position:absolute;top:14px;right:16px;z-index:5;display:flex;gap:8px}
+.switch-trip{font-size:11px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;backdrop-filter:blur(8px);transition:background .15s}
+.switch-trip:hover{background:rgba(255,255,255,.25)}
+.switch-trip.out{border-color:rgba(252,165,165,.5)}
+.switch-trip.out:hover{background:rgba(220,38,38,.35)}
+.g-badge.jp{background:rgba(188,0,45,.25);border:.5px solid rgba(188,0,45,.5);color:#fca5a5}
+.g-badge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
+.g-badge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
+.g-badge.kl{background:rgba(13,148,136,.28);border:.5px solid rgba(13,148,136,.5);color:#5eead4}
+.g-badge.mng{background:rgba(234,88,12,.22);border:.5px solid rgba(234,88,12,.45);color:#fdba74}
+.g-trip-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 6px}
+</style>
+<style id="dash-style" media="none">
+
+:root{
+  --ink:#18181b;--muted:#71717a;--faint:#f4f4f5;--border:#e4e4e7;--w:#fff;
+  --navy:#1e3a5f;--navy-l:#e8f0fb;--navy-m:#3b6cb7;
+  --forest:#1a4731;--forest-l:#dcf0e4;--forest-m:#2d8a55;
+  --amber:#92400e;--amber-l:#fef3c7;--amber-m:#d97706;
+  --rose:#9f1239;--rose-l:#fef2f5;--rose-m:#e11d48;
+  --teal-l:#ccf0f0;--teal-m:#0d9488;
+  --sky-l:#e0f2fe;--sky-m:#0284c7;
+  --violet:#4c1d95;--violet-l:#ede9fe;--violet-m:#7c3aed;
+  --orange:#7c2d12;--orange-l:#fff7ed;--orange-m:#ea580c;
+  --ok:#166534;--ok-l:#dcfce7;--ok-b:#16a34a;
+  --r:10px;--rs:7px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f0ede8;color:var(--ink);line-height:1.6;font-size:14px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%);padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.hero::before{content:'🍀';position:absolute;top:20px;right:60px;font-size:120px;opacity:.06;transform:rotate(15deg);line-height:1;pointer-events:none}
+.flag-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--flag-gradient)}
+.hero.jp{background:linear-gradient(135deg,#9f1239 0%,#7f1d1d 35%,#1e1b4b 70%,#312e81 100%)}
+.hero.jp::before{content:'🌸'}
+.flag-bar.jp{background:linear-gradient(90deg,#bc002d 0 15%,#fff 15% 85%,#bc002d 85% 100%)}
+.dbadge.jp{background:rgba(188,0,45,.25);border:.5px solid rgba(188,0,45,.5);color:#fca5a5}
+.dbadge.jp2{background:rgba(129,140,248,.3);border:.5px solid rgba(129,140,248,.5);color:#c7d2fe}
+.dbadge.jp3{background:rgba(217,119,6,.22);border:.5px solid rgba(217,119,6,.45);color:#fcd34d}
+.hero.kl{background:linear-gradient(135deg,#0f766e 0%,#0c4a6e 40%,#1e3a5f 70%,#164e63 100%)}
+.hero.kl::before{content:'🌴'}
+.flag-bar.kl{background:linear-gradient(90deg,#0d9488 0 40%,#fbbf24 40% 60%,#0d9488 60% 100%)}
+.dbadge.kl{background:rgba(13,148,136,.28);border:.5px solid rgba(13,148,136,.5);color:#5eead4}
+.hero.kd{background:linear-gradient(135deg,#14532d 0%,#115e59 45%,#1e3a5f 100%)}
+.hero.lk{background:linear-gradient(135deg,#7f1d1d 0%,#8d153a 40%,#00534e 100%)}
+.hero.lk::before{content:'🌴'}
+.flag-bar.lk{background:linear-gradient(90deg,#00534e 0 12%,#eb7400 12% 24%,#8d153a 24% 88%,#ffbe29 88% 100%)}
+.dbadge.lk{background:rgba(255,190,41,.22);border:.5px solid rgba(255,190,41,.5);color:#fde68a}
+.hero.kd::before{content:'🏔️'}
+.flag-bar.kd{background:linear-gradient(90deg,#15803d 0 50%,#fbbf24 50% 60%,#15803d 60% 100%)}
+.dbadge.kd{background:rgba(21,128,61,.28);border:.5px solid rgba(21,128,61,.5);color:#86efac}
+.dbadge.mng{background:rgba(234,88,12,.22);border:.5px solid rgba(234,88,12,.45);color:#fdba74}
+.hi{max-width:1140px;margin:0 auto;position:relative;z-index:1}
+.ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-m);margin-bottom:10px}
+.dest-badges{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.dbadge{font-size:13px;border-radius:6px;padding:3px 10px}
+.dbadge.ie{background:rgba(22,155,98,.25);border:.5px solid rgba(22,155,98,.5);color:#6ee7b7}
+.dbadge.sc{background:rgba(0,48,120,.35);border:.5px solid rgba(100,149,237,.4);color:#93c5fd}
+.dbadge.uk{background:rgba(207,20,43,.2);border:.5px solid rgba(207,20,43,.4);color:#fca5a5}
+.dsep{color:rgba(255,255,255,.3);font-size:16px}
+.ht{font-family:'Instrument Serif',serif;font-size:clamp(24px,4vw,46px);font-weight:300;color:white;line-height:1.1;margin-bottom:6px}
+.ht em{color:var(--forest-m);font-style:italic}
+.hs{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:1.75rem;letter-spacing:.02em}
+.travelers{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.75rem}
+.tv{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 10px 5px 5px;transition:background .15s}
+.tv:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25)}
+.tv-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white;flex-shrink:0}
+.tv-n{font-size:11px;color:rgba(255,255,255,.85);font-weight:500}
+.tv-a{font-size:10px;color:rgba(255,255,255,.45)}
+.stats{display:flex;gap:6px;flex-wrap:wrap}
+.st{background:rgba(255,255,255,.07);border:.5px solid rgba(255,255,255,.12);border-radius:var(--rs);padding:8px 13px;text-align:center;min-width:68px}
+.st-n{font-size:19px;font-weight:500;color:white;line-height:1}
+.st-l{font-size:9px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.03em}
+.st.ac .st-n{color:#fb923c}
+.st.ac{border-color:var(--orange-m);background:rgba(234,88,12,.15)}
+.st.ok .st-n{color:#4ade80}
+.st.ok{border-color:var(--ok-b);background:rgba(22,163,74,.15)}
+
+/* LAYOUT */
+.main{max-width:1140px;margin:0 auto;padding:1.75rem 1.5rem 5rem}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.5rem}
+.tb{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;padding:6px 14px;border:.5px solid var(--border);border-radius:20px;cursor:pointer;background:var(--w);color:var(--muted);transition:all .15s;position:relative}
+.tb:hover{border-color:#a1a1aa;color:var(--ink)}
+.tb.active{background:var(--navy);color:white;border-color:var(--navy)}
+.badge{position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:var(--rose-m);color:white;font-size:8px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.sec{display:none}
+.sec.active{display:block}
+
+/* JOURNEY SPINE */
+.spine{overflow-x:auto;padding:8px 0 16px;margin-bottom:.5rem}
+.sr{display:flex;min-width:700px}
+.sr.wide{min-width:960px}
+.sp{flex:1;position:relative;text-align:center}
+.sp:not(:last-child)::after,.sp:not(:first-child)::before{content:'';position:absolute;top:11px;height:1.5px;background:var(--border);z-index:0}
+.sp:not(:last-child)::after{left:50%;right:-50%}
+.sp:not(:first-child)::before{left:0;right:50%}
+.dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--border);background:var(--w);margin:7px auto 5px;position:relative;z-index:1}
+.sp.ie .dot{background:var(--navy-l);border-color:var(--navy-m)}
+.sp.uk .dot{background:var(--violet-l);border-color:var(--violet-m)}
+.sp.sc .dot{background:var(--teal-l);border-color:var(--teal-m)}
+.sp.sl .dot{background:var(--orange-l);border-color:var(--orange-m);width:13px;height:13px;margin-top:5.5px}
+.sp.lo .dot{background:var(--faint);border-color:var(--muted)}
+.spn{font-size:10px;font-weight:600;color:var(--ink)}
+.spd{font-size:9px;color:var(--muted)}
+.sps{font-size:9px;color:var(--muted);font-style:italic}
+
+/* SECTION HEADINGS */
+.sh{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.75rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.shb{font-size:11px;text-transform:none;letter-spacing:0;font-weight:500;border-radius:7px;padding:2px 9px;display:flex;align-items:center;gap:5px;border:.5px solid}
+.shb.pi{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.shb.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.shb.warn{background:var(--rose-l);color:var(--rose);border-color:var(--rose-m)}
+.okdot{width:7px;height:7px;border-radius:50%;background:var(--ok-b);display:inline-block;flex-shrink:0}
+
+/* DAY CARDS */
+.day{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+.dn{min-width:48px;width:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;flex-direction:column;line-height:1.3;padding:6px 4px;text-align:center;gap:1px}
+.dn-d{font-size:9px;font-weight:500;opacity:.8}
+.dn-n{font-size:13px;font-weight:700;line-height:1}
+.dn-w{font-size:9px;font-weight:600;opacity:.85}
+.subh{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .75rem;padding-bottom:7px;border-bottom:.5px solid var(--border)}
+.subh2{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.db{flex:1;background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:11px 14px}
+.db.slp{border-color:var(--orange-m);background:var(--orange-l)}
+.db.rest{border-color:var(--forest-m);background:var(--forest-l)}
+.dt{font-size:13px;font-weight:600;margin-bottom:1px;line-height:1.4}
+.dd{font-size:11px;color:var(--muted);margin-bottom:4px}
+.dc{font-size:12px;color:var(--muted);line-height:1.65}
+.hr{display:flex;align-items:flex-start;gap:6px;margin-top:8px;padding-top:8px;border-top:.5px solid var(--border);flex-wrap:wrap}
+.pip{font-size:10px;padding:1px 7px;border-radius:5px;font-weight:600;flex-shrink:0;border:.5px solid}
+.pip.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.pip.warn{background:var(--rose-l);color:var(--rose-m);border-color:var(--rose-m)}
+.hn{font-size:11px;font-weight:500}
+.hno{font-size:10px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.tag{font-size:10px;padding:2px 7px;border-radius:5px;border:.5px solid;display:inline-block}
+.t-bl{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.t-am{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+.t-gr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.t-vi{background:var(--violet-l);color:var(--violet);border-color:#c4b5fd}
+.t-sk{background:var(--sky-l);color:var(--sky-m);border-color:#7dd3fc}
+.t-ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+
+/* HOTEL GRID */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:10px;margin-bottom:1rem}
+.hc{background:var(--w);border:.5px solid var(--border);border-radius:var(--r);padding:14px}
+.hc.ok{border-color:var(--ok-b);background:var(--ok-l)}
+.hc.warn{border-color:var(--rose-m);background:var(--rose-l)}
+.hc.free{border-color:var(--forest-m);background:var(--forest-l)}
+.hc-s{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.hc-s.ok{color:var(--ok)}
+.hc-s.warn{color:var(--rose-m)}
+.hc-city{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:3px}
+.hc-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:1px;line-height:1.3}
+.hc-dates{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--ink);background:var(--faint);border-radius:6px;padding:6px 9px;margin:5px 0 7px}
+.hc-dates b{font-weight:700}
+.hc-dates .arr{color:var(--forest-m)}
+.hc-dates .dep{color:var(--rose-m)}
+.hc-picks{background:var(--faint);border-radius:8px;padding:9px 11px;margin-top:8px}
+.hc-pick-h{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.hc-pick{font-size:11px;color:var(--ink);line-height:1.6;margin-bottom:7px}
+.hc-pick:last-child{margin-bottom:0}
+.hc-pick-tag{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:4px;background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);margin-left:4px}
+.hc-pick-tag.alt{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.hc-pick-tag.mid{background:var(--violet-l);color:var(--violet);border-color:#c4b5fd}
+.hc-pick-tag.lux{background:#fef3c7;color:#92400e;border-color:#fde68a}
+.hc-pick a{color:var(--navy-m);text-decoration:none;font-weight:600}
+.hc-pick a:hover{text-decoration:underline}
+.hc-addr{font-size:11px;color:var(--muted);margin-bottom:2px}
+.hc-sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+.hc-ref{font-size:10px;font-weight:600;background:var(--ok-l);color:var(--ok);border:.5px solid var(--ok-b);padding:2px 7px;border-radius:5px;display:inline-block;margin-bottom:7px}
+.perks{display:flex;flex-wrap:wrap;gap:3px}
+.pk{font-size:10px;padding:2px 6px;border-radius:5px;background:var(--faint);border:.5px solid var(--border);color:var(--muted)}
+.pk.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.pk.gr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.pk.am{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+
+/* EXPERIENCE GRID */
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:1rem}
+.ec{border-radius:var(--r);padding:14px;border:.5px solid var(--border)}
+.ec.vi{background:var(--violet-l);border-color:#c4b5fd}
+.ec.gr{background:var(--forest-l);border-color:var(--forest-m)}
+.ec.or{background:var(--orange-l);border-color:#fed7aa}
+.ec.gy{background:var(--faint);border-color:var(--border)}
+.ec.sk{background:var(--sky-l);border-color:#7dd3fc}
+.ec.bl{background:var(--navy-l);border-color:#b5d4f4}
+.ec-s{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.ec-n{font-family:'Instrument Serif',serif;font-size:28px;font-weight:300;line-height:1;margin-bottom:4px}
+.ec-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.ec-day{font-size:11px;color:var(--muted);margin-bottom:6px}
+.ec-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.ec-book{font-size:11px;font-weight:600}
+
+/* BOOKING LIST */
+.bklist{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.bk{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border-radius:var(--rs);border:.5px solid var(--border);background:var(--w)}
+.bk.ok{border-color:var(--ok-b);background:var(--ok-l)}
+.bk.urg{border-color:var(--rose-m);background:var(--rose-l)}
+.bk.am{border-color:var(--amber-m);background:var(--amber-l)}
+.bk.gr{border-color:var(--forest-m);background:var(--forest-l)}
+.bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.bt{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.bk.ok .bt{color:var(--ok)}
+.bk.ok .bd{color:var(--ok)}
+.bk.urg .bt,.bk.urg .bd{color:var(--rose)}
+.bd{font-size:11px;color:var(--muted);line-height:1.55}
+.btag{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:.5px solid}
+.btag.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+.btag.urg{background:var(--rose-l);color:var(--rose-m);border-color:var(--rose-m)}
+.btag.am{background:var(--amber-l);color:var(--amber);border-color:var(--amber-m)}
+
+/* PRIORITY BOOKING TIMELINE */
+.pbt-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.pbt-item{display:flex;gap:12px;align-items:center;padding:11px 14px;border-radius:var(--r);border:.5px solid var(--border);background:var(--w)}
+.pbt-item.pbt-open{border-color:var(--ok-b);background:var(--ok-l)}
+.pbt-item.pbt-today{border-color:var(--rose-m);background:var(--rose-l)}
+.pbt-date{min-width:64px;text-align:center;font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-l);border-radius:8px;padding:6px 4px;flex-shrink:0;line-height:1.3}
+.pbt-main{flex:1;min-width:0}
+.pbt-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.pbt-why{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:2px}
+.pbt-when{font-size:10px;color:var(--muted);font-style:italic}
+.pbt-status{flex-shrink:0;text-align:right;font-size:11px;font-weight:600;color:var(--muted);min-width:96px}
+.pbt-item.pbt-today .pbt-status{color:var(--rose-m)}
+.pbt-item.pbt-open .pbt-status{color:var(--ok)}
+.pbt-link{display:block;font-size:10px;font-weight:500;color:var(--navy-m);text-decoration:none;margin-top:3px}
+.pbt-link:hover{text-decoration:underline}
+@media(max-width:600px){.pbt-item{flex-wrap:wrap}.pbt-status{width:100%;text-align:left;margin-top:4px;min-width:0}}
+
+/* PROGRESS BAR */
+.prog{height:6px;border-radius:3px;background:var(--border);margin-bottom:4px;overflow:hidden}
+.prog-f{height:100%;border-radius:3px}
+
+/* ALERTS */
+.alert{padding:10px 14px;border-radius:var(--rs);margin-bottom:10px;font-size:12px;line-height:1.6;border:.5px solid}
+.a-bl{background:var(--navy-l);color:var(--navy);border-color:#b5d4f4}
+.a-gr{background:var(--forest-l);color:var(--forest);border-color:var(--forest-m)}
+.a-am{background:var(--amber-l);color:var(--amber);border-color:#fde68a}
+.a-ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+
+/* KID GRID */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:8px;margin-bottom:1rem}
+.kc{background:var(--w);border:.5px solid var(--border);border-radius:var(--rs);padding:12px 14px}
+.kc-t{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.kc-b{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* FLIGHT CARDS */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:16px}
+.fc{background:var(--ok-l);border:1px solid var(--ok-b);border-radius:var(--r);padding:14px}
+.fc-s{font-size:10px;font-weight:700;color:var(--ok);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.fc-route{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.fc-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.fc-times{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:8px}
+.fc-time{font-size:18px}
+.fc-iata{font-size:10px;color:var(--muted);font-weight:400}
+.fc-arrow{color:var(--muted);font-size:11px;align-self:center}
+.fc-note{font-size:11px;color:var(--muted)}
+
+/* TABLES */
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:.75rem}
+th{text-align:left;padding:7px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:.5px solid var(--border)}
+td{padding:7px 10px;border-bottom:.5px solid var(--border);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+
+/* FOOTER */
+.footer{margin-top:3rem;padding:1.5rem;border-top:.5px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fb{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;padding:9px 18px;border-radius:20px;border:.5px solid var(--border);background:var(--w);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
+.fb:hover{background:var(--faint)}
+.fb.p{background:var(--navy);color:white;border-color:var(--navy)}
+.fb.ok{background:var(--ok-l);color:var(--ok);border-color:var(--ok-b)}
+
+/* STICKY TABS + PLANNING AIDS */
+.tabs{position:sticky;top:0;z-index:40;background:rgba(240,237,232,.93);backdrop-filter:blur(8px);padding:10px 0;margin:-10px 0 1.25rem}
+.day.weekend .dn{box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.14)}
+.day.weekend .dn-w{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2px}
+.day.today .db{border:1.5px solid var(--amber-m);box-shadow:0 0 0 4px rgba(217,119,6,.12)}
+.day.today .dt::before{content:'TODAY';font-size:9px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--amber-m);border-radius:4px;padding:1px 5px;margin-right:6px;vertical-align:1px}
+.day.flash .db{animation:dayFlash 1.6s ease-out}
+@keyframes dayFlash{0%{box-shadow:0 0 0 5px rgba(30,58,95,.45)}100%{box-shadow:0 0 0 0 rgba(30,58,95,0)}}
+#to-top{position:fixed;right:18px;bottom:18px;width:40px;height:40px;border-radius:50%;border:.5px solid var(--border);background:var(--w);color:var(--ink);font-size:16px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.15);opacity:0;pointer-events:none;transition:opacity .2s;z-index:45}
+#to-top.on{opacity:1;pointer-events:auto}
+/* CALENDAR VIEW */
+.itin-toggle{display:flex;gap:4px;margin:0 0 1rem;justify-content:flex-end}
+.itin-toggle button{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;padding:5px 12px;border:.5px solid var(--border);background:var(--w);color:var(--muted);cursor:pointer;border-radius:20px}
+.itin-toggle button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cal-wrap{display:none}
+.sec.cal-mode>*:not(.cal-wrap):not(.itin-toggle){display:none}
+.sec.cal-mode .cal-wrap{display:block}
+.cal-month{font-size:13px;font-weight:600;margin:.5rem 0 8px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-bottom:1.25rem}
+.cal-dow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding-bottom:2px}
+.cal-dow:nth-child(6),.cal-dow:nth-child(7){color:var(--rose-m)}
+.cal-cell{min-height:74px;border-radius:8px;border:.5px solid var(--border);background:var(--w);padding:5px 6px;font-size:10px;line-height:1.3;cursor:pointer;display:flex;flex-direction:column;gap:2px;overflow:hidden;transition:transform .12s,box-shadow .12s}
+.cal-cell:hover,.cal-cell:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12);outline:none}
+.cal-cell.empty{background:transparent;border-style:dashed;cursor:default;opacity:.45}
+.cal-cell.empty:hover{transform:none;box-shadow:none}
+.cal-cell.wknd .cal-d::after{content:'·';color:var(--rose-m);margin-left:2px}
+.cal-cell.today{outline:2px solid var(--amber-m);outline-offset:1px}
+.cal-d{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:11px;color:var(--ink)}
+.cal-d small{font-weight:600;font-size:9px;opacity:.75}
+.cal-t{color:var(--ink);opacity:.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:10px}
+@media(max-width:600px){.cal-cell{min-height:60px;padding:4px 4px}.cal-t{font-size:9px;-webkit-line-clamp:2}.cal-d{font-size:10px}.cal-grid{gap:3px}}
+/* MODERN DASHBOARD: readiness, badges, ticks, bullets, sticky leg headers */
+.ready{background:var(--w);border:.5px solid var(--border);border-radius:14px;padding:12px 14px 12px;margin:0 0 1.25rem;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.ready-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.ready-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.ready-sub{font-size:11px;color:var(--muted)}
+.ready-pct{font-family:'Instrument Serif',serif;font-size:26px;font-weight:500;color:var(--ink);line-height:1}
+.ready-bar{display:flex;gap:2px;height:8px;margin-bottom:10px}
+.ready-bar i{flex:1;border-radius:3px;background:var(--faint);border:.5px solid var(--border)}
+.ready-bar i.ok{background:var(--ok-b);border-color:var(--ok-b)}
+.ready-bar i.warn{background:var(--amber-m);border-color:var(--amber-m)}
+.ready-bar i.open{background:var(--rose-m);border-color:var(--rose-m)}
+.ready-chips{display:flex;gap:6px;flex-wrap:wrap}
+.ready-chip{text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:5px 10px;border-radius:20px;border:.5px solid var(--border);background:var(--faint);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.ready-chip:hover,.ready-chip:focus-visible{border-color:#a1a1aa;background:var(--w);outline:none}
+.ready-chip b{font-weight:700}
+.ready-chip em{font-style:normal;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--w);border:.5px solid var(--border);color:var(--muted)}
+.ready-chip em.warn{background:var(--amber-l);color:var(--amber);border-color:var(--amber-m)}
+.ready-chip em.open{background:var(--rose-l);color:var(--rose);border-color:var(--rose-m)}
+.ready-tick{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;background:var(--w);color:transparent}
+.ready-tick:hover{border-color:var(--ok-b)}
+.ready-tick.on{background:var(--ok-b);border-color:var(--ok-b);color:#fff}
+.badge.am{background:var(--amber-m)}
+.pbt-done{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:3px 9px;border-radius:12px;border:.5px solid var(--ok-b);background:var(--w);color:var(--ok);cursor:pointer;margin-top:6px;display:inline-block;transition:background .15s}
+.pbt-done:hover{background:var(--ok-l)}
+.pbt-done.on{background:var(--ok-l)}
+.dcl{list-style:none;margin:4px 0 0;padding:0;font-size:12px;color:var(--muted);line-height:1.55}
+.dcl li{position:relative;padding-left:13px;margin:3px 0}
+.dcl li::before{content:'';position:absolute;left:1px;top:.6em;width:5px;height:5px;border-radius:50%;background:#c4c0b8}
+.dcl li b{color:var(--ink);font-weight:600}
+.dc-more{display:none;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--navy-m);background:none;border:none;padding:4px 0 0;cursor:pointer}
+.sec.compact .dcl:not(.open) li:nth-child(n+4){display:none}
+.sec.compact .dc-more{display:inline-block}
+.sec.compact .dcl.open+.dc-more{display:inline-block}
+.sh{position:sticky;top:var(--tabs-h,48px);z-index:30;background:rgba(240,237,232,.96);backdrop-filter:blur(6px);padding-top:6px;margin-top:1.25rem}
+.sh>span:first-child{display:inline-flex;align-items:center;gap:6px}
+.db{border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:box-shadow .15s}
+.db:hover{box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.dn{border-radius:12px}
+.alert{border-radius:12px}
+@media(max-width:600px){.ready{padding:10px 12px}.ready-pct{font-size:22px}.ready-chip{font-size:10px;padding:4px 8px}}
+@media print{.hero{background:linear-gradient(135deg,#1a4731 0%,#0d4f4f 35%,#2d3561 65%,#4a1942 100%)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.footer,.tabs,#to-top,.itin-toggle,.dc-more{display:none}.sec{display:block!important}.sec.compact .dcl li{display:list-item!important}.sh{position:static}.sh{margin-top:1rem}}
+@media(max-width:600px){.hero{padding:3.6rem 1.25rem 2rem}.main{padding:1.5rem 1rem 3rem}}
+
+</style>
+<link rel="stylesheet" href="atlas/atlas.css">
+</head>
+<body>
+
+<!-- GOOGLE SIGN-IN GATE -->
+<div id="g-oauth">
+  <div class="g-box">
+    <div class="g-flag"></div>
+        <div class="g-wordmark">ATLAS</div>
+    <div class="g-title">Family travel, one trip at a time</div>
+    <p class="g-sub">Sign in with Google to continue</p>
+    <div class="go-btn-wrap" id="go-btn"></div>
+    <div class="go-err" id="go-err"></div>
+    <button class="go-retry" id="go-retry" onclick="location.reload()">Sign-in didn&rsquo;t load &mdash; tap to retry</button>
+    <p class="go-note">Access is limited to authorised family accounts.</p>
+    <div class="g-shield">&#128272; Google Sign-In &middot; booking references are never stored on this page</div>
+  </div>
+</div>
+
+<!-- ATLAS APP SHELL (rendered by atlas/atlas.js after sign-in) -->
+<div id="atlas" class="atlas" hidden>
+  <button type="button" class="ax-skip" onclick="var v=document.querySelector('.ax-view.on');if(v&&!document.getElementById('ax-main').hidden)v.focus()">Skip to content</button>
+  <aside class="ax-nav" aria-label="Main navigation">
+    <div class="ax-brand"><span class="ax-logo">ATLAS</span><span class="ax-tag">Family travel</span></div>
+    <nav class="ax-links">
+      <a href="#/overview" data-nav="overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+      <a href="#/trips" data-nav="trips"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Trips</a>
+      <a href="#/itinerary" data-nav="itinerary"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2M7 17h2M11 17h2"/></svg>Itinerary</a>
+      <a href="#/bookings" data-nav="bookings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Bookings</a>
+      <a href="#/documents" data-nav="documents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg>Documents</a>
+    </nav>
+    <div class="ax-nav-foot">
+      <div class="ax-quote">Explore the world, one trip at a time.</div>
+      <div class="ax-sync local" id="ax-sync" aria-live="polite"><i></i><span>This browser only</span></div>
+      <div class="ax-user"><span class="ax-avatar">·</span><span><b id="ax-user-name"></b><small id="ax-user-email"></small></span><button type="button" class="ax-logout" onclick="logout()">Log out</button></div>
+    </div>
+  </aside>
+
+  <main class="ax-main" id="ax-main">
+    <!-- OVERVIEW -->
+    <section class="ax-view" data-view="overview" id="ax-content" tabindex="-1">
+      <div class="ax-hero">
+        <div class="ax-globe-stage" id="ax-globe-stage">
+          <canvas id="ax-globe" aria-hidden="true"></canvas>
+          <div class="ax-tip" id="ax-tip" aria-hidden="true"></div>
+          <div class="ax-globe-fallback" aria-label="Trips"></div>
+          <div class="ax-globe-hint">Drag to spin · tap a destination to open it</div>
+        </div>
+        <div class="ax-hero-grid">
+          <div class="ax-hero-copy">
+            <div class="ax-mtop"><span class="ax-logo">ATLAS</span><button type="button" onclick="logout()" aria-label="Log out"><span class="ax-avatar">·</span><span id="ax-mname"></span> · Log out</button></div>
+            <div class="ax-eyebrow" id="ax-eyebrow">Welcome back</div>
+            <h1 class="ax-h1" id="ax-h1">Loading your trips…</h1>
+            <p class="ax-lede" id="ax-lede"></p>
+          </div>
+          <div class="ax-side">
+            <label class="ax-select"><span>Trip</span><select id="ax-dest" aria-label="Choose a trip to focus on"></select></label>
+            <aside class="ax-summary" id="ax-summary" aria-label="Trip summary"></aside>
+          </div>
+        </div>
+      </div>
+
+      <div class="ax-sheet"><div class="ax-sheet-in">
+        <section class="ax-sec ax-intel" aria-labelledby="ax-intel-h">
+          <div class="ax-sec-h">
+            <div><div class="ax-intel-kicker"><span aria-hidden="true">✦</span> Live analysis</div><h2 class="ax-h2" id="ax-intel-h">ATLAS Intelligence</h2><p class="ax-sub" id="ax-intel-sub">Analysing this trip…</p></div>
+            <div class="ax-intel-counts" id="ax-intel-counts" aria-label="Insight counts"></div>
+          </div>
+          <div class="ax-insights" id="ax-insights" aria-live="polite"><div class="ax-in sk"></div><div class="ax-in sk"></div><div class="ax-in sk"></div></div>
+          <div class="ax-intel-bar">
+            <div class="ax-ask-chips" id="ax-ask-chips" aria-label="Ask ATLAS"></div>
+            <button type="button" class="ax-btn ghost" id="ax-intel-toggle" aria-controls="ax-intel-panel" aria-expanded="false">View all insights</button>
+          </div>
+          <div class="ax-intel-panel" id="ax-intel-panel" hidden>
+            <div class="ax-tabs" id="ax-intel-tabs" role="tablist" aria-label="Intelligence views">
+              <button type="button" role="tab" data-itab="all">All insights</button>
+              <button type="button" role="tab" data-itab="calendar">Booking calendar</button>
+              <button type="button" role="tab" data-itab="reminders">Reminders</button>
+              <button type="button" role="tab" data-itab="ask">Ask ATLAS</button>
+            </div>
+            <div id="ax-intel-pane" role="tabpanel"></div>
+          </div>
+        </section>
+
+        <section class="ax-sec" aria-labelledby="ax-journey-h">
+          <div class="ax-sec-h"><div><h2 class="ax-h2" id="ax-journey-h">Journey</h2><p class="ax-sub">Where you sleep, how you get there and what’s planned — tap a stop to open those days.</p></div><a class="ax-link" id="ax-journey-link" href="#/itinerary">Full itinerary</a></div>
+          <div class="ax-journey" id="ax-journey"></div>
+        </section>
+
+        <section class="ax-sec" aria-labelledby="ax-days-h">
+          <div class="ax-sec-h"><div><h2 class="ax-h2" id="ax-days-h">Day by day</h2><p class="ax-sub" id="ax-days-sub"></p></div></div>
+          <div class="ax-days-wrap">
+            <div class="ax-days-nav"><button type="button" data-scroll="-1" aria-label="Scroll days left">←</button><button type="button" data-scroll="1" aria-label="Scroll days right">→</button></div>
+            <div class="ax-days" id="ax-days"></div>
+          </div>
+          <div class="ax-more-row ax-days-more"><button type="button" class="ax-btn ghost" id="ax-days-more" hidden>Show all days</button></div>
+        </section>
+
+        <section class="ax-sec" aria-labelledby="ax-lib-h">
+          <div class="ax-sec-h"><h2 class="ax-h2" id="ax-lib-h">Your trips</h2><a class="ax-link" href="#/trips">Trip library</a></div>
+          <div class="ax-tabs" id="ax-lib-tabs" role="tablist" aria-label="Trip library">
+            <button type="button" role="tab" data-tab="upcoming" aria-selected="true">Upcoming <span></span></button>
+            <button type="button" role="tab" data-tab="completed" aria-selected="false">Completed <span></span></button>
+            <button type="button" role="tab" data-tab="saved" aria-selected="false">Saved <span></span></button>
+          </div>
+          <div class="ax-lib" id="ax-lib-ov" role="tabpanel"></div>
+        </section>
+
+        <p class="ax-credits" id="ax-credits"></p>
+      </div></div>
+    </section>
+
+    <!-- TRIPS -->
+    <section class="ax-view ax-page" data-view="trips" tabindex="-1">
+      <div class="ax-page-h"><div class="ax-eyebrow">Trip library</div><h1 class="ax-h1">Every journey, in one place</h1><p class="ax-sub">Upcoming trips, your travel journal of completed ones, and saved plans.</p></div>
+      <div class="ax-page-in" id="ax-lib-all"></div>
+      <div class="ax-page-in"><section class="ax-hist" id="ax-history" aria-label="Travel history"></section></div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section class="ax-view ax-page" data-view="documents" tabindex="-1">
+      <div class="ax-page-h"><div class="ax-eyebrow">Documents · <span id="ax-docs-h"></span></div><h1 class="ax-h1">Everything you’ll need to show</h1><p class="ax-sub">Checks before you fly, every booking with its confirmation, and the family’s passports.</p>
+        <div class="ax-doc-trips" id="ax-doc-trips" aria-label="Choose trip"></div></div>
+      <div class="ax-page-in"><h2 class="ax-h2 ax-sec-t">Before you fly</h2><div class="ax-docs" id="ax-docs"></div>
+        <h2 class="ax-h2 ax-pp-h2">Travel wallet</h2>
+        <p class="ax-sub">Flights, hotels and tickets in one place — add the booking reference and attach the confirmation PDF or screenshot.</p>
+        <div class="ax-wallet" id="ax-wallet"></div>
+        <h2 class="ax-h2 ax-pp-h2">Passports</h2>
+        <p class="ax-sub">Each must run 6 months past the trip’s end. Tap a name for the full details.</p>
+        <div class="ax-pplist" id="ax-pp-list"></div>
+        <p class="ax-note">🔒 Passport details, booking references and confirmation files live only in ATLAS’s private database and file store — readable by the family’s Google accounts, never part of this page’s code.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- TRIP PAGES: private. Loaded from the ATLAS database (atlas.app_content) only after a
+     family member signs in — none of the trip content is part of this page's code. -->
+<div id="ax-trip-pages"></div>
+
+<button id="to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>
+
+<script>
+// Private trip data — filled from atlas.app_content after sign-in (see setPrivateData).
+let TRIP_DASHBOARDS = {}, JP_BOOKING_WINDOWS = [], JP_HOTEL_TRACKER = [], TIMELINE_TRIP = '';
+function setPrivateData(cfg) {
+  TRIP_DASHBOARDS = cfg.tripDashboards || {};
+  JP_BOOKING_WINDOWS = cfg.jpWindows || [];
+  JP_HOTEL_TRACKER = cfg.jpHotels || [];
+  TIMELINE_TRIP = cfg.timelineTrip || '';   // the trip whose page has the booking timeline
+}
+
+// Navigation goes through the ATLAS router (atlas/atlas.js) so every view has
+// a URL: #/overview, #/trips, #/documents, #/trip/<id>[/<tab>[/<day>]].
+function selectTrip(which) { Atlas.go('#/trip/' + which); }
+function switchTrip() { Atlas.go('#/overview'); }
+
+function logout() {
+  // Clear the session and reload so the sign-in gate is shown fresh.
+  sessionStorage.clear();
+  try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch(e) {}
+  location.reload();
+}
+
+// ---- Google Sign-In gate (access control for authorised family accounts) ----
+const G_CLIENT_ID = '717827758789-99ugj40a6j2rr4r7db26shn0hivq0vv0.apps.googleusercontent.com';
+// No allow-list in the page: the ATLAS database only shares the trips with the
+// family's Google accounts (row-level security), so any other account sees a locked screen.
+
+function decodeJwt(t) {
+  try { return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))); }
+  catch(e) { return null; }
+}
+
+function handleGoogleCredential(resp) {
+  const err = document.getElementById('go-err');
+  const p = resp && resp.credential ? decodeJwt(resp.credential) : null;
+  if (!p) { err.textContent = 'Sign-in failed. Please try again.'; return; }
+  const now = Math.floor(Date.now() / 1000);
+  const issOK = p.iss === 'accounts.google.com' || p.iss === 'https://accounts.google.com';
+  if (p.aud !== G_CLIENT_ID || !issOK || (p.exp && p.exp < now)) {
+    err.textContent = 'Sign-in could not be verified. Please try again.'; return;
+  }
+  const email = (p.email || '').trim().toLowerCase();
+  if (!p.email_verified || !email) {
+    err.textContent = 'This Google account’s email isn’t verified.';
+    try { google.accounts.id.disableAutoSelect(); } catch(e) {}
+    return;
+  }
+  sessionStorage.setItem('google_ok', email);
+  // Exchange the same Google ID token for an ATLAS (Supabase) session first:
+  // the trip pages are private and load only once that session exists.
+  if (window.Atlas) Atlas.connect(resp.credential);
+  proceedAfterGoogle();
+}
+
+// Google sign-in is the only gate. On success go straight to ATLAS. Booking references are never embedded in this page (🔒 marks
+// where one exists) — look them up in the original confirmations.
+function proceedAfterGoogle() {
+  const o = document.getElementById('g-oauth');
+  o.style.opacity = '0';
+  setTimeout(() => { o.style.display = 'none'; }, 400);
+  enterDashboards();
+}
+
+function enterDashboards() {
+  document.getElementById('dash-style').removeAttribute('media');
+  initToTop();
+  Atlas.start();   // loads the private trip pages, then calls onTripPagesReady()
+}
+
+// Runs once the private trip pages have been injected into #ax-trip-pages.
+function onTripPagesReady() {
+  renderBookingTimeline();
+  renderHotelTracker();
+  decorateDays();
+  bulletizeDays();
+  initCompactToggles();
+  renderReadiness();
+  renderTabBadges();
+}
+
+// Booking-priority timeline: JP_BOOKING_WINDOWS (private content). `date` is when the
+// booking window opens: 'fixed' = a vendor release rule, 'reco' = our recommended buffer.
+function renderBookingTimeline() {
+  const el = document.getElementById('jp-booking-timeline');
+  if (!el) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const items = JP_BOOKING_WINDOWS
+    .map(b => ({ ...b, openDate: new Date(b.date) }))
+    .sort((a, b) => a.openDate - b.openDate);
+
+  el.innerHTML = items.map(b => {
+    const diffDays = Math.round((b.openDate - today) / 86400000);
+    let cls, status;
+    const ticked = !b.booked && isDone(b);
+    if (b.booked || ticked) {
+      cls = 'pbt-open';
+      status = '✅ Booked';
+    } else if (diffDays > 0) {
+      cls = '';
+      status = `Opens in ${diffDays} day${diffDays === 1 ? '' : 's'}`;
+    } else if (diffDays === 0) {
+      cls = 'pbt-today';
+      status = '🔴 Opens today!';
+    } else {
+      cls = 'pbt-open';
+      status = '✅ Window is open';
+    }
+    const dateLabel = b.openDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    const ruleTag = b.type === 'fixed' ? '🔒' : '💡';
+    const link = b.url ? `<a class="pbt-link" href="${b.url}" target="_blank" rel="noopener noreferrer">Official site →</a>` : '';
+    const tick = b.booked ? '' : `<button type="button" class="pbt-done${ticked ? ' on' : ''}" onclick="setDone('${windowKey(b)}', ${ticked ? 'false' : 'true'})">${ticked ? '↩ Undo' : '✓ Mark booked'}</button>`;
+    return `<div class="pbt-item ${cls}">
+      <div class="pbt-date">${ruleTag}<br>${dateLabel}</div>
+      <div class="pbt-main">
+        <div class="pbt-title">${b.icon} ${b.item}</div>
+        <div class="pbt-why">${b.why}</div>
+        <div class="pbt-when">${b.when}</div>
+        ${link} ${tick}
+      </div>
+      <div class="pbt-status">${status}</div>
+    </div>`;
+  }).join('');
+}
+
+// Hotel tracker: JP_HOTEL_TRACKER (private content).
+function renderHotelTracker() {
+  const el = document.getElementById('jp-hotel-tracker');
+  if (!el) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const items = JP_HOTEL_TRACKER
+    .map(h => ({ ...h, byDate: new Date(h.recommendBy) }))
+    .sort((a, b) => a.byDate - b.byDate);
+
+  el.innerHTML = items.map(h => {
+    let cls, status, dateBadge, tick = '';
+    if (hotelNeedsReview(h)) {
+      cls = 'pbt-today';
+      status = '⚠️ Needs review';
+      dateBadge = '⚠️<br>Review';
+      tick = `<button type="button" class="pbt-done" onclick="setDone('${hotelKey(h)}', true)">✓ Occupancy confirmed with hotel</button>`;
+    } else if (h.booked && h.warning) {
+      cls = 'pbt-open';
+      status = '✅ Booked · confirmed';
+      dateBadge = '✅<br>Booked';
+      tick = `<button type="button" class="pbt-done on" onclick="setDone('${hotelKey(h)}', false)">↩ Undo confirmation</button>`;
+    } else if (h.booked) {
+      cls = 'pbt-open';
+      status = '✅ Booked';
+      dateBadge = '✅<br>Booked';
+    } else {
+      const diffDays = Math.round((h.byDate - today) / 86400000);
+      const dateLabel = h.byDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      dateBadge = `💡<br>${dateLabel}`;
+      if (diffDays > 0) {
+        cls = '';
+        status = `${diffDays} day${diffDays === 1 ? '' : 's'} left to book by`;
+      } else {
+        cls = 'pbt-today';
+        status = '⚠️ Past our target — book ASAP';
+      }
+    }
+    return `<div class="pbt-item ${cls}">
+      <div class="pbt-date">${dateBadge}</div>
+      <div class="pbt-main">
+        <div class="pbt-title">${h.icon} ${h.city}</div>
+        <div class="pbt-why">${h.note}</div>
+        <div class="pbt-when">${h.nights}</div>
+        ${tick}
+      </div>
+      <div class="pbt-status">${status}</div>
+    </div>`;
+  }).join('');
+
+  const bookedCount = JP_HOTEL_TRACKER.filter(h => h.booked).length;
+  const warningCount = JP_HOTEL_TRACKER.filter(hotelNeedsReview).length;
+  const pendingCount = JP_HOTEL_TRACKER.length - bookedCount;
+  const pendingHeading = document.getElementById('jht-pending-heading');
+  if (pendingHeading) {
+    pendingHeading.textContent = pendingCount === 0
+      ? (warningCount === 0 ? '✅ All hotels booked!' : `✅ All hotels booked — ${warningCount} need${warningCount === 1 ? 's' : ''} review`)
+      : bookedCount === 0
+        ? '⏳ Pending — none booked yet'
+        : `⏳ Pending — ${pendingCount} of ${JP_HOTEL_TRACKER.length} still to book`;
+    pendingHeading.style.color = pendingCount === 0 ? (warningCount === 0 ? 'var(--ok)' : 'var(--amber)') : 'var(--rose-m)';
+  }
+  const label = document.getElementById('jht-progress-label');
+  if (label) {
+    label.textContent = `${bookedCount} of ${JP_HOTEL_TRACKER.length} booked`;
+    label.style.color = bookedCount === JP_HOTEL_TRACKER.length ? 'var(--ok)' : 'var(--amber)';
+  }
+  const bar = document.querySelector('#jht .prog-f');
+  if (bar) {
+    const pct = Math.max(4, Math.round((bookedCount / JP_HOTEL_TRACKER.length) * 100));
+    bar.style.width = pct + '%';
+    bar.style.background = bookedCount === JP_HOTEL_TRACKER.length ? 'var(--ok-b)' : 'var(--amber-m)';
+  }
+}
+
+let _gTries = 0;
+function initGoogle() {
+  if (!(window.google && google.accounts && google.accounts.id)) {
+    if (++_gTries > 40) { document.getElementById('go-retry').style.display = 'inline-block'; return; }
+    return setTimeout(initGoogle, 150);
+  }
+  google.accounts.id.initialize({
+    client_id: G_CLIENT_ID,
+    callback: handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: false
+  });
+  google.accounts.id.renderButton(document.getElementById('go-btn'), {
+    theme: 'filled_blue', size: 'large', shape: 'pill', text: 'signin_with', width: 260
+  });
+  try { google.accounts.id.prompt(); } catch(e) {}
+}
+
+// On page load — Google sign-in is the only gate.
+window.addEventListener('DOMContentLoaded', () => {
+  const gEmail = sessionStorage.getItem('google_ok');
+  const googleOK = !!gEmail;
+  if (googleOK) {
+    // Already verified this session → go straight in
+    document.getElementById('g-oauth').style.display = 'none';
+    enterDashboards();
+    return;
+  }
+  initGoogle();
+});
+
+// ---- Small DOM helper ----
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+function ymd(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+// ---- Itineraries: weekend/today marks + calendar-grid view ----
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function dayCardDate(card, year) {
+  const d = card.querySelector('.dn-d');
+  const m = d && d.textContent.trim().match(/^(\d{1,2})\s+([A-Za-z]{3})/);
+  if (!m) return null;
+  const mi = MONTHS.indexOf(m[2]);
+  return mi < 0 ? null : new Date(year, mi, +m[1]);
+}
+
+let _daysDecorated = false;
+function decorateDays() {
+  if (_daysDecorated) return;
+  _daysDecorated = true;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  document.querySelectorAll('.sec[data-year]').forEach(sec => {
+    const year = +sec.getAttribute('data-year');
+    sec.querySelectorAll('.day').forEach(card => {
+      const dt = dayCardDate(card, year);
+      if (!dt) return;
+      const wd = dt.getDay();
+      if (wd === 0 || wd === 6) card.classList.add('weekend');
+      if (dt.getTime() === today.getTime()) card.classList.add('today');
+    });
+    buildCalendar(sec, year, today);
+  });
+}
+
+function buildCalendar(sec, year, today) {
+  const cards = [];
+  sec.querySelectorAll('.day').forEach(c => { const dt = dayCardDate(c, year); if (dt) cards.push({ c, dt }); });
+  if (cards.length < 2) return;
+  const byKey = {};
+  cards.forEach(x => { const k = ymd(x.dt); if (!byKey[k]) byKey[k] = x; });
+  const dates = cards.map(x => x.dt).sort((a, b) => a - b);
+  const first = dates[0], last = dates[dates.length - 1];
+
+  const toggle = el('div', 'itin-toggle');
+  const bList = el('button', 'on', '📋 List'), bCal = el('button', '', '📅 Calendar');
+  bList.type = bCal.type = 'button';
+  const setMode = cal => { sec.classList.toggle('cal-mode', cal); bCal.classList.toggle('on', cal); bList.classList.toggle('on', !cal); };
+  bList.onclick = () => setMode(false);
+  bCal.onclick = () => setMode(true);
+  toggle.appendChild(bList); toggle.appendChild(bCal);
+
+  const wrap = el('div', 'cal-wrap');
+  let cur = new Date(first.getFullYear(), first.getMonth(), 1);
+  while (cur <= last) {
+    const y = cur.getFullYear(), m = cur.getMonth();
+    wrap.appendChild(el('div', 'cal-month', cur.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })));
+    const grid = el('div', 'cal-grid');
+    ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].forEach(d => grid.appendChild(el('div', 'cal-dow', d)));
+    const mStart = first > new Date(y, m, 1) ? first : new Date(y, m, 1);
+    const mEnd = last < new Date(y, m + 1, 0) ? last : new Date(y, m + 1, 0);
+    const gStart = new Date(mStart); gStart.setDate(gStart.getDate() - ((mStart.getDay() + 6) % 7));
+    const gEnd = new Date(mEnd); gEnd.setDate(gEnd.getDate() + (6 - ((mEnd.getDay() + 6) % 7)));
+    for (let d = new Date(gStart); d <= gEnd; d.setDate(d.getDate() + 1)) {
+      const x = byKey[ymd(d)], wk = d.getDay() === 0 || d.getDay() === 6;
+      const cell = el('div', 'cal-cell' + (wk ? ' wknd' : '') + (d.getTime() === today.getTime() ? ' today' : '') + (x ? '' : ' empty'));
+      const head = el('div', 'cal-d', String(d.getDate()));
+      cell.appendChild(head);
+      if (x) {
+        const dn = x.c.querySelector('.dn'), dt = x.c.querySelector('.dt'), dnn = x.c.querySelector('.dn-n');
+        if (dn) { cell.style.background = dn.style.background || ''; cell.style.borderLeft = '3px solid ' + (dn.style.color || 'var(--border)'); head.style.color = dn.style.color || ''; }
+        if (dnn) head.appendChild(el('small', '', dnn.textContent));
+        cell.appendChild(el('div', 'cal-t', dt ? dt.textContent : ''));
+        cell.tabIndex = 0;
+        cell.setAttribute('role', 'button');
+        const open = () => {
+          setMode(false);
+          x.c.classList.remove('flash'); void x.c.offsetWidth; x.c.classList.add('flash');
+          x.c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        };
+        cell.onclick = open;
+        cell.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
+      }
+      grid.appendChild(cell);
+    }
+    wrap.appendChild(grid);
+    cur = new Date(y, m + 1, 1);
+  }
+  sec.insertBefore(wrap, sec.firstChild);
+  sec.insertBefore(toggle, sec.firstChild);
+}
+
+// ---- Done / needs-review state ----
+// Lives in the ATLAS store: the Supabase `atlas.booking_items` table when the
+// family member is connected, per-browser ticks otherwise. Static flags in the
+// data above (booked / warning) are the fallback defaults.
+function setDone(id, on) {
+  if (/^h:/.test(id)) Atlas.store.set(id, 'needs_review', !on);
+  else Atlas.store.set(id, 'done', on);
+}
+function slug(s) { return String(s).toLowerCase().replace(/<[^>]*>/g, '').replace(/&amp;/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function windowKey(b) { return 'w:' + slug(b.item); }
+function hotelKey(h) { return 'h:' + slug(h.city.split(' (')[0]); }
+function isDone(b) { return window.Atlas ? Atlas.store.isDone(windowKey(b), b.booked) : !!b.booked; }
+function hotelNeedsReview(h) { return !!h.booked && (window.Atlas ? Atlas.store.needsReview(hotelKey(h), !!h.warning) : !!h.warning); }
+
+function showTab(root, sec) {
+  if (!root) return;
+  const btns = root.querySelectorAll('.tb');
+  for (let i = 0; i < btns.length; i++) {
+    if ((btns[i].getAttribute('onclick') || '').indexOf("'" + sec + "'") !== -1) { show(sec, btns[i]); break; }
+  }
+}
+function jumpTab(sec) {
+  const root = document.getElementById(TRIP_DASHBOARDS[TIMELINE_TRIP]);
+  showTab(root, sec);
+  const tabs = root && root.querySelector('.tabs');
+  if (tabs) window.scrollTo({ top: tabs.getBoundingClientRect().top + window.scrollY - 4, behavior: 'smooth' });
+}
+
+function refreshJapanStatus() { Atlas.refresh(); }   // name kept for older page markup
+
+// ---- Trip readiness strip (same model as the ATLAS overview) ----
+function renderReadiness() {
+  const box = document.getElementById('jp-ready');
+  if (!box || !window.Atlas) return;
+  const r = Atlas.readiness(TIMELINE_TRIP);
+  if (!r) return;
+  const bar = box.querySelector('.ready-bar'); bar.innerHTML = '';
+  r.cats.forEach(c => {
+    for (let k = 0; k < c.total; k++) {
+      const seg = document.createElement('i');
+      seg.className = k < c.done ? 'ok' : (c.state === 'attention' && k === c.done ? (c.key === 'hotel' ? 'warn' : 'open') : '');
+      seg.title = c.label;
+      bar.appendChild(seg);
+    }
+  });
+  box.querySelector('.ready-pct').textContent = r.pct + '%';
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const jt = Atlas.trips().find(t => t.id === TIMELINE_TRIP), js = jt ? jt.start.split('-').map(Number) : null;
+  const days = js ? Math.round((new Date(js[0], js[1] - 1, js[2]) - today) / 86400000) : 0;
+  box.querySelector('.ready-sub').textContent = `${r.done} of ${r.total} items done` + (days > 0 ? ` · ${days} days to go` : '');
+  const chips = box.querySelector('.ready-chips'); chips.innerHTML = '';
+  const base = '#/trip/' + TIMELINE_TRIP + '/', where = { flight: base + jt.tabs.flights, hotel: base + jt.tabs.hotels, ticket: base + jt.tabs.bookings, document: '#/documents' };
+  r.cats.forEach(c => {
+    const a = el('a', 'ready-chip');
+    a.href = where[c.key];
+    a.appendChild(el('span', '', ({ flight: '✈️', hotel: '🏨', ticket: '🎟️', document: '📄' })[c.key] + ' ' + c.label));
+    a.appendChild(el('b', '', c.done + '/' + c.total));
+    if (c.state === 'attention' || c.state === 'progress') a.appendChild(el('em', c.state === 'attention' ? (c.key === 'hotel' ? 'warn' : 'open') : 'note', c.text));
+    chips.appendChild(a);
+  });
+}
+
+// ---- Live tab badges ----
+function renderTabBadges() {
+  const root = document.getElementById(TRIP_DASHBOARDS[TIMELINE_TRIP]);
+  if (!root) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const set = (sec, txt, cls) => {
+    const btns = root.querySelectorAll('.tb');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) if ((btns[i].getAttribute('onclick') || '').indexOf("'" + sec + "'") !== -1) { btn = btns[i]; break; }
+    if (!btn) return;
+    let b = btn.querySelector('.badge');
+    if (!txt) { if (b) b.remove(); return; }
+    if (!b) { b = el('span', 'badge'); btn.appendChild(b); }
+    b.textContent = txt; b.className = 'badge ' + (cls || '');
+  };
+  const open = JP_BOOKING_WINDOWS.filter(b => !isDone(b) && new Date(b.date) <= today).length;
+  set('jbk', open ? String(open) : '', '');
+  set('jht', JP_HOTEL_TRACKER.some(hotelNeedsReview) ? '!' : '', 'am');
+}
+
+// ---- Scannable day cards: "a · b · c" paragraphs → bullet lists ----
+function bulletizeDays() {
+  document.querySelectorAll('.day .dc').forEach(p => {
+    const parts = p.innerHTML.split(' · ');
+    if (parts.length < 3) return;
+    const ul = el('ul', 'dcl');
+    const st = p.getAttribute('style'); if (st) ul.setAttribute('style', st);
+    parts.forEach(t => {
+      const li = document.createElement('li');
+      li.innerHTML = t.trim().replace(/^((?:[Ee]arly |[Ll]ate |[Mm]id-)?(?:[Mm]orning|[Aa]fternoon|[Ee]vening|[Nn]ight|[Ll]unch|[Dd]inner|[Bb]reakfast)(?: options?)?):\s*/, '<b>$1</b> · ');
+      ul.appendChild(li);
+    });
+    p.replaceWith(ul);
+    if (parts.length > 3) {
+      const more = el('button', 'dc-more', '+' + (parts.length - 3) + ' more');
+      more.type = 'button';
+      more.onclick = () => { const o = ul.classList.toggle('open'); more.textContent = o ? 'Show less' : '+' + (parts.length - 3) + ' more'; };
+      ul.after(more);
+    }
+  });
+}
+
+// ---- Compact / full detail toggle (remembered per browser) ----
+function initCompactToggles() {
+  let compact = false;
+  try { compact = localStorage.getItem('itin_compact') === '1'; } catch (e) {}
+  document.querySelectorAll('.sec[data-year]').forEach(sec => {
+    const bar = sec.querySelector('.itin-toggle');
+    if (!bar) return;
+    const b = el('button', compact ? 'on' : '', '🔎 Compact'); b.type = 'button';
+    b.title = 'Show only the first 3 lines of each day';
+    sec.classList.toggle('compact', compact);
+    b.onclick = () => {
+      const on = !sec.classList.contains('compact');
+      document.querySelectorAll('.sec[data-year]').forEach(s => s.classList.toggle('compact', on));
+      document.querySelectorAll('.itin-toggle button[title^="Show only"]').forEach(x => x.classList.toggle('on', on));
+      try { localStorage.setItem('itin_compact', on ? '1' : '0'); } catch (e) {}
+    };
+    bar.insertBefore(b, bar.firstChild);
+  });
+}
+
+// ---- Sticky leg headers need to know how tall the (wrapping) tab bar is ----
+function syncTabsH() {
+  const tabs = Array.prototype.find.call(document.querySelectorAll('.dash-root .tabs'), t => t.offsetParent !== null);
+  document.documentElement.style.setProperty('--tabs-h', (tabs ? tabs.offsetHeight : 48) + 'px');
+}
+window.addEventListener('resize', syncTabsH, { passive: true });
+
+// ---- Back-to-top (dashboards only; the picker is its own scroll box) ----
+let _toTopInit = false;
+function initToTop() {
+  const b = document.getElementById('to-top');
+  if (!b || _toTopInit) return;
+  _toTopInit = true;
+  b.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.addEventListener('scroll', () => b.classList.toggle('on', window.scrollY > 500), { passive: true });
+}
+
+function show(id,btn){
+  const root = btn.closest('.dash-root') || document;
+  root.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  root.querySelectorAll('.tb').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if (window.Atlas) Atlas.onTab(id, btn);
+}
+</script>
+</body>
+</html>
