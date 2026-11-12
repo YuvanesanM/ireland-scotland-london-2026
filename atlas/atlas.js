@@ -179,18 +179,21 @@
   async function loadRemote() {
     setSync('syncing', 'Syncing…');
     try {
-      const [items, trips, stops] = await Promise.all([
+      // All in parallel: the four optional tables fail soft (null) on their own.
+      const soft = path => sbFetch(path).catch(() => null);
+      const [items, trips, stops, travellers, attachments, reminders, history] = await Promise.all([
         sbFetch('booking_items?select=*&order=sort'),
         sbFetch('trips?select=*&order=sort'),
-        sbFetch('trip_stops?select=*&order=trip_id,seq')
+        sbFetch('trip_stops?select=*&order=trip_id,seq'),
+        soft('travellers?select=*&order=sort'),
+        soft('attachments?select=*&order=created_at'),
+        soft('reminders?select=*&order=remind_at'),
+        soft('travel_history?select=*&order=start_date.desc')
       ]);
       if (!items.length && !trips.length) throw Object.assign(new Error('no rows visible'), { kind: 'empty' });
       Store.remote = new Map(items.map(r => [r.id, r]));
       Store.remoteTrips = new Map(trips.map(t => [t.id, Object.assign({}, t, { stops: stops.filter(s => s.trip_id === t.id) })]));
-      try { Store.travellers = await sbFetch('travellers?select=*&order=sort'); } catch (e) { Store.travellers = null; }
-      try { Store.attachments = await sbFetch('attachments?select=*&order=created_at'); } catch (e) { Store.attachments = null; }
-      try { Store.reminders = await sbFetch('reminders?select=*&order=remind_at'); } catch (e) { Store.reminders = null; }
-      try { Store.history = await sbFetch('travel_history?select=*&order=start_date.desc'); } catch (e) { Store.history = null; }
+      Store.travellers = travellers; Store.attachments = attachments; Store.reminders = reminders; Store.history = history;
       Store.lastLoad = Date.now(); Store.reason = '';
       setSync('synced', 'Synced');
       refreshAll();
